@@ -1,0 +1,80 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    name: Bundle — PHPStan (max) + tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer (bundle)
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-bundle-${{ hashFiles('composer.lock') }}
+          restore-keys: composer-bundle-
+
+      - name: Install (bundle)
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: PHPStan (niveau max)
+        run: vendor/bin/phpstan analyse --no-progress
+
+      - name: PHP-CS-Fixer (dry-run)
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - name: Tests bundle
+        run: vendor/bin/phpunit
+
+  demo:
+    name: Démo — CSS Tailwind + tests fonctionnels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Cache Composer (démo)
+        uses: actions/cache@v4
+        with:
+          path: ~/.composer/cache
+          key: composer-demo-${{ hashFiles('demo/composer.lock') }}
+          restore-keys: composer-demo-
+
+      - name: Install (démo)
+        working-directory: demo
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Build CSS (Tailwind v4, binaire standalone)
+        working-directory: demo
+        run: php bin/console tailwind:build --minify
+
+      - name: Compile AssetMapper
+        working-directory: demo
+        run: php bin/console asset-map:compile
+
+      - name: Tests fonctionnels (démo)
+        working-directory: demo
+        run: php bin/phpunit
