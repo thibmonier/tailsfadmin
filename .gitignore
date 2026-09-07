@@ -25,6 +25,12 @@
 # Node (bundle)
 /node_modules/
 
+# Drivers de test navigateur (Panther/bdi) — binaires spécifiques machine/OS
+/demo/drivers/
+
+# Artefacts d'outillage
+.gastown-ignore
+
 # OS
 .DS_Store
 Thumbs.db

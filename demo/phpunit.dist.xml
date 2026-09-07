@@ -15,11 +15,25 @@
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
+
+        <!-- Panther T-TECH-02 : driver headless Chromium. -->
+        <!-- Prérequis : Chromium installe + vendor/bin/bdi detect drivers -->
+        <!-- Lancer avec : composer test:e2e -->
+        <env name="PANTHER_NO_SANDBOX" value="1" />
+        <env name="PANTHER_CHROME_BINARY" value="/Applications/Chromium.app/Contents/MacOS/Chromium" />
+        <env name="PANTHER_CHROME_DRIVER_BINARY" value="drivers/chromedriver" />
     </php>
 
+    <!-- Suite par defaut (composer test) : WebTestCase uniquement, sans E2E. -->
     <testsuites>
         <testsuite name="Project Test Suite">
             <directory>tests</directory>
+            <exclude>tests/E2E</exclude>
+        </testsuite>
+
+        <!-- Suite E2E Panther : composer test:e2e (ou phpunit avec l'option testsuite e2e) -->
+        <testsuite name="e2e">
+            <directory>tests/E2E</directory>
         </testsuite>
     </testsuites>
 
@@ -38,5 +52,6 @@
     </source>
 
     <extensions>
+        <bootstrap class="Symfony\Component\Panther\ServerExtension" />
     </extensions>
 </phpunit>
