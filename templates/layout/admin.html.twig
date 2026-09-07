@@ -1,6 +1,7 @@
 {#
   Layout admin — @Tailsfadmin/layout/admin.html.twig
   Sprint 1 : squelette header + sidebar + main + preloader + breadcrumb.
+  US-006 : contrôleur Stimulus "tailsfadmin--sidebar" sur le wrapper principal.
   Les blocs exposés permettent aux pages filles de surcharger chaque section.
 
   Blocs :
@@ -19,6 +20,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}tailsfadmin{% endblock %}</title>
+
+    {# Anti-FOUC dark mode : applique .dark AVANT le premier paint (US-005, < 200 o) #}
+    <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
 
     {# CSS Tailwind v4 compilé par symfonycasts/tailwind-bundle (ADR-001) #}
     <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
@@ -44,12 +48,23 @@
         <twig:tsf:Ui:Preloader />
     {% endblock %}
 
-    <div class="flex h-screen overflow-hidden">
-
+    {# Contrôleur Stimulus sidebar sur le wrapper principal (US-006) #}
+    <div
+        class="flex h-screen overflow-hidden"
+        data-controller="tailsfadmin--sidebar"
+    >
         {# ─── Sidebar ─── #}
         {% block sidebar %}
             <twig:tsf:Layout:Sidebar />
         {% endblock %}
+
+        {# ─── Overlay mobile — fond semi-transparent quand le drawer est ouvert ─── #}
+        <div
+            data-tailsfadmin--sidebar-target="overlay"
+            data-action="click->tailsfadmin--sidebar#close"
+            class="fixed inset-0 z-[9998] hidden bg-black/50 lg:hidden"
+            aria-hidden="true"
+        ></div>
 
         {# ─── Zone principale ─── #}
         <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">

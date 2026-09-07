@@ -4,6 +4,22 @@
             "preloader": {
                 "enabled": true,
                 "fetch": "eager"
+            },
+            "theme": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "sidebar": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "dropdown": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "search": {
+                "enabled": true,
+                "fetch": "eager"
             }
         }
     },

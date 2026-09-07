@@ -7,6 +7,23 @@ services:
         alias: Tailsfadmin\Info\BundleInfo
         public: true
 
+    # Service MenuBuilder — construit la structure de menu depuis la configuration
+    Tailsfadmin\Menu\MenuBuilder:
+        arguments:
+            - '%tailsfadmin.menu%'
+        public: true
+
+    tailsfadmin.menu_builder:
+        alias: Tailsfadmin\Menu\MenuBuilder
+        public: true
+
+    # Extension Twig — is_active() + tsf_icon()
+    Tailsfadmin\Twig\TailsfadminExtension:
+        arguments:
+            - '@request_stack'
+        tags:
+            - { name: twig.extension }
+
     # Composants Twig — autowiring + autoconfiguration
     # Le tag "twig.component" est appliqué automatiquement via #[AsTwigComponent]
     Tailsfadmin\Twig\Components\:

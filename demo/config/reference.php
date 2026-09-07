@@ -734,6 +734,21 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         html_to_text_converter?: scalar|Param|null, // A service implementing the "Symfony\Component\Mime\HtmlToTextConverter\HtmlToTextConverterInterface". // Default: null
  *     },
  * }
+ * @psalm-type TailsfadminConfig = array{
+ *     menu?: list<array{ // Default: []
+ *         group?: scalar|Param|null,
+ *         items?: list<array{ // Default: []
+ *             label?: scalar|Param|null,
+ *             path?: scalar|Param|null, // Default: "#"
+ *             icon?: scalar|Param|null, // Default: ""
+ *             children?: list<array{ // Default: []
+ *                 label?: scalar|Param|null,
+ *                 path?: scalar|Param|null, // Default: "#"
+ *                 icon?: scalar|Param|null, // Default: ""
+ *             }>,
+ *         }>,
+ *     }>,
+ * }
  * @psalm-type SymfonycastsTailwindConfig = array{
  *     input_css?: list<scalar|Param|null>,
  *     config_file?: scalar|Param|null, // Path to the tailwind.config.js file // Default: "%kernel.project_dir%/tailwind.config.js"
@@ -765,6 +780,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     services?: ServicesConfig,
  *     framework?: FrameworkConfig,
  *     twig?: TwigConfig,
+ *     tailsfadmin?: TailsfadminConfig,
  *     symfonycasts_tailwind?: SymfonycastsTailwindConfig,
  *     stimulus?: StimulusConfig,
  *     twig_component?: TwigComponentConfig,
@@ -774,6 +790,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         services?: ServicesConfig,
  *         framework?: FrameworkConfig,
  *         twig?: TwigConfig,
+ *         tailsfadmin?: TailsfadminConfig,
  *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
  *         stimulus?: StimulusConfig,
  *         twig_component?: TwigComponentConfig,
@@ -784,6 +801,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         services?: ServicesConfig,
  *         framework?: FrameworkConfig,
  *         twig?: TwigConfig,
+ *         tailsfadmin?: TailsfadminConfig,
  *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
  *         stimulus?: StimulusConfig,
  *         twig_component?: TwigComponentConfig,
@@ -794,6 +812,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         services?: ServicesConfig,
  *         framework?: FrameworkConfig,
  *         twig?: TwigConfig,
+ *         tailsfadmin?: TailsfadminConfig,
  *         symfonycasts_tailwind?: SymfonycastsTailwindConfig,
  *         stimulus?: StimulusConfig,
  *         twig_component?: TwigComponentConfig,

@@ -6,6 +6,30 @@
                 "main": "controllers/preloader_controller.js",
                 "fetch": "eager",
                 "enabled": true
+            },
+            "theme": {
+                "name": "tailsfadmin--theme",
+                "main": "controllers/theme_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "sidebar": {
+                "name": "tailsfadmin--sidebar",
+                "main": "controllers/sidebar_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "dropdown": {
+                "name": "tailsfadmin--dropdown",
+                "main": "controllers/dropdown_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "search": {
+                "name": "tailsfadmin--search",
+                "main": "controllers/search_controller.js",
+                "fetch": "eager",
+                "enabled": true
             }
         }
     }

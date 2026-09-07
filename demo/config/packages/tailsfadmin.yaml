@@ -1,0 +1,80 @@
+tailsfadmin:
+    menu:
+        - group: Menu
+          items:
+              - label: Dashboard
+                path: /
+                icon: dashboard
+                children: []
+
+              - label: Calendrier
+                path: /calendar
+                icon: calendar
+                children: []
+
+              - label: Profil
+                path: /profile
+                icon: user-profile
+                children: []
+
+              - label: Formulaires
+                path: /forms
+                icon: forms
+                children:
+                    - label: Mise en page
+                      path: /forms/layout
+                    - label: Éléments
+                      path: /forms/elements
+
+              - label: Tableaux
+                path: /tables
+                icon: tables
+                children:
+                    - label: Tableaux basiques
+                      path: /tables/basic
+                    - label: Tableaux avancés
+                      path: /tables/advanced
+
+              - label: Pages
+                path: /pages
+                icon: pages
+                children:
+                    - label: Paramètres
+                      path: /pages/settings
+                    - label: Page vierge
+                      path: /pages/blank
+
+        - group: Others
+          items:
+              - label: Graphiques
+                path: /charts
+                icon: charts
+                children:
+                    - label: Line Chart
+                      path: /charts/line
+                    - label: Bar Chart
+                      path: /charts/bar
+
+              - label: Éléments UI
+                path: /ui
+                icon: ui-elements
+                children:
+                    - label: Alertes
+                      path: /ui/alerts
+                    - label: Badges
+                      path: /ui/badges
+                    - label: Boutons
+                      path: /ui/buttons
+                    - label: Images
+                      path: /ui/images
+                    - label: Vidéos
+                      path: /ui/videos
+
+              - label: Authentification
+                path: /auth
+                icon: authentication
+                children:
+                    - label: Connexion
+                      path: /auth/login
+                    - label: Inscription
+                      path: /auth/register
