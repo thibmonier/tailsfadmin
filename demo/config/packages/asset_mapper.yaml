@@ -1,0 +1,14 @@
+framework:
+    asset_mapper:
+        paths:
+            # Assets de la démo (CSS compilé Tailwind, JS, app.js, etc.)
+            'assets/': ''
+            # Controllers JS du bundle tailsfadmin
+            # (le prepend() du bundle ne survit pas au merge Symfony — on l'ajoute explicitement)
+            '../assets/controllers': 'bundles/tailsfadmin'
+        missing_import_mode: strict
+
+when@prod:
+    framework:
+        asset_mapper:
+            missing_import_mode: warn

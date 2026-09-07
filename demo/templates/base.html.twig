@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{#
+  Layout de base — Application de démo tailsfadmin
+  Squelette minimal Sprint 1. Sera enrichi en US-004 (layout complet, sidebar, header).
+
+  Dark mode : stratégie classe .dark sur <html> (cohérent ADR-001, ADR-003, US-005).
+  Pour activer : ajouter la classe "dark" sur la balise <html>.
+#}
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}tailsfadmin{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+
+        {# CSS Tailwind v4 compilé par symfonycasts/tailwind-bundle via AssetMapper #}
+        <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+
+        {% block stylesheets %}{% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+    </body>
+</html>

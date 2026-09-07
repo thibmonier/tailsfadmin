@@ -1,0 +1,11 @@
+{
+    "controllers": {
+        "@tailsfadmin/tailsfadmin-bundle": {
+            "preloader": {
+                "enabled": true,
+                "fetch": "eager"
+            }
+        }
+    },
+    "entrypoints": []
+}

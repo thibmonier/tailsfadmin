@@ -1,0 +1,17 @@
+/*
+ * CSS d'entrée Tailwind — Application de démo tailsfadmin
+ *
+ * Ce fichier importe le CSS source du bundle (tokens, @theme, @plugin).
+ * Le chemin relatif "../../assets/styles/app.css" remonte depuis
+ * demo/assets/styles/ → demo/assets/ → demo/ → racine du monorepo (bundle).
+ *
+ * C'est l'entrée Tailwind de la démo (input_css dans symfonycasts_tailwind.yaml).
+ * La sortie compilée est servie par AssetMapper.
+ */
+
+@import "../../../assets/styles/app.css";
+
+/*
+ * Surcharges ou ajouts spécifiques à la démo (après les tokens du bundle).
+ * La démo ne doit contenir que de l'usage, pas de code réutilisable (ADR-002).
+ */
