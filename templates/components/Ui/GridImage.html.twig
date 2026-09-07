@@ -1,0 +1,38 @@
+{#
+  Composant GridImage — tsf:Ui:GridImage
+  US-013 : grille d'images responsive — 1, 2 ou 3 colonnes.
+
+  Utilisation :
+    <twig:tsf:Ui:GridImage columns="2" :images="[
+        {src: '/img/a.jpg', alt: 'Description A'},
+        {src: '/img/b.jpg', alt: 'Description B', caption: 'Légende B'}
+    ]" />
+
+  Contrainte : chaque entrée dans `images` doit avoir alt non vide (validation PHP dans mount()).
+#}
+
+{%- set gridConfig = {
+    1: 'grid-cols-1',
+    2: 'grid-cols-1 sm:grid-cols-2',
+    3: 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
+} -%}
+
+{%- set gridClass = gridConfig[columns] ?? gridConfig[1] -%}
+
+<div class="grid {{ gridClass }} gap-5">
+    {%- for image in images %}
+        <figure class="m-0">
+            <img
+                src="{{ image.src|e }}"
+                alt="{{ image.alt|e }}"
+                loading="lazy"
+                class="w-full rounded-xl border border-gray-200 object-cover dark:border-gray-800"
+            />
+            {%- if image.caption is defined and image.caption %}
+                <figcaption class="mt-2 text-center text-sm text-gray-500 dark:text-gray-400">
+                    {{- image.caption|e -}}
+                </figcaption>
+            {%- endif %}
+        </figure>
+    {%- endfor %}
+</div>

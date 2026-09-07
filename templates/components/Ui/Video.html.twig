@@ -1,0 +1,36 @@
+{#
+  Composant Video — tsf:Ui:Video
+  US-013 : embed iframe responsive (YouTube / Vimeo) avec ratio configurable.
+
+  Utilisation :
+    <twig:tsf:Ui:Video
+        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+        title="Présentation produit"
+        ratio="16/9"
+    />
+
+  Sécurité : src validé en HTTPS dans Video::mount().
+  Accessibilité : title obligatoire sur l'iframe (aria-label implicite).
+  Ratios disponibles : 16/9 (défaut) | 4/3 | 21/9 | 1/1
+#}
+
+{%- set ratioConfig = {
+    '16/9': 'aspect-video',
+    '4/3':  'aspect-4/3',
+    '21/9': 'aspect-21/9',
+    '1/1':  'aspect-square'
+} -%}
+
+{%- set ratioClass = ratioConfig[ratio] ?? ratioConfig['16/9'] -%}
+
+<div class="overflow-hidden rounded-xl {{ ratioClass }}">
+    <iframe
+        src="{{ src|e }}"
+        title="{{ title|e }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        loading="lazy"
+        class="h-full w-full"
+    ></iframe>
+</div>

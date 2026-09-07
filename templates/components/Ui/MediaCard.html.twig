@@ -1,0 +1,67 @@
+{#
+  Composant MediaCard — tsf:Ui:MediaCard
+  US-013 : carte avec image en en-tête, corps et slot d'actions.
+
+  Utilisation :
+    <twig:tsf:Ui:MediaCard mediaSrc="/img/photo.jpg" mediaAlt="Photo produit" title="Mon produit">
+        <twig:block name="body">Description du produit</twig:block>
+        <twig:block name="actions">
+            <a href="#">Voir</a>
+        </twig:block>
+    </twig:tsf:Ui:MediaCard>
+#}
+
+{# Capture des slots UNE SEULE FOIS #}
+{%- set slotBody    %}{% block body    %}{% endblock %}{% endset -%}
+{%- set slotActions %}{% block actions %}{% endblock %}{% endset -%}
+
+{%- set aspectConfig = {
+    '16/9': 'aspect-video',
+    '4/3':  'aspect-4/3',
+    '1/1':  'aspect-square'
+} -%}
+{%- set aspectClass = aspectConfig[mediaAspect] ?? aspectConfig['16/9'] -%}
+
+<div class="overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+
+    {# ── Image d'en-tête ─────────────────────────────────────────────────────── #}
+    {%- if mediaSrc %}
+        <div class="overflow-hidden {{ aspectClass }}">
+            <img
+                src="{{ mediaSrc|e }}"
+                alt="{{ mediaAlt|e }}"
+                loading="lazy"
+                class="h-full w-full object-cover"
+            />
+        </div>
+    {%- endif %}
+
+    {# ── Corps ────────────────────────────────────────────────────────────────── #}
+    {%- if title or slotBody|trim %}
+        <div class="p-4 sm:p-5">
+            {%- if title %}
+                <h3 class="mb-1 text-base font-semibold text-gray-800 dark:text-white/90">
+                    {{- title|e -}}
+                </h3>
+            {%- endif %}
+            {%- if subtitle %}
+                <p class="mb-3 text-sm text-gray-500 dark:text-gray-400">
+                    {{- subtitle|e -}}
+                </p>
+            {%- endif %}
+            {%- if slotBody|trim %}
+                <div class="text-sm text-gray-600 dark:text-gray-400">
+                    {{ slotBody }}
+                </div>
+            {%- endif %}
+        </div>
+    {%- endif %}
+
+    {# ── Actions ──────────────────────────────────────────────────────────────── #}
+    {%- if slotActions|trim %}
+        <div class="media-card-actions flex items-center gap-3 border-t border-gray-100 px-4 py-3 dark:border-gray-800 sm:px-5">
+            {{ slotActions }}
+        </div>
+    {%- endif %}
+
+</div>

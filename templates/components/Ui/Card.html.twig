@@ -1,0 +1,73 @@
+{#
+  Composant Card — tsf:Ui:Card
+  US-013 : conteneur générique avec titre, sous-titre et slots header/body/footer.
+
+  Utilisation :
+    <twig:tsf:Ui:Card title="Statistiques">
+        <twig:block name="body">Contenu</twig:block>
+    </twig:tsf:Ui:Card>
+
+    <twig:tsf:Ui:Card shadow="false" border="false">
+        <twig:block name="header">...</twig:block>
+        <twig:block name="body">...</twig:block>
+        <twig:block name="footer">...</twig:block>
+    </twig:tsf:Ui:Card>
+#}
+
+{# Capture des slots UNE SEULE FOIS (contrainte Twig : un block ne peut être défini 2 fois) #}
+{%- set slotHeader %}{% block header %}{% endblock %}{% endset -%}
+{%- set slotBody   %}{% block body   %}{% endblock %}{% endset -%}
+{%- set slotFooter %}{% block footer %}{% endblock %}{% endset -%}
+
+{%- set paddingConfig = {
+    sm: 'px-4 py-4',
+    md: 'px-5 py-5',
+    lg: 'px-6 py-6'
+} -%}
+{%- set bodyPaddingConfig = {
+    sm: 'p-4',
+    md: 'p-4 sm:p-5',
+    lg: 'p-5 sm:p-6'
+} -%}
+
+{%- set paddingClass     = paddingConfig[padding]     ?? paddingConfig['md']     -%}
+{%- set bodyPaddingClass = bodyPaddingConfig[padding] ?? bodyPaddingConfig['md'] -%}
+
+{%- set shadowClass = shadow ? 'shadow-theme-sm' : '' -%}
+{%- set borderClass = border ? 'border border-gray-200 dark:border-gray-800' : '' -%}
+
+<div class="rounded-2xl bg-white dark:bg-white/[0.03] {{ shadowClass }} {{ borderClass }}" {{ attributes }}>
+
+    {# ── En-tête ──────────────────────────────────────────────────────────────── #}
+    {%- if slotHeader|trim %}
+        <div class="card-header {{ paddingClass }}">
+            {{ slotHeader }}
+        </div>
+    {%- elseif title %}
+        <div class="card-header {{ paddingClass }}">
+            <h3 class="card-title text-base font-semibold text-gray-800 dark:text-white/90">
+                {{- title|e -}}
+            </h3>
+            {%- if subtitle %}
+                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                    {{- subtitle|e -}}
+                </p>
+            {%- endif %}
+        </div>
+    {%- endif %}
+
+    {# ── Corps ────────────────────────────────────────────────────────────────── #}
+    {%- if slotBody|trim %}
+        <div class="card-body {{ bodyPaddingClass }}{% if (slotHeader|trim or title) %} border-t border-gray-100 dark:border-gray-800{% endif %}">
+            {{ slotBody }}
+        </div>
+    {%- endif %}
+
+    {# ── Pied ──────────────────────────────────────────────────────────────────── #}
+    {%- if slotFooter|trim %}
+        <div class="card-footer {{ bodyPaddingClass }} border-t border-gray-100 dark:border-gray-800">
+            {{ slotFooter }}
+        </div>
+    {%- endif %}
+
+</div>
