@@ -55,15 +55,15 @@
 | US-010 | Buttons (6 variantes) | 3 | Must | 3 | 🟢 |
 | US-011 | Modals / overlays accessibles (Stimulus) | 5 | Must | 3 | 🟢 |
 | US-012 | Dropdowns accessibles (Stimulus) | 5 | Must | 3 | 🟢 |
-| US-013 | Cards, media, grid images, videos | 5 | Should | 4 | 🔴 |
+| US-013 | Cards, media, grid images, videos | 5 | Should | 4 | 🟢 |
 
 ### EPIC-004 — Formulaires & tables
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-014 | Composants de formulaire | 8 | Must | 3 | 🔴 |
-| US-015 | Datepicker (flatpickr) — Stimulus | 3 | Should | 3 | 🔴 |
-| US-016 | Upload (Dropzone) — Stimulus | 5 | Should | 4 | 🔴 |
-| US-017 | Tables (basiques + avancées) | 5 | Should | 4 | 🔴 |
+| US-014 | Composants de formulaire | 8 | Must | 4 | 🟢 |
+| US-015 | Datepicker (flatpickr) — Stimulus | 3 | Should | 5 | 🔴 |
+| US-016 | Upload (Dropzone) — Stimulus | 5 | Should | 5 | 🔴 |
+| US-017 | Tables (basiques + avancées) | 5 | Should | 4 | 🟢 |
 
 ### EPIC-005 — Data-viz & calendrier
 | ID | Titre | Points | Priorité | Sprint | Statut |

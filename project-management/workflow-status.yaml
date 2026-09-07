@@ -118,13 +118,21 @@ phases:
       resume: "Layout non stylé (rendu navigateur) : CSS composant non porté + utilitaires du bundle non scannés. Fix: port complet style.css (@layer) + @source templates/controllers. Commit fix(css). Vérifié visuellement (clair+dark)."
       garde_fous_sprint_3: ["smoke-test CSS compilé", "1er test navigateur Panther"]
     sprint_3:
-      status: decomposed         # /workflow:start 3 + /project:decompose-tasks 003
-      but: "Bibliothèque de composants UI (UI Kit)"
-      scope: "US-008..US-012 = 19 pts (US-013 cards → Sprint 4)"
-      tasks: "25 tâches, ~44.5h"
-      garde_fous: ["T-TECH-01 smoke-test CSS compilé", "T-TECH-02 spike Panther"]
-      goal_file: "sprints/sprint-003-ui_kit/sprint-goal.md"
-    next: "Implémentation TDD Sprint 3 — T-TECH-01 (garde-fou CSS) → US-008 → 009 → 010 → 012 → 011"
+      status: done               # ✅ UI Kit
+      scope: "US-008..US-012 = 19 pts (100 % livrés ; US-013 → Sprint 4)"
+      done:
+        - "US-008 Alert · US-009 Badge/Avatar · US-010 Button · US-012 Dropdown · US-011 Modal (tsf:Ui:*)"
+        - "T-TECH-01 smoke-test CSS · T-TECH-02 spike Panther (2 E2E) · T-TECH-03 galerie /ui-kit"
+      qualite: "composer test 78/78 + 2 E2E Panther · PHPStan max 0 · cs-fixer 0 · vérifié visuellement · commité (3 commits)"
+      note: "Incident login sous-agent géré sans perte (travail vert au moment de l'expiration, revérifié)."
+    sprint_4:
+      status: decomposed         # /workflow:start 4 + /project:decompose-tasks 004
+      but: "Contenu riche : cards, formulaires & tables"
+      scope: "US-013 (5) + US-014 (8) + US-017 (5) = 18 pts ; US-015/016 → Sprint 5"
+      tasks: "20 tâches, ~42h"
+      decision_form: "US-014 = LES DEUX — composants autonomes tsf:Form:* + form theme Symfony qui les réutilise (form_row rend en style TailAdmin). Theme peut déborder en Sprint 5."
+      goal_file: "sprints/sprint-004-formulaires_tables/sprint-goal.md"
+    next: "Implémentation TDD Sprint 4 — US-013 → US-014 (composants → form theme) → US-017"
 
 next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
 next_command: "/workflow:implement   (ou /sprint:dev US-001)"
