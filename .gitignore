@@ -1,0 +1,30 @@
+# Dépendances
+/vendor/
+/demo/vendor/
+
+# Cache Symfony (démo)
+/demo/var/
+
+# Fichiers de cache des outils qualité
+/.php-cs-fixer.cache
+/.phpunit.cache/
+/.phpunit.result.cache
+/demo/.phpunit.result.cache
+
+# Assets compilés (démo) — régénérés par asset-map:compile
+/demo/public/assets/
+/demo/var/tailwind/
+
+# Environnement local (démo)
+/demo/.env.local
+/demo/.env.*.local
+
+# PHPStan cache
+/var/
+
+# Node (bundle)
+/node_modules/
+
+# OS
+.DS_Store
+Thumbs.db

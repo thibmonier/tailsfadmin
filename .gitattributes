@@ -1,0 +1,25 @@
+# Fichiers à exclure lors du packaging Composer (export-ignore)
+# Cf. ADR-002 : seul src/, config/, templates/, assets/ sont distribués
+
+demo/                    export-ignore
+tests/                   export-ignore
+docs/                    export-ignore
+project-management/      export-ignore
+Tools/                   export-ignore
+.claude/                 export-ignore
+.code-review-graph/      export-ignore
+.github/                 export-ignore
+.php-cs-fixer.dist.php   export-ignore
+phpstan.neon             export-ignore
+phpunit.dist.xml         export-ignore
+.gitattributes           export-ignore
+.gitignore               export-ignore
+
+# Normalisation des fins de lignes
+* text=auto
+*.php text eol=lf
+*.yaml text eol=lf
+*.twig text eol=lf
+*.js text eol=lf
+*.json text eol=lf
+*.md text eol=lf
