@@ -5,7 +5,7 @@ description: >
   Livrable double : bundle Symfony réutilisable + application de démo.
 track: standard
 initialized_at: 2026-09-07T00:00:00Z
-current_phase: planning
+current_phase: implementation
 
 context:
   stack:
@@ -33,6 +33,8 @@ context:
   decisions:
     interactivite_js: convert-to-stimulus-ux   # Alpine.js -> Stimulus/UX
     livrable: bundle-plus-demo-app
+    prefixe_composants: tsf                     # <twig:tsf:Ui:Alert> (validé)
+    distribution_css: tailwind-build-cote-hote  # CSS source recompilé (tokens personnalisables), pas de CSS précompilé par défaut
   js_libs_a_integrer:
     - apexcharts
     - fullcalendar
@@ -56,24 +58,48 @@ phases:
     status: skipped
     reason: "Sources TailAdmin déjà en main — pas de phase de recherche séparée nécessaire"
   planning:
-    status: pending
+    status: done
     artifacts:
-      prd: pending
-      personas: pending
-      backlog: pending
+      prd: done              # project-management/prd.md
+      personas: done         # project-management/personas.md
+      definition_of_done: done
+      backlog: done          # 7 EPICs + 26 US, index + sprint-001
+    validation:
+      invest_hard_criteria: "26/26 (N,V,E,S,T)"
+      independence: "DAG acyclique — 25/26 avec dépendances d'ordre (build-order), sain"
+      total_points: 144
+      verdict: PASS
   design:
-    status: pending
-    note: "Phase critique — ADRs requis (voir ci-dessous)"
+    status: done
     artifacts:
-      tech_spec: pending
-      architecture: pending
-    adrs_attendus:
-      - "Structure bundle réutilisable vs app de démo (distribution des assets depuis un bundle)"
-      - "Stratégie Tailwind v4 dans le contexte AssetMapper (build CSS)"
-      - "Packaging des contrôleurs Stimulus + composants UX depuis le bundle"
-      - "Inventaire des composants et mapping source -> Twig Component"
+      tech_spec: done                 # project-management/tech-spec.md
+      architecture: done              # c4-context/container/component, component-inventory, security
+      component_inventory: done       # 57 composants Twig, 13 contrôleurs Stimulus
+    adrs:
+      - "ADR-001 Tailwind v4 via symfonycasts/tailwind-bundle (sans Node) — POC Sprint 1"
+      - "ADR-002 Structure monorepo bundle + app de démo"
+      - "ADR-003 Packaging assets + contrôleurs Stimulus (convention UX symfony.controllers)"
+      - "ADR-004 Conversion Alpine.js -> Stimulus & encapsulation des libs JS"
+      - "ADR-005 i18n & support RTL"
   implementation:
-    status: pending
+    status: in_progress
+    sprint_1:
+      status: done              # ✅ Walking Skeleton complet
+      scope: "US-001..US-004 (21 pts) — US-005 reportée en Sprint 2"
+      points_livres: 21
+      tasks: "31/31"
+      done:
+        - "US-001 ✅ squelette bundle + démo (Symfony 8.1.6 / PHP 8.5.10)"
+        - "US-002 ✅ Tailwind v4.3.3 sans Node — risque n°1 levé (ADR-001 finalisé)"
+        - "US-003 ✅ Docker/FrankenPHP v1.12.7 — vérifié en réel"
+        - "US-004 ✅ layout @Tailsfadmin + composants tsf + contrôleur Stimulus distribué (ADR-003 prouvé)"
+        - "T-TECH-01/02/03/04 ✅ outillage + CI GitHub Actions"
+      qualite: "PHPStan max 0 err · php-cs-fixer 0 · tests 15/15 · non commité"
+    decisions_actees:
+      - "PHPUnit 12 seul (Pest 4 incompatible) — confirmé"
+    notes_suivi:
+      - "Footgun DX: tailwind:build doit être suivi de asset-map:compile (durcir en US-026, script composer test)"
+    next: "Sprint Review + Rétro (/workflow:review, /workflow:retro), 1er commit (attente feu vert user), puis Sprint 2 (US-005 dark mode + US-006/007…)"
 
-next_action: "Générer le PRD (vision, personas, périmètre du thème admin)"
-next_command: "/workflow:plan"
+next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
+next_command: "/workflow:implement   (ou /sprint:dev US-001)"
