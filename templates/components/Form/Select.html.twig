@@ -1,0 +1,66 @@
+{#
+  Composant Select — tsf:Form:Select
+  US-014 : liste déroulante avec support du mode multiple.
+
+  Utilisation :
+    <twig:tsf:Form:Select
+        label="Pays"
+        name="country"
+        :options="[{value: 'fr', label: 'France'}, {value: 'be', label: 'Belgique'}]"
+        placeholder="Choisir un pays"
+    />
+    <twig:tsf:Form:Select label="Couleurs" name="colors" :multiple="true" :options="[...]" />
+#}
+
+{%- if error %}
+    {%- set stateClass = 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' -%}
+{%- elseif success %}
+    {%- set stateClass = 'border-success-300 focus:border-success-300 focus:ring-success-500/10 dark:border-success-700 dark:focus:border-success-800' -%}
+{%- else %}
+    {%- set stateClass = 'border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800' -%}
+{%- endif %}
+
+{%- set disabledClass = disabled ? 'cursor-not-allowed bg-gray-100 opacity-70 dark:bg-gray-800' : '' -%}
+
+<div {{ attributes }}>
+    {%- if label %}
+        <label for="{{ id }}" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+            {{- label|e -}}
+        </label>
+    {%- endif %}
+
+    <div class="relative">
+        <select
+            id="{{ id }}"
+            name="{{ name }}{% if multiple %}[]{% endif %}"
+            class="h-11 w-full appearance-none rounded-lg border bg-transparent pl-4 {% if multiple %}pr-4{% else %}pr-11{% endif %} py-2.5 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90 {{ stateClass }} {{ disabledClass }}"
+            {% if multiple %}multiple{% endif %}
+            {% if disabled %}disabled{% endif %}
+            {% if error %}aria-invalid="true" aria-describedby="{{ id }}-error"{% endif %}
+        >
+            {%- if placeholder and not multiple %}
+                <option value="">{{ placeholder|e }}</option>
+            {%- endif %}
+
+            {%- for option in options %}
+                <option
+                    value="{{ option.value|e }}"
+                    {% if option.value == value %}selected{% endif %}
+                >{{ option.label|e }}</option>
+            {%- endfor %}
+        </select>
+
+        {%- if not multiple %}
+            {# Icône chevron #}
+            <span class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500 dark:text-gray-400">
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+            </span>
+        {%- endif %}
+    </div>
+
+    {%- if error %}
+        <p id="{{ id }}-error" class="form-error-message mt-1.5 text-sm text-error-500">{{ error|e }}</p>
+    {%- endif %}
+</div>

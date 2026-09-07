@@ -1,0 +1,35 @@
+{#
+  Composant Toggle — tsf:Form:Toggle
+  US-014 : interrupteur on/off stylé via CSS peer de Tailwind (sans Alpine.js).
+  Accessibilité : role="switch" + aria-checked sur l'input natif.
+
+  Utilisation :
+    <twig:tsf:Form:Toggle label="Notifications email" name="notify" />
+    <twig:tsf:Form:Toggle label="Mode sombre" name="dark" :checked="true" />
+    <twig:tsf:Form:Toggle label="Désactivé" name="opt" :disabled="true" />
+#}
+
+<div {{ attributes }}>
+    <label class="flex cursor-pointer select-none items-center gap-3{% if disabled %} cursor-not-allowed opacity-70{% endif %}">
+        <div class="relative">
+            <input
+                type="checkbox"
+                id="{{ id }}"
+                name="{{ name }}"
+                role="switch"
+                aria-checked="{{ checked ? 'true' : 'false' }}"
+                class="peer sr-only"
+                {% if checked %}checked{% endif %}
+                {% if disabled %}disabled{% endif %}
+            />
+            {# Track (fond de l'interrupteur) #}
+            <div class="block h-6 w-11 rounded-full bg-gray-200 transition-colors duration-200 peer-checked:bg-brand-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:bg-white/10 dark:peer-checked:bg-brand-500"></div>
+            {# Thumb (bouton qui glisse) #}
+            <div class="pointer-events-none absolute top-0.5 left-0.5 h-5 w-5 rounded-full bg-white shadow-theme-sm transition-transform duration-300 ease-linear peer-checked:translate-x-5 dark:bg-white/90"></div>
+        </div>
+
+        {%- if label %}
+            <span class="text-sm font-medium text-gray-700 dark:text-white/80">{{ label|e }}</span>
+        {%- endif %}
+    </label>
+</div>

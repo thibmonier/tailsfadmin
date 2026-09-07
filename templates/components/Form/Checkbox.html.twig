@@ -1,0 +1,37 @@
+{#
+  Composant Checkbox — tsf:Form:Checkbox
+  US-014 : case à cocher stylée via CSS peer de Tailwind (sans Alpine.js).
+
+  Utilisation :
+    <twig:tsf:Form:Checkbox label="J'accepte les CGU" name="terms" />
+    <twig:tsf:Form:Checkbox label="Notification" name="notify" :checked="true" />
+    <twig:tsf:Form:Checkbox label="Désactivée" name="opt" :disabled="true" />
+#}
+
+<div {{ attributes }}>
+    <label class="flex cursor-pointer select-none items-center gap-3{% if disabled %} cursor-not-allowed opacity-70{% endif %}">
+        <div class="relative">
+            <input
+                type="checkbox"
+                id="{{ id }}"
+                name="{{ name }}"
+                value="{{ value|e }}"
+                class="peer sr-only"
+                {% if checked %}checked{% endif %}
+                {% if disabled %}disabled{% endif %}
+            />
+            {# Fond de la case : blanc par défaut, brand-500 si coché #}
+            <div class="h-5 w-5 flex-shrink-0 rounded border border-gray-300 bg-white transition-colors duration-150 peer-checked:border-brand-500 peer-checked:bg-brand-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:border-gray-600 dark:bg-white/5 dark:peer-checked:border-brand-500 dark:peer-checked:bg-brand-500"></div>
+            {# Checkmark SVG : invisible sur fond blanc, visible sur fond brand-500 via peer-checked #}
+            <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-150 peer-checked:opacity-100">
+                <svg class="h-3 w-3 text-white" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+                    <path d="M1 5L4.5 8.5L11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
+
+        {%- if label %}
+            <span class="text-sm font-medium text-gray-700 dark:text-white/80">{{ label|e }}</span>
+        {%- endif %}
+    </label>
+</div>

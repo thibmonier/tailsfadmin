@@ -1,0 +1,195 @@
+{#
+  Form Theme — @Tailsfadmin/form/theme.html.twig
+  US-014 : surcharge des blocks Symfony Forms pour rendre en style TailAdmin.
+
+  Activation dans la démo :
+    twig:
+        form_themes: ['@Tailsfadmin/form/theme.html.twig']
+
+  Blocks surchargés :
+    form_row            — wrapper mb-4, aria-invalid passé au widget si erreur
+    form_label          — classes label TailAdmin (mb-1.5, text-sm, font-medium…)
+    form_widget_simple  — classes input TailAdmin + état error/success (border-*)
+    form_errors         — rendu en <p class="form-error-message"> (pas de <ul>)
+    textarea_widget     — classes textarea TailAdmin (identique input sans h-11)
+    choice_widget_collapsed — classes select TailAdmin + chevron SVG
+    checkbox_row        — layout CSS peer (label wrapper + input sr-only + visuel)
+    checkbox_widget     — input avec classes peer sr-only
+
+  Classes réutilisées depuis tsf:Form:* (DRY) :
+    Input base     : h-11 w-full rounded-lg border bg-transparent px-4 py-2.5 text-sm …
+    État default   : border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 …
+    État error     : border-error-300 focus:border-error-300 focus:ring-error-500/10 …
+    Label          : mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400
+#}
+
+{# ─── Row ─────────────────────────────────────────────────────────────────── #}
+
+{%- block form_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if errors|length > 0 -%}
+        {%- set widget_attr = {attr: {'aria-invalid': 'true'}} -%}
+    {%- endif -%}
+    <div class="mb-4">
+        {{- form_label(form) -}}
+        {{- form_widget(form, widget_attr) -}}
+        {{- form_errors(form) -}}
+        {{- form_help(form) -}}
+    </div>
+{%- endblock form_row -%}
+
+{# ─── Label ───────────────────────────────────────────────────────────────── #}
+
+{%- block form_label -%}
+    {%- if label is not same as(false) -%}
+        {%- if not compound -%}
+            {%- set label_attr = label_attr|merge({for: id}) -%}
+        {%- endif -%}
+        {%- set label_attr = label_attr|merge({class: ('mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400 ' ~ label_attr.class|default(''))|trim}) -%}
+        <label{% with {attr: label_attr} %}{{ block('attributes') }}{% endwith %}>
+            {{- block('form_label_content') -}}
+        </label>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{# ─── Erreurs ─────────────────────────────────────────────────────────────── #}
+
+{%- block form_errors -%}
+    {%- if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <p class="form-error-message mt-1.5 text-sm text-error-500">{{ error.message }}</p>
+        {%- endfor -%}
+    {%- endif -%}
+{%- endblock form_errors -%}
+
+{# ─── Input simple (text, email, password, number…) ──────────────────────── #}
+
+{%- block form_widget_simple -%}
+    {%- set type = type|default('text') -%}
+    {%- if type == 'range' or type == 'color' -%}
+        {%- set required = false -%}
+    {%- endif -%}
+
+    {%- set tailBase = 'h-11 w-full rounded-lg border bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30' -%}
+
+    {%- if errors|length > 0 or (attr['aria-invalid'] is defined and attr['aria-invalid'] == 'true') -%}
+        {%- set tailState = 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' -%}
+    {%- else -%}
+        {%- set tailState = 'border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800' -%}
+    {%- endif -%}
+
+    {%- set attr = attr|merge({class: (tailBase ~ ' ' ~ tailState ~ ' ' ~ attr.class|default(''))|trim}) -%}
+    <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+{%- endblock form_widget_simple -%}
+
+{# ─── Textarea ────────────────────────────────────────────────────────────── #}
+
+{%- block textarea_widget -%}
+    {%- set tailBase = 'w-full rounded-lg border bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30' -%}
+
+    {%- if errors|length > 0 or (attr['aria-invalid'] is defined and attr['aria-invalid'] == 'true') -%}
+        {%- set tailState = 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' -%}
+    {%- else -%}
+        {%- set tailState = 'border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800' -%}
+    {%- endif -%}
+
+    {%- set attr = attr|merge({class: (tailBase ~ ' ' ~ tailState ~ ' ' ~ attr.class|default(''))|trim}) -%}
+    <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
+{%- endblock textarea_widget -%}
+
+{# ─── Select (ChoiceType non-expanded) ────────────────────────────────────── #}
+
+{%- block choice_widget_collapsed -%}
+    {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
+        {%- set required = false -%}
+    {%- endif -%}
+
+    {%- if multiple -%}
+        {%- set tailBase = 'w-full rounded-lg border bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90' -%}
+    {%- else -%}
+        {%- set tailBase = 'h-11 w-full appearance-none rounded-lg border bg-transparent pl-4 pr-11 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90' -%}
+    {%- endif -%}
+
+    {%- if errors|length > 0 or (attr['aria-invalid'] is defined and attr['aria-invalid'] == 'true') -%}
+        {%- set tailState = 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' -%}
+    {%- else -%}
+        {%- set tailState = 'border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800' -%}
+    {%- endif -%}
+
+    {%- set attr = attr|merge({class: (tailBase ~ ' ' ~ tailState ~ ' ' ~ attr.class|default(''))|trim}) -%}
+
+    <div class="relative">
+        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+            {%- if placeholder is not none -%}
+                <option value=""{% if placeholder_attr|default({}) %}{% with {attr: placeholder_attr} %}{{ block('attributes') }}{% endwith %}{% endif %}{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
+            {%- endif -%}
+            {%- if preferred_choices|length > 0 -%}
+                {%- set options = preferred_choices -%}
+                {%- set render_preferred_choices = true -%}
+                {{- block('choice_widget_options') -}}
+                {%- if choices|length > 0 and separator is not none -%}
+                    {%- if separator_html is not defined or separator_html is same as(false) -%}
+                        <option disabled="disabled">{{ separator }}</option>
+                    {%- else -%}
+                        {{ separator|raw }}
+                    {%- endif -%}
+                {%- endif -%}
+            {%- endif -%}
+            {%- set options = choices -%}
+            {%- set render_preferred_choices = false -%}
+            {{- block('choice_widget_options') -}}
+        </select>
+
+        {%- if not multiple -%}
+            <span class="pointer-events-none absolute inset-y-0 right-4 flex items-center text-gray-500 dark:text-gray-400" aria-hidden="true">
+                <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                </svg>
+            </span>
+        {%- endif -%}
+    </div>
+{%- endblock choice_widget_collapsed -%}
+
+{# ─── Checkbox (widget seul — utilisé dans checkbox_row) ─────────────────── #}
+
+{%- block checkbox_widget -%}
+    {%- set attr = attr|merge({class: ('peer sr-only ' ~ attr.class|default(''))|trim}) -%}
+    <input type="checkbox" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+{%- endblock checkbox_widget -%}
+
+{# ─── Checkbox row — label-wrapper + CSS peer (sans Alpine.js) ───────────── #}
+
+{%- block checkbox_row -%}
+    {#-- Résoudre le libellé (translation + fallback humanize) --#}
+    {%- set displayLabel = label -%}
+    {%- if displayLabel is null or displayLabel is same as('') -%}
+        {%- if label_format is not empty -%}
+            {%- set displayLabel = label_format|replace({'%name%': name, '%id%': id}) -%}
+        {%- else -%}
+            {%- set displayLabel = name|humanize -%}
+        {%- endif -%}
+    {%- endif -%}
+    {%- if displayLabel is not same as(false) and translation_domain is not same as(false) -%}
+        {%- set displayLabel = displayLabel|trans(label_translation_parameters|default({}), translation_domain) -%}
+    {%- endif -%}
+
+    <div class="mb-4">
+        <label class="flex cursor-pointer select-none items-center gap-3">
+            <div class="relative">
+                {{- form_widget(form) -}}
+                {# Fond de la case — state géré via peer CSS #}
+                <div class="h-5 w-5 flex-shrink-0 rounded border border-gray-300 bg-white transition-colors duration-150 peer-checked:border-brand-500 peer-checked:bg-brand-500 dark:border-gray-600 dark:bg-white/5 dark:peer-checked:border-brand-500 dark:peer-checked:bg-brand-500"></div>
+                {# Checkmark — invisible par défaut, visible si coché #}
+                <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-150 peer-checked:opacity-100">
+                    <svg class="h-3 w-3 text-white" viewBox="0 0 12 10" fill="none" aria-hidden="true">
+                        <path d="M1 5L4.5 8.5L11 1.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+            </div>
+            {%- if displayLabel is not same as(false) -%}
+                <span class="text-sm font-medium text-gray-700 dark:text-white/80">{{ displayLabel }}</span>
+            {%- endif -%}
+        </label>
+        {{- form_errors(form) -}}
+    </div>
+{%- endblock checkbox_row -%}

@@ -1,0 +1,47 @@
+{#
+  Composant Input — tsf:Form:Input
+  US-014 : champ de saisie texte avec label, états error/success/disabled.
+
+  Utilisation :
+    <twig:tsf:Form:Input label="Nom" name="name" />
+    <twig:tsf:Form:Input label="Email" name="email" type="email" error="Ce champ est requis." />
+    <twig:tsf:Form:Input label="Mot de passe" name="password" type="password" :success="true" />
+    <twig:tsf:Form:Input label="Désactivé" name="field" :disabled="true" />
+#}
+
+{#-- Classes de base pour l'input --#}
+{%- set baseClass = 'h-11 w-full rounded-lg border bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30' -%}
+
+{%- if error %}
+    {%- set stateClass = 'border-error-300 focus:border-error-300 focus:ring-error-500/10 dark:border-error-700 dark:focus:border-error-800' -%}
+{%- elseif success %}
+    {%- set stateClass = 'border-success-300 focus:border-success-300 focus:ring-success-500/10 dark:border-success-700 dark:focus:border-success-800' -%}
+{%- else %}
+    {%- set stateClass = 'border-gray-300 focus:border-brand-300 focus:ring-brand-500/10 dark:border-gray-700 dark:focus:border-brand-800' -%}
+{%- endif %}
+
+{%- set disabledClass = disabled ? 'cursor-not-allowed bg-gray-100 opacity-70 dark:bg-gray-800' : '' -%}
+
+<div {{ attributes }}>
+    {%- if label %}
+        <label for="{{ id }}" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+            {{- label|e -}}{% if required %}<span class="ml-0.5 text-error-500" aria-hidden="true">*</span>{% endif %}
+        </label>
+    {%- endif %}
+
+    <input
+        type="{{ type }}"
+        id="{{ id }}"
+        name="{{ name }}"
+        class="{{ baseClass }} {{ stateClass }} {{ disabledClass }}"
+        {% if value %}value="{{ value|e }}"{% endif %}
+        {% if placeholder %}placeholder="{{ placeholder|e }}"{% endif %}
+        {% if disabled %}disabled{% endif %}
+        {% if required %}required{% endif %}
+        {% if error %}aria-invalid="true" aria-describedby="{{ id }}-error"{% endif %}
+    />
+
+    {%- if error %}
+        <p id="{{ id }}-error" class="form-error-message mt-1.5 text-sm text-error-500">{{ error|e }}</p>
+    {%- endif %}
+</div>

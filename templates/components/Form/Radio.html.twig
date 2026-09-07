@@ -1,0 +1,36 @@
+{#
+  Composant Radio — tsf:Form:Radio
+  US-014 : bouton radio stylé via CSS peer de Tailwind (sans Alpine.js).
+  Utiliser le même name pour tous les boutons d'un groupe.
+
+  Utilisation :
+    <twig:tsf:Form:Radio name="size" value="sm" label="Petit" />
+    <twig:tsf:Form:Radio name="size" value="md" label="Moyen" :checked="true" />
+    <twig:tsf:Form:Radio name="size" value="lg" label="Grand" />
+#}
+
+<div {{ attributes }}>
+    <label class="flex cursor-pointer select-none items-center gap-3{% if disabled %} cursor-not-allowed opacity-70{% endif %}">
+        <div class="relative">
+            <input
+                type="radio"
+                id="{{ id }}"
+                name="{{ name }}"
+                value="{{ value|e }}"
+                class="peer sr-only"
+                {% if checked %}checked{% endif %}
+                {% if disabled %}disabled{% endif %}
+            />
+            {# Cercle extérieur #}
+            <div class="h-5 w-5 flex-shrink-0 rounded-full border border-gray-300 bg-white transition-colors duration-150 peer-checked:border-brand-500 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:border-gray-600 dark:bg-white/5 dark:peer-checked:border-brand-500"></div>
+            {# Pastille centrale : invisible par défaut, visible si coché #}
+            <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-150 peer-checked:opacity-100">
+                <div class="h-2.5 w-2.5 rounded-full bg-brand-500"></div>
+            </div>
+        </div>
+
+        {%- if label %}
+            <span class="text-sm font-medium text-gray-700 dark:text-white/80">{{ label|e }}</span>
+        {%- endif %}
+    </label>
+</div>

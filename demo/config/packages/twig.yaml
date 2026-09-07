@@ -1,5 +1,8 @@
 twig:
     file_name_pattern: '*.twig'
+    # US-014 — Form Theme TailAdmin : rend les Form Symfony en style TailAdmin.
+    # Pour désactiver : retirer la ligne ci-dessous.
+    form_themes: ['@Tailsfadmin/form/theme.html.twig']
 
 when@test:
     twig:
