@@ -43,9 +43,9 @@
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
 | US-004 | Layout admin de base | 5 | Must | 1 | 🟢 |
-| US-005 | Dark mode persistant (Stimulus) | 5 | Must | 2 | 🔴 |
-| US-006 | Sidebar responsive multi-niveaux | 8 | Must | 2 | 🔴 |
-| US-007 | Header (recherche, dropdowns, breadcrumb) | 8 | Should | 2 | 🔴 |
+| US-005 | Dark mode persistant (Stimulus) | 5 | Must | 2 | 🟢 |
+| US-006 | Sidebar responsive multi-niveaux | 8 | Must | 2 | 🟢 |
+| US-007 | Header (recherche, dropdowns, breadcrumb) | 8 | Should | 2 | 🟢 |
 
 ### EPIC-003 — Bibliothèque de composants UI
 | ID | Titre | Points | Priorité | Sprint | Statut |

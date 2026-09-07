@@ -99,7 +99,21 @@ phases:
       - "PHPUnit 12 seul (Pest 4 incompatible) — confirmé"
     notes_suivi:
       - "Footgun DX: tailwind:build doit être suivi de asset-map:compile (durcir en US-026, script composer test)"
-    next: "Sprint Review + Rétro (/workflow:review, /workflow:retro), 1er commit (attente feu vert user), puis Sprint 2 (US-005 dark mode + US-006/007…)"
+      - "Incident 2026-09-07 (clos): filter-repo (retrait Tools/sources de l'historique) a supprimé les sources du disque; restaurées aux commits exacts depuis GitHub (public MIT). Tools/sources désormais gitignoré. Leçon: sauvegarder avant toute réécriture d'historique."
+    git:
+      commits: "Initial + 7 atomiques (Conventional Commits)"
+      historique: "Tools/sources retiré via git-filter-repo; .claude/ conservé"
+      remote: "origin = github.com/thibmonier/tailsfadmin.git (rien poussé)"
+    sprint_2:
+      status: done               # ✅ Navigation & layout interactifs
+      scope: "US-005 + US-006 + US-007 = 21 pts (100 % livrés)"
+      done:
+        - "US-005 ✅ dark mode persistant (theme controller + anti-FOUC)"
+        - "US-006 ✅ sidebar responsive + MenuBuilder configurable (RTL anticipé)"
+        - "US-007 ✅ header : recherche Cmd+K + dropdown générique accessible"
+        - "T-TECH-01/02/03 ✅ composer test, doc Pest→PHPUnit, contrôleurs déclarés"
+      qualite: "démo 32/32 · bundle 14/14 · PHPStan max 0 · cs-fixer 0 · non commité (Sprint 2)"
+    next: "Sprint 2 : Review + Rétro + commit ; puis Sprint 3 (EPIC-003 composants UI : alerts, badges, buttons, modals, dropdowns, cards)"
 
 next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
 next_command: "/workflow:implement   (ou /sprint:dev US-001)"
