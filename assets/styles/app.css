@@ -893,6 +893,26 @@ span.flatpickr-weekday,
   @apply text-sm font-medium text-gray-500 dark:text-gray-400;
 }
 
+/* ── Table checkbox (US-017) ─────────────────────────── */
+/*
+  Port fidèle depuis TailAdmin style.css.
+  Toujours inclus (pas de tree-shaking) car défini dans @layer components.
+*/
+@layer components {
+  /* tableCheckbox ─ checkbox dans les lignes de table */
+  .tableCheckbox:checked ~ span span {
+    @apply opacity-100;
+  }
+  .tableCheckbox:checked ~ span {
+    @apply border-brand-500 bg-brand-500;
+  }
+
+  /* form-check-input ─ sélecteur générique pour les contrôles de formulaire (checkbox/radio) */
+  .form-check-input {
+    @apply h-5 w-5 cursor-pointer rounded border-gray-300 text-brand-500;
+  }
+}
+
 /* ── Input date icon ─────────────────────────────────── */
 .input-date-icon::-webkit-inner-spin-button,
 .input-date-icon::-webkit-calendar-picker-indicator {

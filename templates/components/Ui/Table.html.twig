@@ -1,0 +1,56 @@
+{#
+  Composant Table basique — tsf:Ui:Table
+  US-017 : table de données responsive avec en-têtes, lignes, wrapper overflow-x-auto.
+  Dark mode, hover et zébrures fidèles à TailAdmin (table-06 source).
+  Aucun Alpine.js.
+#}
+
+<div class="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]" data-testid="table-basic">
+    {%- if title is not empty -%}
+        <div class="border-b border-gray-200 px-5 py-4 dark:border-gray-800 sm:px-6">
+            <h3 class="text-base font-semibold text-gray-800 dark:text-white/90">{{ title }}</h3>
+        </div>
+    {%- endif -%}
+
+    <div class="w-full overflow-x-auto">
+        <table class="min-w-full">
+            {%- if headers is not empty -%}
+            {# ── En-têtes ─────────────────────────────────────────────────── #}
+            <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-800">
+                    {%- for header in headers -%}
+                    <th class="px-5 py-3 text-left sm:px-6">
+                        <div class="flex items-center">
+                            <p class="text-theme-xs font-medium text-gray-500 dark:text-gray-400">
+                                {{ header }}
+                            </p>
+                        </div>
+                    </th>
+                    {%- endfor -%}
+                </tr>
+            </thead>
+            {%- endif -%}
+
+            {# ── Corps ────────────────────────────────────────────────────── #}
+            <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                {%- for row in rows -%}
+                <tr class="hover:bg-gray-50 dark:hover:bg-white/[0.02]{% if striped and loop.index is odd %} bg-gray-50/50 dark:bg-white/[0.01]{% endif %}">
+                    {%- for cell in row -%}
+                    <td class="px-5 py-4 sm:px-6">
+                        <div class="flex items-center">
+                            <p class="text-theme-sm text-gray-500 dark:text-gray-400">{{ cell }}</p>
+                        </div>
+                    </td>
+                    {%- endfor -%}
+                </tr>
+                {%- else -%}
+                <tr>
+                    <td colspan="{{ headers|length }}" class="px-5 py-8 text-center text-theme-sm text-gray-400 dark:text-gray-500">
+                        Aucune donnée à afficher.
+                    </td>
+                </tr>
+                {%- endfor -%}
+            </tbody>
+        </table>
+    </div>
+</div>

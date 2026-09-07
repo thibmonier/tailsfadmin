@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
 {#
-  T-TECH-03 — Galerie UI Kit (/ui-kit)
-  Sprint 3 : vitrine des composants US-008, US-009, US-010.
-  Sert de cible pour les tests fonctionnels (AlertTest, BadgeAvatarTest, ButtonTest).
+  T-TECH-01/03 — Galerie UI Kit (/ui-kit)
+  Sprint 3/4 : vitrine des composants US-008..014 + US-017.
+  Sert de cible pour les tests fonctionnels.
+  Navigation par ancres ajoutée en T-TECH-01.
 #}
 
 {% block title %}UI Kit — tailsfadmin{% endblock %}
@@ -14,11 +15,25 @@
 
         <header>
             <h1 class="text-3xl font-bold text-gray-900 dark:text-white">Galerie UI Kit</h1>
-            <p class="mt-2 text-gray-500 dark:text-gray-400">Sprint 3 — Composants tsf:Ui:*</p>
+            <p class="mt-2 text-gray-500 dark:text-gray-400">Sprint 3/4 — Composants tsf:Ui:* + tsf:Form:* + Tables</p>
+
+            {# ─── Sommaire de navigation (T-TECH-01) ──────────────────────── #}
+            <nav class="mt-6 flex flex-wrap gap-2" aria-label="Sections de la galerie">
+                <a href="#section-alerts"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Alertes</a>
+                <a href="#section-badges"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Badges</a>
+                <a href="#section-avatars"   class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Avatars</a>
+                <a href="#section-buttons"   class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Boutons</a>
+                <a href="#section-cards"     class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Cards</a>
+                <a href="#section-dropdown"  class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Dropdown</a>
+                <a href="#section-modals"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Modals</a>
+                <a href="#section-form-theme" class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Form Symfony</a>
+                <a href="#section-form-components" class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Composants Form</a>
+                <a href="#section-tables"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Tables</a>
+            </nav>
         </header>
 
         {# ─── US-008 : Alerts ──────────────────────────────────────────────────── #}
-        <section>
+        <section id="section-alerts">
             <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Alerts (US-008)</h2>
             <div class="space-y-3">
                 <twig:tsf:Ui:Alert type="success" title="Succès" message="L'opération a été réalisée avec succès." />
@@ -30,7 +45,7 @@
         </section>
 
         {# ─── US-009 : Badges ────────────────────────────────────────────────── #}
-        <section>
+        <section id="section-badges">
             <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Badges (US-009)</h2>
             <div class="flex flex-wrap gap-3">
                 <twig:tsf:Ui:Badge color="primary">Primary</twig:tsf:Ui:Badge>
@@ -48,7 +63,7 @@
         </section>
 
         {# ─── US-009 : Avatars ───────────────────────────────────────────────── #}
-        <section>
+        <section id="section-avatars">
             <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Avatars (US-009)</h2>
 
             {# Avatars avec image #}
@@ -77,7 +92,7 @@
         </section>
 
         {# ─── US-010 : Buttons ───────────────────────────────────────────────── #}
-        <section>
+        <section id="section-buttons">
             <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Buttons (US-010)</h2>
 
             {# 6 variantes #}
@@ -115,7 +130,7 @@
         </section>
 
         {# ─── US-012 : Dropdowns ─────────────────────────────────────────────── #}
-        <section>
+        <section id="section-dropdown">
             <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Dropdowns (US-012)</h2>
             <div class="flex flex-wrap gap-6">
 
@@ -165,7 +180,7 @@
         </section>
 
         {# ─── US-011 : Modals ────────────────────────────────────────────────── #}
-        <section>
+        <section id="section-modals">
             <h2 class="mb-4 text-xl font-semibold text-gray-800 dark:text-white">Modals (US-011)</h2>
             <div class="flex flex-wrap gap-4">
 
@@ -207,6 +222,392 @@
                     </twig:block>
                 </twig:tsf:Ui:Modal>
 
+            </div>
+        </section>
+
+        {# ══════════════════════════════════════════════════════════════════════
+           Cards — US-013
+        ══════════════════════════════════════════════════════════════════════ #}
+        <section id="section-cards" class="mb-12">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Cards</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+
+                {# Card de base avec titre #}
+                <twig:tsf:Ui:Card title="Statistiques" subtitle="Vue d'ensemble du mois" data-testid="card-basic">
+                    <twig:block name="body">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Total des ventes : <strong>24 850 €</strong></p>
+                        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Commandes : <strong>312</strong></p>
+                    </twig:block>
+                    <twig:block name="footer">
+                        <span class="text-xs text-gray-400">Mis à jour il y a 5 min</span>
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+
+                {# Card avec slots header/body/footer personnalisés #}
+                <div data-testid="card-slots">
+                    <twig:tsf:Ui:Card>
+                        <twig:block name="header">
+                            <div class="flex items-center justify-between">
+                                <h3 class="card-title text-base font-semibold text-gray-800 dark:text-white/90">Rapport hebdo</h3>
+                                <span class="text-xs text-gray-400">Semaine 36</span>
+                            </div>
+                        </twig:block>
+                        <twig:block name="body">
+                            <p class="text-sm text-gray-600 dark:text-gray-400">Contenu du corps de la carte.</p>
+                        </twig:block>
+                        <twig:block name="footer">
+                            <button type="button" class="text-xs font-medium text-brand-500 hover:text-brand-600">Voir tout</button>
+                        </twig:block>
+                    </twig:tsf:Ui:Card>
+                </div>
+
+                {# Card sans ombre ni bordure #}
+                <twig:tsf:Ui:Card title="Sans ombre" :shadow="false" :border="false" data-testid="card-no-shadow">
+                    <twig:block name="body">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Cette carte n'a ni ombre ni bordure.</p>
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+
+            </div>
+        </section>
+
+        {# ══════════════════════════════════════════════════════════════════════
+           MediaCard — US-013
+        ══════════════════════════════════════════════════════════════════════ #}
+        <section class="mb-12">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Media Cards</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+
+                <div data-testid="media-card">
+                    <twig:tsf:Ui:MediaCard
+                        mediaSrc="https://placehold.co/800x450/6366f1/ffffff?text=Media"
+                        mediaAlt="Image de démonstration pour la MediaCard"
+                        mediaAspect="16/9"
+                        title="Article de blog"
+                        subtitle="Publié le 7 septembre 2026"
+                    >
+                        <twig:block name="body">
+                            <p>Résumé de l'article. Tailwind v4 apporte de nouvelles classes utilitaires et une meilleure intégration avec Vite.</p>
+                        </twig:block>
+                        <twig:block name="actions">
+                            <a href="#" class="text-sm font-medium text-brand-500 hover:text-brand-600">Lire la suite</a>
+                            <span class="ml-auto text-xs text-gray-400">5 min</span>
+                        </twig:block>
+                    </twig:tsf:Ui:MediaCard>
+                </div>
+
+                <twig:tsf:Ui:MediaCard
+                    mediaSrc="https://placehold.co/800x600/22c55e/ffffff?text=4:3"
+                    mediaAlt="Illustration en format 4:3"
+                    mediaAspect="4/3"
+                    title="Ratio 4:3"
+                >
+                    <twig:block name="body">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Exemple avec un ratio image 4:3.</p>
+                    </twig:block>
+                </twig:tsf:Ui:MediaCard>
+
+                <twig:tsf:Ui:MediaCard
+                    mediaSrc="https://placehold.co/400x400/f59e0b/ffffff?text=1:1"
+                    mediaAlt="Photo carrée 1:1"
+                    mediaAspect="1/1"
+                    title="Ratio 1:1 (carré)"
+                >
+                    <twig:block name="body">
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Format carré adapté aux avatars ou produits.</p>
+                    </twig:block>
+                    <twig:block name="actions">
+                        <button type="button" class="rounded-lg bg-brand-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-600">Acheter</button>
+                    </twig:block>
+                </twig:tsf:Ui:MediaCard>
+
+            </div>
+        </section>
+
+        {# ══════════════════════════════════════════════════════════════════════
+           GridImage — US-013
+        ══════════════════════════════════════════════════════════════════════ #}
+        <section class="mb-12">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Grid Images</h2>
+            <div class="space-y-8">
+
+                {# Colonne unique (variante 1) #}
+                <div>
+                    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">1 colonne — pleine largeur</h3>
+                    <div data-testid="grid-1col">
+                        <twig:tsf:Ui:GridImage
+                            columns="1"
+                            :images="[
+                                {src: 'https://placehold.co/1200x400/6366f1/ffffff?text=Image+pleine+largeur', alt: 'Image pleine largeur en colonne unique'}
+                            ]"
+                        />
+                    </div>
+                </div>
+
+                {# 2 colonnes (variante 2) #}
+                <div>
+                    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">2 colonnes</h3>
+                    <div data-testid="grid-2col">
+                        <twig:tsf:Ui:GridImage
+                            columns="2"
+                            :images="[
+                                {src: 'https://placehold.co/600x400/6366f1/ffffff?text=Image+A', alt: 'Première image de la grille deux colonnes'},
+                                {src: 'https://placehold.co/600x400/22c55e/ffffff?text=Image+B', alt: 'Deuxième image de la grille deux colonnes'}
+                            ]"
+                        />
+                    </div>
+                </div>
+
+                {# 3 colonnes (variante 3) #}
+                <div>
+                    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">3 colonnes</h3>
+                    <div data-testid="grid-3col">
+                        <twig:tsf:Ui:GridImage
+                            columns="3"
+                            :images="[
+                                {src: 'https://placehold.co/400x300/6366f1/ffffff?text=Image+1', alt: 'Première image grille trois colonnes', caption: 'Légende 1'},
+                                {src: 'https://placehold.co/400x300/22c55e/ffffff?text=Image+2', alt: 'Deuxième image grille trois colonnes'},
+                                {src: 'https://placehold.co/400x300/f59e0b/ffffff?text=Image+3', alt: 'Troisième image grille trois colonnes'}
+                            ]"
+                        />
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        {# ══════════════════════════════════════════════════════════════════════
+           Video — US-013
+        ══════════════════════════════════════════════════════════════════════ #}
+        <section class="mb-12" data-testid="video-section">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Vidéos responsives</h2>
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+
+                <div>
+                    <h3 class="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">16:9 (défaut)</h3>
+                    <twig:tsf:Ui:Video
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Présentation produit — ratio 16 sur 9"
+                        ratio="16/9"
+                    />
+                </div>
+
+                <div>
+                    <h3 class="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">4:3</h3>
+                    <twig:tsf:Ui:Video
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Vidéo de démonstration — ratio 4 sur 3"
+                        ratio="4/3"
+                    />
+                </div>
+
+                <div>
+                    <h3 class="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">21:9 (cinémascope)</h3>
+                    <twig:tsf:Ui:Video
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Vidéo cinémascope — ratio 21 sur 9"
+                        ratio="21/9"
+                    />
+                </div>
+
+                <div>
+                    <h3 class="mb-3 text-sm font-medium text-gray-500 dark:text-gray-400">1:1 (carré)</h3>
+                    <twig:tsf:Ui:Video
+                        src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                        title="Vidéo carrée — ratio 1 sur 1"
+                        ratio="1/1"
+                    />
+                </div>
+
+            </div>
+        </section>
+
+        {# ─── US-014 : Form Theme Symfony ─────────────────────────────────────── #}
+        <section id="section-form-theme">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Formulaire Symfony — Form Theme (US-014)</h2>
+            <p class="mb-5 text-sm text-gray-500 dark:text-gray-400">
+                Formulaire rendu via <code>form_row()</code> Symfony et le theme
+                <code>@Tailsfadmin/form/theme.html.twig</code>.
+            </p>
+
+            <div class="max-w-lg rounded-2xl border border-gray-200 bg-white p-6 shadow-theme-sm dark:border-gray-800 dark:bg-white/[0.03]" data-testid="form-theme-demo">
+                {% if contactForm.vars.valid is defined and contactForm.vars.submitted and contactForm.vars.valid %}
+                    <div class="mb-4 rounded-lg bg-success-50 px-4 py-3 text-sm text-success-700 dark:bg-success-500/10 dark:text-success-400">
+                        Formulaire soumis avec succès !
+                    </div>
+                {% endif %}
+
+                {{ form_start(contactForm) }}
+                    {{ form_row(contactForm.name) }}
+                    {{ form_row(contactForm.email) }}
+                    {{ form_row(contactForm.message) }}
+                    {{ form_row(contactForm.role) }}
+                    {{ form_row(contactForm.newsletter) }}
+
+                    <div class="mt-5">
+                        <button
+                            type="submit"
+                            class="inline-flex items-center justify-center rounded-lg bg-brand-500 px-5 py-2.5 text-sm font-medium text-white shadow-theme-xs hover:bg-brand-600 focus:outline-hidden focus:ring-3 focus:ring-brand-500/30 dark:bg-brand-600 dark:hover:bg-brand-500"
+                        >
+                            Envoyer
+                        </button>
+                    </div>
+                {{ form_end(contactForm) }}
+            </div>
+        </section>
+
+        {# ─── US-014 : Composants de formulaire ───────────────────────────────── #}
+        <section id="section-form-components">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Formulaires (US-014)</h2>
+
+            {# ── Input : états ─────────────────────────────────────────────────── #}
+            <h3 class="mb-4 text-base font-medium text-gray-700 dark:text-gray-300">Input — états</h3>
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+                <twig:tsf:Form:Input
+                    label="Champ par défaut"
+                    name="default_field"
+                    placeholder="Saisissez un texte…"
+                    data-testid="form-input-default"
+                />
+
+                <twig:tsf:Form:Input
+                    label="Champ en erreur"
+                    name="error_field"
+                    placeholder="Champ obligatoire"
+                    error="Ce champ est requis."
+                    data-testid="form-input-error"
+                />
+
+                <twig:tsf:Form:Input
+                    label="Champ valide"
+                    name="success_field"
+                    value="utilisateur@exemple.fr"
+                    :success="true"
+                    data-testid="form-input-success"
+                />
+
+                <twig:tsf:Form:Input
+                    label="Champ désactivé"
+                    name="disabled_field"
+                    value="Valeur non modifiable"
+                    :disabled="true"
+                    data-testid="form-input-disabled"
+                />
+
+            </div>
+
+            {# ── InputGroup ────────────────────────────────────────────────────── #}
+            <h3 class="mb-4 mt-6 text-base font-medium text-gray-700 dark:text-gray-300">InputGroup — préfixe / suffixe</h3>
+            <div class="max-w-md" data-testid="form-input-group">
+                <twig:tsf:Form:InputGroup label="Site web" name="website" type="url" placeholder="monsite.fr">
+                    <twig:block name="prefix">
+                        <span class="input-group-prefix flex items-center px-3 text-sm text-gray-500 dark:text-gray-400">https://</span>
+                    </twig:block>
+                </twig:tsf:Form:InputGroup>
+            </div>
+
+            {# ── Select ────────────────────────────────────────────────────────── #}
+            <h3 class="mb-4 mt-6 text-base font-medium text-gray-700 dark:text-gray-300">Select</h3>
+            <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+                <twig:tsf:Form:Select
+                    label="Pays"
+                    name="country"
+                    placeholder="Choisir un pays…"
+                    :options="[
+                        {value: 'fr', label: 'France'},
+                        {value: 'be', label: 'Belgique'},
+                        {value: 'ch', label: 'Suisse'}
+                    ]"
+                    data-testid="form-select"
+                />
+
+                <twig:tsf:Form:Select
+                    label="Compétences (multiple)"
+                    name="skills"
+                    :multiple="true"
+                    :options="[
+                        {value: 'php', label: 'PHP'},
+                        {value: 'js', label: 'JavaScript'},
+                        {value: 'css', label: 'CSS'},
+                        {value: 'sql', label: 'SQL'}
+                    ]"
+                    data-testid="form-select-multiple"
+                />
+
+            </div>
+
+            {# ── Textarea ──────────────────────────────────────────────────────── #}
+            <h3 class="mb-4 mt-6 text-base font-medium text-gray-700 dark:text-gray-300">Textarea</h3>
+            <div class="max-w-lg" data-testid="form-textarea">
+                <twig:tsf:Form:Textarea
+                    label="Message"
+                    name="message"
+                    :rows="5"
+                    placeholder="Rédigez votre message…"
+                />
+            </div>
+
+            {# ── Checkbox ──────────────────────────────────────────────────────── #}
+            <h3 class="mb-4 mt-6 text-base font-medium text-gray-700 dark:text-gray-300">Checkbox</h3>
+            <div class="space-y-3">
+                <div data-testid="form-checkbox">
+                    <twig:tsf:Form:Checkbox label="J'accepte les conditions générales d'utilisation" name="terms" />
+                </div>
+                <twig:tsf:Form:Checkbox label="Recevoir la newsletter" name="newsletter" :checked="true" />
+                <twig:tsf:Form:Checkbox label="Option désactivée" name="disabled_opt" :disabled="true" />
+            </div>
+
+            {# ── Radio ─────────────────────────────────────────────────────────── #}
+            <h3 class="mb-4 mt-6 text-base font-medium text-gray-700 dark:text-gray-300">Radio</h3>
+            <div class="space-y-3">
+                <div data-testid="form-radio">
+                    <twig:tsf:Form:Radio name="size" value="sm" label="Petit" />
+                </div>
+                <twig:tsf:Form:Radio name="size" value="md" label="Moyen" :checked="true" />
+                <twig:tsf:Form:Radio name="size" value="lg" label="Grand" />
+            </div>
+
+            {# ── Toggle ────────────────────────────────────────────────────────── #}
+            <h3 class="mb-4 mt-6 text-base font-medium text-gray-700 dark:text-gray-300">Toggle (Switch)</h3>
+            <div class="space-y-3">
+                <div data-testid="form-toggle">
+                    <twig:tsf:Form:Toggle label="Notifications email" name="email_notif" />
+                </div>
+                <twig:tsf:Form:Toggle label="Activé par défaut" name="dark_mode" :checked="true" />
+                <twig:tsf:Form:Toggle label="Désactivé" name="disabled_toggle" :disabled="true" />
+            </div>
+
+        </section>
+
+        {# ─── US-017 : Tables ─────────────────────────────────────────────────── #}
+        <section id="section-tables" data-testid="section-tables">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Tables (US-017)</h2>
+
+            {# ── Table basique ──────────────────────────────────────────────── #}
+            <h3 class="mb-4 text-base font-medium text-gray-700 dark:text-gray-300">Table basique</h3>
+            <div class="mb-8" data-testid="table-basic-demo">
+                {%- set tableBasicRows = [
+                    ['MacBook Pro 14 pouces', 'Informatique', '1 999 EUR', 'Livré'],
+                    ['iPhone 15 Pro Max', 'Smartphone', '1 279 EUR', 'En attente'],
+                    ['iPad Pro 11 pouces', 'Tablette', '899 EUR', 'Livré'],
+                    ['AirPods Pro 2', 'Audio', '249 EUR', 'Annulé'],
+                    ['Apple Watch Ultra 2', 'Montre', '799 EUR', 'Livré'],
+                ] -%}
+                <twig:tsf:Ui:Table title="Commandes récentes" :headers="['Produit', 'Catégorie', 'Prix', 'Statut']" :rows="tableBasicRows" />
+            </div>
+
+            {# ── Table avancée ──────────────────────────────────────────────── #}
+            <h3 class="mb-4 text-base font-medium text-gray-700 dark:text-gray-300">Table avancée (sélection, tri, actions, Badge, Avatar)</h3>
+            <div data-testid="table-advanced-demo">
+                {%- set tableAdvRows = [
+                    {name: 'Alice Dupont', role: 'Designer', project: 'Site vitrine', status: 'active', budget: '3.2K'},
+                    {name: 'Bob Martin', role: 'Développeur', project: 'API REST', status: 'pending', budget: '5.8K'},
+                    {name: 'Carol Denis', role: 'Chef de projet', project: 'Dashboard', status: 'active', budget: '4.1K'},
+                    {name: 'Eric Legrand', role: 'DevOps', project: 'Infrastructure', status: 'cancel', budget: '2.0K'},
+                ] -%}
+                <twig:tsf:Ui:TableAdvanced title="Projets en cours" :rows="tableAdvRows" />
             </div>
         </section>
 

@@ -72,5 +72,18 @@ final class CssBuildTest extends WebTestCase
             $css,
             'CSS compilé : "fixed" absent — les utilitaires Tailwind de positionnement ont régressé'
         );
+
+        // T-TECH-02 — Smoke CSS étendu : formulaire + table
+        self::assertStringContainsString(
+            '.form-check-input',
+            $css,
+            'CSS compilé : ".form-check-input" absent — le port CSS des classes de formulaire a régressé'
+        );
+
+        self::assertStringContainsString(
+            '.tableCheckbox',
+            $css,
+            'CSS compilé : ".tableCheckbox" absent — le port CSS des classes de table a régressé'
+        );
     }
 }
