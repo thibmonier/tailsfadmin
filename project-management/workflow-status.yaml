@@ -1,0 +1,79 @@
+# Workflow Status - tailsfadmin
+project: tailsfadmin
+description: >
+  Thème admin pour Symfony fortement inspiré de TailAdmin.
+  Livrable double : bundle Symfony réutilisable + application de démo.
+track: standard
+initialized_at: 2026-09-07T00:00:00Z
+current_phase: planning
+
+context:
+  stack:
+    framework: Symfony 8.1
+    php: 8.5
+    runtime: FrankenPHP
+    assets: AssetMapper + importmap
+    ui: Symfony UX (Twig Components, Live Components, Stimulus)
+    css: Tailwind CSS v4
+  sources:
+    # 4 archives TailAdmin fournies à la racine, extraites dans Tools/sources/
+    extracted_to: Tools/sources/
+    - name: tailadmin-free-tailwind-dashboard-template-main.zip
+      type: html-tailwind
+      role: source-primaire   # 20+ pages, partials par composant
+    - name: tailadmin-laravel-main.zip
+      type: laravel-blade
+      role: source-secondaire  # composants Blade, MenuHelper, SidebarController, i18n
+    - name: free-react-tailwind-admin-dashboard-main.zip
+      type: react
+      role: reference
+    - name: free-nextjs-admin-dashboard-main.zip
+      type: nextjs
+      role: reference
+  decisions:
+    interactivite_js: convert-to-stimulus-ux   # Alpine.js -> Stimulus/UX
+    livrable: bundle-plus-demo-app
+  js_libs_a_integrer:
+    - apexcharts
+    - fullcalendar
+    - flatpickr
+    - dropzone
+    - jsvectormap
+    - swiper
+
+complexity_score:
+  fichiers_impactes: 3        # 50+ (bundle + app + composants + pages)
+  nouvelles_entites: 1        # ~0-1 (auth démo éventuelle)
+  integrations: 2            # 6 libs JS via AssetMapper + wrappers Stimulus
+  user_stories: 3            # 15+ estimées
+  equipes: 1
+  securite: 2                # pages auth démo
+  total: 12
+  track_calcule: standard    # borne haute (proche Enterprise)
+
+phases:
+  analysis:
+    status: skipped
+    reason: "Sources TailAdmin déjà en main — pas de phase de recherche séparée nécessaire"
+  planning:
+    status: pending
+    artifacts:
+      prd: pending
+      personas: pending
+      backlog: pending
+  design:
+    status: pending
+    note: "Phase critique — ADRs requis (voir ci-dessous)"
+    artifacts:
+      tech_spec: pending
+      architecture: pending
+    adrs_attendus:
+      - "Structure bundle réutilisable vs app de démo (distribution des assets depuis un bundle)"
+      - "Stratégie Tailwind v4 dans le contexte AssetMapper (build CSS)"
+      - "Packaging des contrôleurs Stimulus + composants UX depuis le bundle"
+      - "Inventaire des composants et mapping source -> Twig Component"
+  implementation:
+    status: pending
+
+next_action: "Générer le PRD (vision, personas, périmètre du thème admin)"
+next_command: "/workflow:plan"
