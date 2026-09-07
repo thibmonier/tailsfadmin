@@ -1,0 +1,12 @@
+{
+    "symfony": {
+        "controllers": {
+            "preloader": {
+                "name": "tailsfadmin--preloader",
+                "main": "controllers/preloader_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            }
+        }
+    }
+}

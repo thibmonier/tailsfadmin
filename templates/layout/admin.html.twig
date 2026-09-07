@@ -1,0 +1,77 @@
+{#
+  Layout admin — @Tailsfadmin/layout/admin.html.twig
+  Sprint 1 : squelette header + sidebar + main + preloader + breadcrumb.
+  Les blocs exposés permettent aux pages filles de surcharger chaque section.
+
+  Blocs :
+    header          — <header> complet (défaut : tsf:Layout:Header)
+    sidebar         — <aside> complet  (défaut : tsf:Layout:Sidebar)
+    breadcrumb      — breadcrumb wrapper
+    breadcrumb_items — items supplémentaires du breadcrumb
+    content         — contenu principal (OBLIGATOIRE dans les pages filles)
+
+  Dark mode : classe ".dark" sur <html> (ADR-001 / US-005).
+  Accessibilité : skip-link vers #main-content.
+#}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}tailsfadmin{% endblock %}</title>
+
+    {# CSS Tailwind v4 compilé par symfonycasts/tailwind-bundle (ADR-001) #}
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+
+    {% block stylesheets %}{% endblock %}
+
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="font-outfit bg-gray-50 dark:bg-gray-dark">
+
+    {# ─── Skip-link — accessibilité (WCAG 2.4.1) ─── #}
+    <a
+        href="#main-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[99999999] focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+    >
+        Aller au contenu principal
+    </a>
+
+    {# ─── Preloader ─── #}
+    {% block preloader %}
+        <twig:tsf:Ui:Preloader />
+    {% endblock %}
+
+    <div class="flex h-screen overflow-hidden">
+
+        {# ─── Sidebar ─── #}
+        {% block sidebar %}
+            <twig:tsf:Layout:Sidebar />
+        {% endblock %}
+
+        {# ─── Zone principale ─── #}
+        <div class="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+
+            {# ─── Header ─── #}
+            {% block header %}
+                <twig:tsf:Layout:Header />
+            {% endblock %}
+
+            {# ─── Contenu ─── #}
+            <main id="main-content" class="mx-auto w-full max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+
+                {# Breadcrumb #}
+                {% block breadcrumb %}{% endblock %}
+
+                {# Contenu de la page fille #}
+                {% block content %}{% endblock %}
+
+            </main>
+
+        </div>
+    </div>
+
+</body>
+</html>

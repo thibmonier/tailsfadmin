@@ -1,0 +1,15 @@
+services:
+    # Service principal — informations du bundle
+    Tailsfadmin\Info\BundleInfo:
+        public: true
+
+    tailsfadmin.bundle_info:
+        alias: Tailsfadmin\Info\BundleInfo
+        public: true
+
+    # Composants Twig — autowiring + autoconfiguration
+    # Le tag "twig.component" est appliqué automatiquement via #[AsTwigComponent]
+    Tailsfadmin\Twig\Components\:
+        resource: '../src/Twig/Components/'
+        autoconfigure: true
+        autowire: true

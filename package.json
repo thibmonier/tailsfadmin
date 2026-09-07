@@ -1,0 +1,23 @@
+{
+    "name": "@tailsfadmin/tailsfadmin-bundle",
+    "description": "Thème admin Symfony — contrôleurs Stimulus (bundle tailsfadmin)",
+    "version": "0.1.0",
+    "license": "MIT",
+    "keywords": [
+        "symfony",
+        "symfony-ux",
+        "stimulus",
+        "admin"
+    ],
+    "symfony": {
+        "controllers": {
+            "preloader": {
+                "name": "tailsfadmin--preloader",
+                "main": "assets/controllers/preloader_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            }
+        }
+    },
+    "devDependencies": {}
+}
