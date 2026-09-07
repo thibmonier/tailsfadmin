@@ -50,12 +50,12 @@
 ### EPIC-003 — Bibliothèque de composants UI
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-008 | Alerts (4 variantes) | 3 | Must | 2 | 🔴 |
-| US-009 | Badges & Avatars | 3 | Must | 2 | 🔴 |
-| US-010 | Buttons (6 variantes) | 3 | Must | 2 | 🔴 |
-| US-011 | Modals / overlays accessibles (Stimulus) | 5 | Must | 2 | 🔴 |
-| US-012 | Dropdowns accessibles (Stimulus) | 5 | Must | 3 | 🔴 |
-| US-013 | Cards, media, grid images, videos | 5 | Should | 3 | 🔴 |
+| US-008 | Alerts (4 variantes) | 3 | Must | 3 | 🟢 |
+| US-009 | Badges & Avatars | 3 | Must | 3 | 🟢 |
+| US-010 | Buttons (6 variantes) | 3 | Must | 3 | 🟢 |
+| US-011 | Modals / overlays accessibles (Stimulus) | 5 | Must | 3 | 🟢 |
+| US-012 | Dropdowns accessibles (Stimulus) | 5 | Must | 3 | 🟢 |
+| US-013 | Cards, media, grid images, videos | 5 | Should | 4 | 🔴 |
 
 ### EPIC-004 — Formulaires & tables
 | ID | Titre | Points | Priorité | Sprint | Statut |

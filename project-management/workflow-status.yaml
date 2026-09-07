@@ -113,7 +113,18 @@ phases:
         - "US-007 ✅ header : recherche Cmd+K + dropdown générique accessible"
         - "T-TECH-01/02/03 ✅ composer test, doc Pest→PHPUnit, contrôleurs déclarés"
       qualite: "démo 32/32 · bundle 14/14 · PHPStan max 0 · cs-fixer 0 · non commité (Sprint 2)"
-    next: "Sprint 2 : Review + Rétro + commit ; puis Sprint 3 (EPIC-003 composants UI : alerts, badges, buttons, modals, dropdowns, cards)"
+    incident_css:
+      resolu: true
+      resume: "Layout non stylé (rendu navigateur) : CSS composant non porté + utilitaires du bundle non scannés. Fix: port complet style.css (@layer) + @source templates/controllers. Commit fix(css). Vérifié visuellement (clair+dark)."
+      garde_fous_sprint_3: ["smoke-test CSS compilé", "1er test navigateur Panther"]
+    sprint_3:
+      status: decomposed         # /workflow:start 3 + /project:decompose-tasks 003
+      but: "Bibliothèque de composants UI (UI Kit)"
+      scope: "US-008..US-012 = 19 pts (US-013 cards → Sprint 4)"
+      tasks: "25 tâches, ~44.5h"
+      garde_fous: ["T-TECH-01 smoke-test CSS compilé", "T-TECH-02 spike Panther"]
+      goal_file: "sprints/sprint-003-ui_kit/sprint-goal.md"
+    next: "Implémentation TDD Sprint 3 — T-TECH-01 (garde-fou CSS) → US-008 → 009 → 010 → 012 → 011"
 
 next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
 next_command: "/workflow:implement   (ou /sprint:dev US-001)"
