@@ -1,0 +1,44 @@
+# Orchestration Docker de la démo tailsfadmin — runtime FrankenPHP / PHP 8.5.
+#
+# Démarrage : docker compose up --build -d
+# Arrêt     : docker compose down
+# Voir la section « ## Docker / FrankenPHP » du README.md pour le détail.
+
+services:
+  demo:
+    build:
+      # Contexte par défaut = demo/ (permet à demo/.dockerignore de
+      # fonctionner normalement). Le code du bundle (racine du monorepo)
+      # est injecté via un second contexte nommé "bundle", requis par le
+      # Dockerfile car demo/composer.json résout le bundle via un path
+      # repository ("../") — voir les commentaires de demo/Dockerfile.
+      context: ./demo
+      dockerfile: Dockerfile
+      additional_contexts:
+        bundle: .
+    environment:
+      # Nom de domaine servi par Caddy/FrankenPHP. `:80` = HTTP simple, sans
+      # mise en place automatique de HTTPS (adapté à un usage local/CI).
+      # Pour un vrai domaine (ex. déploiement), remplacer par ce domaine afin
+      # d'activer le HTTPS automatique de Caddy (ex. SERVER_NAME=exemple.com).
+      SERVER_NAME: ${SERVER_NAME:-:80}
+    ports:
+      # Scénario d'erreur « port déjà utilisé » (ex. sur le port 80) :
+      # exporter HOST_HTTP_PORT / HOST_HTTPS_PORT avant de lancer la
+      # commande, par exemple :
+      #   HOST_HTTP_PORT=8080 HOST_HTTPS_PORT=8443 docker compose up -d
+      # ou définir ces variables dans un fichier .env à la racine.
+      - "${HOST_HTTP_PORT:-80}:80"
+      - "${HOST_HTTPS_PORT:-443}:443"
+    volumes:
+      # Cache/logs Symfony persistés et consultables depuis l'hôte. Le
+      # contenu pré-généré lors du build (cache:warmup) est alors masqué par
+      # ce montage : Symfony régénère le cache manquant à la première
+      # requête (comportement normal en environnement de développement).
+      - ./demo/var:/srv/demo/var
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 10s

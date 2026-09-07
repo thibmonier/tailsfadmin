@@ -1,0 +1,23 @@
+# Contexte de build = demo/ (voir compose.yaml : build.context = ./demo)
+# Chemins relatifs à demo/.
+
+# Dépendances (réinstallées dans l'image, cf. Dockerfile)
+/vendor/
+
+# Cache, logs, artefacts locaux (régénérés au démarrage du conteneur)
+/var/
+
+# Environnement local (jamais dans l'image)
+/.env.local
+/.env.local.php
+/.env.*.local
+
+# Tests, IDE, VCS
+/.phpunit.cache/
+/.idea/
+/.git/
+/.gitignore
+
+# Documentation (inutile à l'exécution)
+/AGENTS.md
+/CLAUDE.md
