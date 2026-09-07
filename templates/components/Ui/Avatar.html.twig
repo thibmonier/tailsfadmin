@@ -1,0 +1,48 @@
+{#
+  Composant Avatar — tsf:Ui:Avatar
+  US-009 : 6 tailles + point de statut online/offline + fallback initiales.
+  Toutes les valeurs sont auto-échappées.
+#}
+
+{%- set sizeConfig = {
+    xs:  { avatar: 'h-6 w-6 text-xs',   dot: 'h-1.5 w-1.5' },
+    sm:  { avatar: 'h-8 w-8 text-sm',   dot: 'h-2 w-2'     },
+    md:  { avatar: 'h-10 w-10 text-sm', dot: 'h-2.5 w-2.5' },
+    lg:  { avatar: 'h-12 w-12 text-sm', dot: 'h-3 w-3'     },
+    xl:  { avatar: 'h-14 w-14 text-base', dot: 'h-3.5 w-3.5' },
+    '2xl': { avatar: 'h-16 w-16 text-base', dot: 'h-4 w-4'  }
+} -%}
+
+{%- set statusConfig = {
+    online:  'bg-success-500',
+    offline: 'bg-gray-400 dark:bg-gray-600'
+} -%}
+
+{%- set sizes = sizeConfig[size] ?? sizeConfig['md'] -%}
+
+<div class="relative inline-flex shrink-0">
+    {%- if src %}
+        {# Avatar avec image #}
+        <img
+            src="{{ src }}"
+            alt="{{ alt }}"
+            class="rounded-full object-cover object-center {{ sizes.avatar }}"
+        />
+    {%- else %}
+        {# Fallback initiales #}
+        <span
+            class="flex items-center justify-center rounded-full bg-brand-100 font-medium text-brand-600 dark:bg-brand-500/15 dark:text-brand-400 {{ sizes.avatar }}"
+            aria-label="{{ alt }}"
+        >
+            {{ this.initials() }}
+        </span>
+    {%- endif %}
+
+    {%- if status and status in ['online', 'offline'] %}
+        {# Point de statut positionné en bas à droite #}
+        <span
+            class="absolute bottom-0 right-0 rounded-full border-[1.5px] border-white dark:border-gray-900 {{ statusConfig[status] }} {{ sizes.dot }}"
+            aria-hidden="true"
+        ></span>
+    {%- endif %}
+</div>

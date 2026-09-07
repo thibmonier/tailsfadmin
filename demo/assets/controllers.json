@@ -20,6 +20,14 @@
             "search": {
                 "enabled": true,
                 "fetch": "eager"
+            },
+            "alert-dismiss": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "modal": {
+                "enabled": true,
+                "fetch": "eager"
             }
         }
     },

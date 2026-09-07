@@ -1,0 +1,39 @@
+{#
+  Composant Dropdown — tsf:Ui:Dropdown
+  US-012 : câblé au contrôleur EXISTANT "tailsfadmin--dropdown" (US-007).
+  Aucun nouveau contrôleur JS créé pour cette US.
+
+  Slots :
+    - trigger : bouton déclencheur — reçoit data-tailsfadmin--dropdown-target="trigger"
+    - menu    : panneau du dropdown — reçoit role="menu" + data-tailsfadmin--dropdown-target="menu"
+
+  Alignement :
+    - align="left"  → menu aligné à gauche (par défaut)
+    - align="right" → menu aligné à droite
+
+  Réutilisable hors header (DRY vs markup inline du Header).
+#}
+
+{%- set alignClass = align == 'right' ? 'right-0' : 'left-0' -%}
+
+<div
+    class="relative inline-block"
+    data-controller="tailsfadmin--dropdown"
+>
+    {# ── Déclencheur (trigger) ─────────────────────────────────────────────── #}
+    <div data-tailsfadmin--dropdown-target="trigger" aria-expanded="false">
+        {% block trigger %}{% endblock %}
+    </div>
+
+    {# ── Panneau du menu ───────────────────────────────────────────────────── #}
+    <div
+        data-tailsfadmin--dropdown-target="menu"
+        data-action="keydown->tailsfadmin--dropdown#navigate"
+        role="menu"
+        aria-orientation="vertical"
+        hidden
+        class="absolute z-50 mt-2 min-w-[12rem] rounded-xl border border-gray-200 bg-white py-1 shadow-lg {{ alignClass }} dark:border-gray-700 dark:bg-gray-800"
+    >
+        {% block menu %}{% endblock %}
+    </div>
+</div>

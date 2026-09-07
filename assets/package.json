@@ -30,6 +30,18 @@
                 "main": "controllers/search_controller.js",
                 "fetch": "eager",
                 "enabled": true
+            },
+            "alert-dismiss": {
+                "name": "tailsfadmin--alert-dismiss",
+                "main": "controllers/alert_dismiss_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "modal": {
+                "name": "tailsfadmin--modal",
+                "main": "controllers/modal_controller.js",
+                "fetch": "eager",
+                "enabled": true
             }
         }
     }

@@ -1,0 +1,101 @@
+{#
+  Composant Modal — tsf:Ui:Modal
+  US-011 : dialog accessible câblé au contrôleur Stimulus "tailsfadmin--modal".
+
+  Slots (blocks) :
+    - trigger : déclencheur (button) — wrappé automatiquement avec data-action="open"
+    - header  : en-tête de la modale (contient l'élément id="{{ labelId }}")
+    - body    : corps du dialogue
+    - footer  : actions (boutons de confirmation/annulation)
+
+  Attributs ARIA :
+    - role="dialog" + aria-modal="true" sur le panel
+    - aria-labelledby="{{ labelId }}" lie le panel au titre dans le slot header
+    - role="dialog" est sur le panel, pas sur l'overlay (qui est aria-hidden)
+
+  Focus trap, Échap, overlay-click, scroll lock : gérés par modal_controller.js.
+#}
+
+{%- set sizeConfig = {
+    sm: 'max-w-md',
+    md: 'max-w-lg',
+    lg: 'max-w-2xl',
+    xl: 'max-w-4xl'
+} -%}
+
+{%- set panelSizeClass = sizeConfig[size] ?? sizeConfig['md'] -%}
+
+{# Capture des slots (chaque block ne peut être défini qu'une fois dans le template) #}
+{%- set slotTrigger %}{% block trigger %}{% endblock %}{% endset -%}
+{%- set slotHeader  %}{% block header  %}{% endblock %}{% endset -%}
+{%- set slotBody    %}{% block body    %}{% endblock %}{% endset -%}
+{%- set slotFooter  %}{% block footer  %}{% endblock %}{% endset -%}
+
+<div data-controller="tailsfadmin--modal">
+
+    {# ── Déclencheur ─────────────────────────────────────────────────────────── #}
+    {%- if slotTrigger|trim %}
+        <div data-action="click->tailsfadmin--modal#open">
+            {{ slotTrigger }}
+        </div>
+    {%- endif %}
+
+    {# ── Panel (dialog, hidden par défaut) ──────────────────────────────────── #}
+    <div
+        role="dialog"
+        aria-modal="true"
+        {% if labelId %}aria-labelledby="{{ labelId }}"{% endif %}
+        data-tailsfadmin--modal-target="panel"
+        hidden
+        class="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6"
+    >
+        {# Overlay / backdrop ─────────────────────────────────────────────────── #}
+        <div
+            data-tailsfadmin--modal-target="overlay"
+            data-action="click->tailsfadmin--modal#close"
+            class="fixed inset-0 bg-gray-900/50 backdrop-blur-sm"
+            aria-hidden="true"
+        ></div>
+
+        {# Contenu du dialog ──────────────────────────────────────────────────── #}
+        <div class="relative z-10 w-full rounded-2xl bg-white shadow-2xl dark:bg-gray-900 {{ panelSizeClass }}">
+
+            {# Bouton de fermeture ────────────────────────────────────────────── #}
+            <button
+                type="button"
+                class="absolute right-4 top-4 flex h-9 w-9 items-center justify-center rounded-full bg-gray-100 text-gray-500 transition hover:bg-gray-200 hover:text-gray-800 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
+                data-action="click->tailsfadmin--modal#close"
+                aria-label="Fermer la modale"
+            >
+                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L9 7.586l3.293-3.293a1 1 0 111.414 1.414L10.414 9l3.293 3.293a1 1 0 01-1.414 1.414L9 10.414l-3.293 3.293a1 1 0 01-1.414-1.414L7.586 9 4.293 5.707a1 1 0 010-1.414z"
+                        fill="currentColor"
+                    />
+                </svg>
+            </button>
+
+            {# Header ─────────────────────────────────────────────────────────── #}
+            {%- if slotHeader|trim %}
+                <div class="border-b border-gray-100 px-6 py-5 dark:border-gray-700">
+                    {{ slotHeader }}
+                </div>
+            {%- endif %}
+
+            {# Body ───────────────────────────────────────────────────────────── #}
+            {%- if slotBody|trim %}
+                <div class="px-6 py-5 text-sm text-gray-600 dark:text-gray-400">
+                    {{ slotBody }}
+                </div>
+            {%- endif %}
+
+            {# Footer ─────────────────────────────────────────────────────────── #}
+            {%- if slotFooter|trim %}
+                <div class="flex items-center justify-end gap-3 border-t border-gray-100 px-6 py-4 dark:border-gray-700">
+                    {{ slotFooter }}
+                </div>
+            {%- endif %}
+
+        </div>
+    </div>
+</div>

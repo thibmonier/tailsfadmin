@@ -1,0 +1,75 @@
+{#
+  Composant Button — tsf:Ui:Button
+  US-010 : 6 variantes + 2 tailles + icônes + loading (aria-busy) + disabled.
+  Rend <a> si href est fourni, <button> sinon.
+
+  Le block content est défini une seule fois (requis par Twig) et capturé
+  dans slotContent pour être réutilisé dans les deux branches if/else.
+#}
+
+{%- set variantConfig = {
+    primary:   'bg-brand-500 text-white shadow-theme-xs hover:bg-brand-600 disabled:opacity-50 dark:hover:bg-brand-700',
+    secondary: 'bg-white text-gray-700 shadow-theme-xs ring-1 ring-inset ring-gray-300 hover:bg-gray-50 disabled:opacity-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]',
+    success:   'bg-success-500 text-white shadow-theme-xs hover:bg-success-600 disabled:opacity-50',
+    danger:    'bg-error-500 text-white shadow-theme-xs hover:bg-error-600 disabled:opacity-50',
+    ghost:     'bg-transparent text-gray-700 hover:bg-gray-100 disabled:opacity-50 dark:text-gray-400 dark:hover:bg-white/5',
+    link:      'bg-transparent text-brand-500 hover:text-brand-600 hover:underline disabled:opacity-50 dark:text-brand-400 dark:hover:text-brand-300'
+} -%}
+
+{%- set sizeConfig = {
+    sm: 'px-4 py-3 text-sm',
+    lg: 'px-5 py-3.5 text-sm'
+} -%}
+
+{%- set variantClasses = variantConfig[variant] ?? variantConfig['primary'] -%}
+{%- set sizeClasses    = sizeConfig[size]       ?? sizeConfig['sm']         -%}
+
+{%- set baseClasses = 'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition ' ~ variantClasses ~ ' ' ~ sizeClasses -%}
+
+{# Capture le slot (content block) une seule fois — évite la double définition #}
+{%- set slotContent %}{% block content %}{% endblock %}{% endset -%}
+
+{%- if href %}
+    {# Lien (<a>) quand href est fourni #}
+    <a
+        href="{{ href }}"
+        class="{{ baseClasses }}"
+        {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
+        {% if loading %}aria-busy="true"{% endif %}
+    >
+        {%- if loading %}
+            <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+        {%- elseif iconStart %}
+            <span class="h-5 w-5 shrink-0" aria-hidden="true">{{ iconStart|raw }}</span>
+        {%- endif %}
+        {{ slotContent }}
+        {%- if iconEnd and not loading %}
+            <span class="h-5 w-5 shrink-0" aria-hidden="true">{{ iconEnd|raw }}</span>
+        {%- endif %}
+    </a>
+{%- else %}
+    {# Bouton (<button>) par défaut #}
+    <button
+        type="{{ type }}"
+        class="{{ baseClasses }}"
+        {% if disabled or loading %}disabled{% endif %}
+        {% if loading %}aria-busy="true"{% endif %}
+        {% if disabled and not loading %}aria-disabled="true"{% endif %}
+    >
+        {%- if loading %}
+            <svg class="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+            </svg>
+        {%- elseif iconStart %}
+            <span class="h-5 w-5 shrink-0" aria-hidden="true">{{ iconStart|raw }}</span>
+        {%- endif %}
+        {{ slotContent }}
+        {%- if iconEnd and not loading %}
+            <span class="h-5 w-5 shrink-0" aria-hidden="true">{{ iconEnd|raw }}</span>
+        {%- endif %}
+    </button>
+{%- endif %}
