@@ -78,6 +78,11 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "test": [
+            "@php bin/console tailwind:build --minify",
+            "@php bin/console asset-map:compile",
+            "@php bin/phpunit"
         ]
     },
     "conflict": {
