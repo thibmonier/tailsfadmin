@@ -155,17 +155,21 @@ phases:
       note: "Sprint d'assemblage. i18n via Translation+EventSubscriber (ADR-005). Revue visuelle systématique (leçon S5)."
       goal_file: "sprints/sprint-006-pages_i18n/sprint-goal.md"
       done:
-        - "US-021 ✅ Dashboard e-commerce sur `/` (DashboardController, route nommée `home` = contrat logo sidebar). Assemblage : KPI cards + Badge variation, jauge radialBar (usage direct du contrôleur apexcharts, pas de nouveau composant bundle), tsf:Chart:Bar (ventes) + tsf:Chart:Line area (statistiques), table commandes récentes (Avatar initiales + Badge statut), démographie placeholder (US-019/jsvectormap au backlog)."
-      qualite_us021: "demo 163/163 (dont DashboardTest 7) · bundle PHPStan max 0 · cs-fixer 0 · revue visuelle clair+dark OK (charts montés, toggle thème live, 0 erreur console) · NON commité"
+        - "US-021 ✅ Dashboard e-commerce sur `/` (DashboardController, route nommée `home` = contrat logo sidebar). Assemblage : KPI cards + Badge variation, jauge radialBar (usage direct du contrôleur apexcharts, pas de nouveau composant bundle), tsf:Chart:Bar (ventes) + tsf:Chart:Line area (statistiques), table commandes récentes (Avatar initiales + Badge statut), démographie placeholder (US-019/jsvectormap au backlog). Commit cd1a51a."
+        - "US-022 ✅ Page profil (/profile, ProfileController, POST→PRG sans persistance). Carte méta (Avatar 2xl + identité + réseaux), blocs infos/adresse, 2 modales d'édition (tsf:Ui:Modal + tsf:Form:Input/Textarea, formulaire complet dans le slot body). Boutons Modifier = slot trigger ; Annuler = <button> brut (tsf:Ui:Button ne propage pas {{ attributes }}, donc pas de data-action dessus)."
+        - "fix(modal) ✅ BUG a11y trouvé par la revue console d'US-022 : modal_controller accédait à `this.constructor.#FOCUSABLE` (privé statique) → TypeError dans #trapFocus, focus trap KO (la modale s'affichait quand même, donc l'E2E d'US-011 ne l'avait pas vu). Corrigé : sélecteur en constante de module. Garde de régression ajoutée à ModalE2ETest (focus doit être piégé dans le dialog)."
+      qualite_us021_022: "demo 170/170 (dont DashboardTest 7 + ProfileTest 7) · E2E Panther 5/5 (dont garde focus trap) · bundle PHPStan max 0 · cs-fixer 0 · revue visuelle clair+dark OK (dashboard charts + modale profil ouverte, 0 erreur console après fix)"
       notes_suivi_s6:
         - "HomeController + home/index + HomeControllerTest supprimés (le dashboard devient la landing `/`). Route conservée sous le nom `home` car la sidebar du bundle lie `path('home')`."
         - "Tooling qualité racine (PHPStan/cs-fixer) ne couvre que le bundle src/tests, PAS demo/ — le contrôleur démo n'est pas analysé statiquement (écrit en style Symfony : final, promu, attributs, typé)."
-    next: "Implémentation TDD Sprint 6 — US-022 (profil + modals) → US-023 (auth/utilitaires) → US-024 (i18n + RTL), revue visuelle à chaque page"
+        - "LEÇON confirmée (S5→S6) : la revue console navigateur attrape ce que les tests DOM ET E2E ratent — le bug focus trap modal était invisible en DOM/visuel et l'E2E ne vérifiait que la visibilité. Toujours lire la console à l'ouverture d'un composant JS."
+        - "Gotchas composants réutilisés : (1) tsf:Ui:Button ne rend pas {{ attributes }} → aucun data-*/id ne passe ; utiliser un <button> brut si besoin d'une action Stimulus. (2) _self.macro() ne traverse pas la frontière d'un slot de Twig Component → utiliser {% include %}. (3) SVG passé en prop : :iconStart=\"var\" (bind), jamais iconStart=\"{{ var }}\" (guillemets internes cassent l'attribut)."
+    next: "Implémentation TDD Sprint 6 — US-023 (auth/utilitaires : signin, signup, blank, 404) → US-024 (i18n + RTL), revue visuelle à chaque page"
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
-  etat: "Sprints 1-5 ✅ livrés+poussés (HEAD 40787da). Sprint 6 en cours : US-021 ✅ (dashboard e-commerce, revue clair+dark OK) mais NON commité. US-022/023/024 restent à faire."
-  prochaine_action: "Commiter US-021 (fix/feat sur demo/ — DashboardController, template dashboard, DashboardTest, suppression home), puis implémenter US-022 (page profil + modals d'édition). Voir sprints/sprint-006-pages_i18n/tasks/US-022-tasks.md."
+  etat: "Sprints 1-5 ✅. Sprint 6 en cours : US-021 ✅ (commit cd1a51a) + US-022 ✅ (profil + modales) + fix(modal) focus trap. US-023/024 restent à faire."
+  prochaine_action: "Implémenter US-023 (pages d'authentification + utilitaires : signin, signup, blank, 404). Voir sprints/sprint-006-pages_i18n/tasks/US-023-tasks.md. Puis US-024 (i18n FR/EN + RTL)."
   methode:
     - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
     - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."

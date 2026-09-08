@@ -1,0 +1,12 @@
+{# Barre d'actions commune aux modales profil.
+   Annuler = fermeture via le contrôleur Stimulus modal ; Enregistrer = submit du form parent. #}
+<div class="mt-6 flex items-center justify-end gap-3">
+    <button
+        type="button"
+        data-action="click->tailsfadmin--modal#close"
+        class="inline-flex items-center justify-center rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs ring-1 ring-inset ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]"
+    >
+        Annuler
+    </button>
+    <twig:tsf:Ui:Button variant="primary" type="submit">Enregistrer les modifications</twig:tsf:Ui:Button>
+</div>
