@@ -24,7 +24,8 @@
 {%- set variantClasses = variantConfig[variant] ?? variantConfig['primary'] -%}
 {%- set sizeClasses    = sizeConfig[size]       ?? sizeConfig['sm']         -%}
 
-{%- set baseClasses = 'inline-flex items-center justify-center gap-2 rounded-lg font-medium transition ' ~ variantClasses ~ ' ' ~ sizeClasses -%}
+{%- set widthClass = block ? 'flex w-full' : 'inline-flex' -%}
+{%- set baseClasses = widthClass ~ ' items-center justify-center gap-2 rounded-lg font-medium transition ' ~ variantClasses ~ ' ' ~ sizeClasses -%}
 
 {# Capture le slot (content block) une seule fois — évite la double définition #}
 {%- set slotContent %}{% block content %}{% endblock %}{% endset -%}

@@ -45,6 +45,9 @@ final class Button
      */
     public string $iconEnd = '';
 
+    /** Si true, occupe toute la largeur disponible (w-full) — utile pour les CTA de formulaire. */
+    public bool $block = false;
+
     /** Si true, affiche un spinner et positionne aria-busy="true". */
     public bool $loading = false;
 
