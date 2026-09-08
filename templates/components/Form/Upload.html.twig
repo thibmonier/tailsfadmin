@@ -1,0 +1,56 @@
+{#
+  Composant Upload — tsf:Form:Upload
+  US-016 : zone drag&drop stylée TailAdmin + contrôleur tailsfadmin--dropzone (Dropzone v6 vendoré).
+  Aucun Alpine.js. Aucun CDN runtime.
+
+  La zone est câblée à data-controller="tailsfadmin--dropzone".
+  Dropzone utilise les enfants .dz-message, .dz-preview comme templates internes.
+  Le CSS Dropzone est chargé par AssetMapper (importmap.php, type: css).
+#}
+
+<div class="space-y-1.5">
+    {%- if label is not empty -%}
+    <p class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+        {{ label }}
+    </p>
+    {%- endif -%}
+
+    {# Zone Dropzone : classe "dropzone" attendue par la lib pour le style de base
+       + classes TailAdmin pour le thème visuel #}
+    <div
+        class="dropzone group cursor-pointer rounded-xl border-2 border-dashed border-gray-300 bg-white p-8 text-center transition-colors hover:border-brand-400 dark:border-gray-700 dark:bg-gray-900 dark:hover:border-brand-600"
+        data-controller="tailsfadmin--dropzone"
+        data-tailsfadmin--dropzone-url-value="{{ url }}"
+        data-tailsfadmin--dropzone-max-files-value="{{ maxFiles }}"
+        data-tailsfadmin--dropzone-max-filesize-value="{{ maxFilesize }}"
+        data-tailsfadmin--dropzone-accepted-files-value="{{ acceptedFiles }}"
+        data-tailsfadmin--dropzone-param-name-value="{{ paramName }}"
+    >
+        {# Message par défaut (remplacé dynamiquement par Dropzone JS) #}
+        <div class="dz-message pointer-events-none flex flex-col items-center gap-3">
+            {# Icône upload #}
+            <div class="flex h-14 w-14 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-800">
+                <svg class="h-6 w-6 fill-gray-500 dark:fill-gray-400" viewBox="0 0 24 24" aria-hidden="true">
+                    <path fill-rule="evenodd" clip-rule="evenodd"
+                        d="M12 2a1 1 0 0 1 .707.293l4 4a1 1 0 0 1-1.414 1.414L13 5.414V15a1 1 0 1 1-2 0V5.414L8.707 7.707A1 1 0 0 1 7.293 6.293l4-4A1 1 0 0 1 12 2ZM4 17a1 1 0 0 1 1 1v1h14v-1a1 1 0 1 1 2 0v1a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-1a1 1 0 0 1 1-1Z"/>
+                </svg>
+            </div>
+
+            {# Textes #}
+            <div>
+                <p class="text-sm font-medium text-gray-700 dark:text-white/80">
+                    {{ hint }}
+                </p>
+                <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">
+                    {{ subHint }}
+                </p>
+                {%- if acceptedFiles is not empty or maxFilesize > 0 -%}
+                <p class="mt-2 text-xs text-gray-400 dark:text-gray-500">
+                    {%- if maxFilesize > 0 -%}Max {{ maxFilesize }}&nbsp;Mo par fichier.{%- endif -%}
+                    {%- if acceptedFiles is not empty %} Types : {{ acceptedFiles }}.{%- endif -%}
+                </p>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
