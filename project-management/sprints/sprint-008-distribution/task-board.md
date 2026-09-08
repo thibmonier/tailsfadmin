@@ -7,12 +7,6 @@
 
 | ID | US | Tâche | Est. |
 |----|-----|-------|------|
-| T-030-01 | US-030 | Script création app vierge + install | 3h |
-| T-030-02 | US-030 | Appliquer étapes documentées | 2h |
-| T-030-03 | US-030 | Smoke : layout admin + JS monté | 3h |
-| T-030-04 | US-030 | Scénario d'échec vendoring | 1.5h |
-| T-030-05 | US-030 | Job CI `integration` bloquant | 1.5h |
-| T-030-06 | US-030 | Review | 0.5h |
 | T-031-01 | US-031 | Nettoyage métadonnées composer.json | 2h |
 | T-031-02 | US-031 | LICENSE + alignement package.json | 1h |
 | T-031-03 | US-031 | `composer validate --strict` CI | 1h |
@@ -57,6 +51,12 @@
 | T-028-04 | US-028 | Doc intégration Tailwind hôte | `README.md` §2 Thème CSS |
 | T-028-05 | US-028 | Spec smoke CSS (exécutée US-030) | `specs/css-smoke-spec.md` |
 | T-028-06 | US-028 | Review CSS + build démo vert | DoD ✅ |
+| T-030-01 | US-030 | Script app vierge + install (archive dist) | `tests/integration/create-app.sh` |
+| T-030-02 | US-030 | Étapes documentées appliquées | `tests/integration/apply-steps.sh` |
+| T-030-03 | US-030 | Smoke nominal (layout + Dropdown monté) | `fixtures/SmokeTest.php` |
+| T-030-04 | US-030 | Scénario échec vendoring (marqueur DOM) | `fixtures/SmokeTest.php` |
+| T-030-05 | US-030 | Job CI `integration` matrice 7.3/8.0 | `.github/workflows/ci.yml` |
+| T-030-06 | US-030 | Review (statique : bash -n, php -l, biome) | ⚠️ vert e2e = 1er run CI |
 
 ## 🚫 Bloqué
 | ID | US | Raison | Action |

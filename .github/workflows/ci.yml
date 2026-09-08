@@ -155,3 +155,59 @@ jobs:
           PANTHER_NO_SANDBOX: '1'
           PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
         run: php bin/phpunit --testsuite e2e
+
+  integration:
+    name: Intégration — app Symfony vierge (consommabilité tierce, US-030)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        symfony: ['7.3', '8.0']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Setup Chrome + ChromeDriver
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
+
+      - name: Résoudre les binaires Chrome (Linux)
+        run: |
+          echo "PANTHER_CHROME_BINARY=$(command -v chrome || echo '${{ steps.setup-chrome.outputs.chrome-path }}')" >> "$GITHUB_ENV"
+          echo "PANTHER_CHROME_DRIVER_BINARY=$(command -v chromedriver)" >> "$GITHUB_ENV"
+
+      # L'app vierge est créée HORS du dépôt (répertoire distinct de demo/).
+      - name: Créer l'app tierce + installer le bundle (archive dist)
+        run: bash tests/integration/create-app.sh "$RUNNER_TEMP/host-app" "${{ matrix.symfony }}"
+
+      - name: Appliquer les étapes d'intégration documentées
+        run: bash tests/integration/apply-steps.sh "$RUNNER_TEMP/host-app"
+
+      # Phase 1 — AVANT vendoring : le garde-fou doit signaler la lib manquante.
+      - name: Build assets (sans assets:install) + smoke ÉCHEC
+        working-directory: ${{ runner.temp }}/host-app
+        run: |
+          php bin/console tailwind:build --minify
+          php bin/console asset-map:compile
+          php bin/phpunit --group failure
+
+      # Phase 2 — APRÈS vendoring : la page admin nominale doit fonctionner.
+      - name: tailsfadmin:assets:install (vendoring) + rebuild
+        working-directory: ${{ runner.temp }}/host-app
+        run: |
+          php bin/console tailsfadmin:assets:install --no-interaction
+          php bin/console tailwind:build --minify
+          php bin/console asset-map:compile
+
+      - name: Smoke NOMINAL (layout admin + composant JS monté)
+        working-directory: ${{ runner.temp }}/host-app
+        run: php bin/phpunit --group nominal

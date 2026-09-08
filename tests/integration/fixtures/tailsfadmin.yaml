@@ -1,0 +1,10 @@
+# Config du bundle dans l'app hôte de test (US-030).
+# Menu minimal + i18n : suffisant pour rendre le layout admin (sidebar/header).
+tailsfadmin:
+    default_locale: en
+    locales: ['en', 'fr']
+    menu:
+        - group: Application
+          items:
+              - { label: Dashboard, path: /, icon: dashboard }
+              - { label: Charts, path: /chart, icon: dashboard }

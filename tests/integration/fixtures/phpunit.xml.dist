@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- phpunit de l'app hôte de test (US-030). Panther lit les binaires Chrome
+     depuis l'environnement (PANTHER_CHROME_BINARY / _DRIVER_BINARY, posés par
+     le job CI, comme le job e2e). -->
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         failOnWarning="true">
+    <php>
+        <ini name="display_errors" value="1"/>
+        <server name="APP_ENV" value="dev" force="true"/>
+        <server name="PANTHER_NO_SANDBOX" value="1"/>
+        <server name="PANTHER_CHROME_ARGUMENTS" value="--disable-dev-shm-usage --headless=new --no-sandbox"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="smoke">
+            <directory>tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

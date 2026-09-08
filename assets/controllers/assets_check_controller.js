@@ -52,6 +52,10 @@ export default class extends Controller {
                     "Exécutez « php bin/console tailsfadmin:assets:install » " +
                     "pour les ajouter à l'importmap (vendoring local, sans CDN).",
             );
+            // Marqueur DOM (en plus de l'erreur console) : permet à un outil ou à
+            // un test d'intégration (US-030) de détecter l'absence de vendoring de
+            // façon déterministe, sans dépendre de la capture des logs navigateur.
+            document.documentElement.dataset.tailsfadminMissingLibs = missing.join(",");
         }
     }
 }

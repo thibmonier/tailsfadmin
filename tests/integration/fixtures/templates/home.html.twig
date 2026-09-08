@@ -1,0 +1,20 @@
+{# Page admin nominale (US-030) : layout du bundle + composants montés JS. #}
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block content %}
+    <twig:tsf:Ui:Card title="Integration smoke">
+        <twig:block name="body">
+            <p data-testid="smoke-ok">Le bundle est monté hors monorepo.</p>
+
+            {# Composant JS sans dépendance tierce : doit monter réellement. #}
+            <twig:tsf:Ui:Dropdown align="left">
+                <twig:block name="trigger">
+                    <button type="button" data-testid="dd-trigger">Ouvrir le menu</button>
+                </twig:block>
+                <twig:block name="menu">
+                    <a href="#" data-testid="dd-item">Élément</a>
+                </twig:block>
+            </twig:tsf:Ui:Dropdown>
+        </twig:block>
+    </twig:tsf:Ui:Card>
+{% endblock %}

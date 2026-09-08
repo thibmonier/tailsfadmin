@@ -12,14 +12,25 @@
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-030-01 | [OPS] | Script création app Symfony neuve + install bundle (VCS/path) | 3h | US-027, US-028 | 🔲 |
-| T-030-02 | [OPS] | Appliquer les étapes documentées (assets 027, CSS 028, recette 029 si prête) | 2h | T-030-01 | 🔲 |
-| T-030-03 | [TEST] | Smoke : layout admin → 200 + sidebar/header + CSS + 1 composant JS | 3h | T-030-02 | 🔲 |
-| T-030-04 | [TEST] | Scénario d'échec (vendoring manquant → rouge + message) | 1.5h | T-030-03 | 🔲 |
-| T-030-05 | [OPS] | Job CI `integration` bloquant sur PR (matrice Symfony si pertinent) | 1.5h | T-030-03, T-030-04 | 🔲 |
-| T-030-06 | [REV] | Review | 0.5h | T-030-05 | 🔲 |
+| T-030-01 | [OPS] | Script création app Symfony neuve + install bundle (VCS/path) | 3h | US-027, US-028 | ✅ |
+| T-030-02 | [OPS] | Appliquer les étapes documentées (assets 027, CSS 028, recette 029 si prête) | 2h | T-030-01 | ✅ |
+| T-030-03 | [TEST] | Smoke : layout admin → 200 + sidebar/header + CSS + 1 composant JS | 3h | T-030-02 | ✅ |
+| T-030-04 | [TEST] | Scénario d'échec (vendoring manquant → rouge + message) | 1.5h | T-030-03 | ✅ |
+| T-030-05 | [OPS] | Job CI `integration` bloquant sur PR (matrice Symfony si pertinent) | 1.5h | T-030-03, T-030-04 | ✅ |
+| T-030-06 | [REV] | Review | 0.5h | T-030-05 | ✅ |
 
-**Total : 11.5h**
+**Total : 11.5h — US-030 implémentée (2026-09-08)**
+
+> **Décisions (validées)** : installation via **archive dist** (`composer archive`,
+> honore export-ignore → fidèle Packagist) ; **app éphémère** (recréée par le job,
+> hors dépôt) ; **matrice Symfony 7.3 + 8.0** (`SYMFONY_REQUIRE`).
+> **Livrables** : `tests/integration/{create-app,apply-steps}.sh`, `fixtures/*`,
+> job `integration` dans `ci.yml` (deux phases : échec avant vendoring → nominal
+> après). Garde-fou d'échec rendu déterministe via un marqueur DOM
+> `data-tailsfadmin-missing-libs` ajouté au préflight US-027.
+> **⚠️ Acceptation finale = 1er run CI** : vérifs locales limitées au statique
+> (`bash -n`, `php -l`, Biome, 28 tests bundle verts) ; le bout-en-bout Panther
+> exige réseau (`composer create-project`) + Chrome, donc s'exécute en CI.
 
 ---
 
