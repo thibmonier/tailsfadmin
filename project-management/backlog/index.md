@@ -75,10 +75,10 @@
 ### EPIC-006 — Pages applicatives & i18n
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-021 | Dashboard e-commerce (assemblage) | 5 | Must | 5 | 🔴 |
-| US-022 | Page profil + modals | 5 | Should | 5 | 🔴 |
-| US-023 | Pages auth + utilitaires | 5 | Should | 5 | 🔴 |
-| US-024 | i18n FR/EN + RTL + sélecteur | 8 | Should | 5 | 🔴 |
+| US-021 | Dashboard e-commerce (assemblage) | 5 | Must | 6 | 🔴 |
+| US-022 | Page profil + modals | 5 | Should | 6 | 🔴 |
+| US-023 | Pages auth + utilitaires | 5 | Should | 6 | 🔴 |
+| US-024 | i18n FR/EN + RTL + sélecteur | 8 | Should | 6 | 🔴 |
 
 ### EPIC-007 — Qualité, accessibilité & documentation
 | ID | Titre | Points | Priorité | Sprint | Statut |

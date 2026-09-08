@@ -145,7 +145,31 @@ phases:
         - "assets/vendor versionnés (reproductibilité offline)"
       qualite: "composer test 157/157 + 5 E2E Panther · PHPStan max 0 · cs-fixer 0 · commité (6 commits)"
     bilan_global: "5 sprints · 17 US · 101 pts livrés · ~30 commits · démo fidèle TailAdmin (clair+dark), widgets JS fonctionnels"
-    next: "Sprint 6 : EPIC-006 pages applicatives (US-021 dashboard e-commerce — assemble les charts, US-022 profil, US-023 auth, US-024 i18n)"
+    correctifs_post_demo:
+      - "fix(ui) 5e78c53 : double chevron select, select multiple (min-h/size), ouverture dropdowns (data-action#toggle manquant depuis S3) — vérifié navigateur, poussé. Bug dropdown = angle mort tests DOM → test de régression ajouté."
+    sprint_6:
+      status: decomposed         # /workflow:start 6 + /project:decompose-tasks 006
+      but: "Pages applicatives & i18n (assemblage)"
+      scope: "US-021 (5) + US-022 (5) + US-023 (5) + US-024 (8) = 23 pts ; US-019 carte optionnelle dans US-021"
+      tasks: "27 tâches, ~54h"
+      note: "Sprint d'assemblage. i18n via Translation+EventSubscriber (ADR-005). Revue visuelle systématique (leçon S5)."
+      goal_file: "sprints/sprint-006-pages_i18n/sprint-goal.md"
+    next: "Implémentation TDD Sprint 6 — US-021 (dashboard) → US-022 → US-023 → US-024, revue visuelle à chaque page"
+
+# ─── POINT DE REPRISE (après /clear) ────────────────────────────────
+reprise:
+  etat: "Sprints 1-5 ✅ livrés+poussés (origin, branche feature/sprint-001-walking-skeleton, HEAD 5e78c53). Sprint 6 décomposé, PAS commencé."
+  prochaine_action: "Implémenter US-021 (dashboard e-commerce) — assemblage des composants existants. Voir sprints/sprint-006-pages_i18n/tasks/US-021-tasks.md."
+  methode:
+    - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
+    - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."
+    - "Après modif d'un Twig Component : cache:clear. Recharger la MÊME url avec #hash ne recharge pas (ajouter ?v=N)."
+    - "Vérifier via composer test (rapide) + composer test:e2e (Panther, montage JS réel). PHPStan max 0, php-cs-fixer 0."
+  outils_env: "PHP 8.5, Symfony 8.1.6, Tailwind v4 (symfonycasts/tailwind-bundle), FrankenPHP, Panther (drivers dans demo/drivers/). Démo : cd demo && composer test."
+  refs_cle:
+    - "project-management/workflow-status.yaml (ce fichier) · tech-spec.md · docs/adr/*"
+    - "sprints/sprint-006-pages_i18n/ (goal, tasks/, board)"
+    - "Sources TailAdmin : Tools/sources/ (gitignoré, restaurables via script si absentes)"
 
 next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
 next_command: "/workflow:implement   (ou /sprint:dev US-001)"
