@@ -23,6 +23,12 @@ cat > assets/styles/app.css <<'CSS'
 @import "../../vendor/tailsfadmin/tailsfadmin-bundle/assets/styles/theme.css";
 CSS
 
+echo "==> Config binaire Tailwind (la recette ne pose pas toujours binary_version)"
+cat > config/packages/symfonycasts_tailwind.yaml <<'YAML'
+symfonycasts_tailwind:
+    binary_version: v4.3.3
+YAML
+
 echo "==> Config + fixtures (menu/i18n, routes home + locale_switch, pages, test)"
 cp "$FIX/tailsfadmin.yaml" config/packages/tailsfadmin.yaml
 mkdir -p src/Controller templates tests
