@@ -52,7 +52,7 @@
 | T-030-03 | US-030 | Smoke nominal (layout + Dropdown monté) | `fixtures/SmokeTest.php` |
 | T-030-04 | US-030 | Scénario échec vendoring (marqueur DOM) | `fixtures/SmokeTest.php` |
 | T-030-05 | US-030 | Job CI `integration` matrice 7.3/8.0 | `.github/workflows/ci.yml` |
-| T-030-06 | US-030 | Review (statique : bash -n, php -l, biome) | ⚠️ vert e2e = 1er run CI |
+| T-030-06 | US-030 | Review — CI `integration` VERTE (PR #1) | ✅ 5/5 jobs verts |
 | T-031-01 | US-031 | Nettoyage métadonnées composer.json (version retirée, deps, support) | `composer validate --strict` ✅ |
 | T-031-02 | US-031 | LICENSE MIT + package.json clarifié | `LICENSE` |
 | T-031-03 | US-031 | `composer validate --strict` bloquant en CI | job `bundle` |

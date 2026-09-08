@@ -28,9 +28,17 @@
 > job `integration` dans `ci.yml` (deux phases : échec avant vendoring → nominal
 > après). Garde-fou d'échec rendu déterministe via un marqueur DOM
 > `data-tailsfadmin-missing-libs` ajouté au préflight US-027.
-> **⚠️ Acceptation finale = 1er run CI** : vérifs locales limitées au statique
-> (`bash -n`, `php -l`, Biome, 28 tests bundle verts) ; le bout-en-bout Panther
-> exige réseau (`composer create-project`) + Chrome, donc s'exécute en CI.
+> **✅ CI VERTE (PR #1)** — job `integration` au vert. Le test a exposé et fait
+> corriger plusieurs vrais défauts de consommabilité, invisibles dans la démo
+> (couplée) :
+> - dépendances implicites manquantes ajoutées au bundle : `symfony/asset`,
+>   `symfony/form`, et `symfony/stimulus-bundle` élargi à `^3.0` ;
+> - path AssetMapper `bundles/tailsfadmin` à déclarer côté hôte (le `prepend()`
+>   ne survit pas au merge Flex) — documenté (README §1) + posé par apply-steps ;
+> - scénario d'échec rendu déterministe au niveau importmap (les contrôleurs
+>   `eager` cassent tout préflight navigateur quand une lib manque) ;
+> - matrice réduite à la dernière Symfony stable (le forçage 7.3/8.0 via Flex
+>   global ne réécrit pas le skeleton 8.x) — multi-version = suivi dédié.
 
 ---
 
