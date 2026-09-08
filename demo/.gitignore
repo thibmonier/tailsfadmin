@@ -16,5 +16,6 @@
 
 ###> symfony/asset-mapper ###
 /public/assets/
-/assets/vendor/
+# /assets/vendor/ est VOLONTAIREMENT versionné (libs vendorées via importmap) :
+# reproductibilité + démarrage offline de la démo, cohérent avec « zéro CDN ».
 ###< symfony/asset-mapper ###

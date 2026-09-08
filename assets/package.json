@@ -42,6 +42,30 @@
                 "main": "controllers/modal_controller.js",
                 "fetch": "eager",
                 "enabled": true
+            },
+            "datepicker": {
+                "name": "tailsfadmin--datepicker",
+                "main": "controllers/datepicker_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "dropzone": {
+                "name": "tailsfadmin--dropzone",
+                "main": "controllers/dropzone_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "apexcharts": {
+                "name": "tailsfadmin--apexcharts",
+                "main": "controllers/apexcharts_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "calendar": {
+                "name": "tailsfadmin--calendar",
+                "main": "controllers/calendar_controller.js",
+                "fetch": "eager",
+                "enabled": true
             }
         }
     }

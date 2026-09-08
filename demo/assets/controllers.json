@@ -28,6 +28,22 @@
             "modal": {
                 "enabled": true,
                 "fetch": "eager"
+            },
+            "datepicker": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "dropzone": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "apexcharts": {
+                "enabled": true,
+                "fetch": "eager"
+            },
+            "calendar": {
+                "enabled": true,
+                "fetch": "eager"
             }
         }
     },
