@@ -1,15 +1,19 @@
 {
     "name": "tailsfadmin/tailsfadmin-bundle",
     "description": "Thème admin Symfony basé sur TailAdmin — bundle réutilisable (Symfony UX, Stimulus, AssetMapper)",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "type": "symfony-bundle",
     "license": "MIT",
+    "homepage": "https://github.com/thibmonier/tailsfadmin",
     "keywords": [
         "symfony",
         "symfony-ux",
+        "stimulus",
         "admin",
+        "dashboard",
         "theme",
-        "tailwind"
+        "tailwind",
+        "tailadmin"
     ],
     "authors": [
         {
@@ -47,6 +51,11 @@
     },
     "config": {
         "sort-packages": true
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
     },
     "minimum-stability": "stable",
     "prefer-stable": true

@@ -63,6 +63,66 @@ composer require tailsfadmin/tailsfadmin-bundle
 
 Le bundle est activé automatiquement par Symfony Flex.
 
+## Configuration & prise en main
+
+### 1. Assets (AssetMapper + importmap)
+
+Les contrôleurs Stimulus du bundle sont exposés sous `bundles/tailsfadmin`.
+Assurez-vous que votre `config/packages/asset_mapper.yaml` mappe ce chemin et
+que Stimulus est démarré (`assets/bootstrap.js` du skeleton). Compilez avec :
+
+```bash
+php bin/console tailwind:build   # CSS Tailwind v4 (symfonycasts/tailwind-bundle)
+php bin/console asset-map:compile
+```
+
+### 2. Menu de la sidebar (`config/packages/tailsfadmin.yaml`)
+
+Les `label` sont des **clés de traduction** (voir i18n ci-dessous) ou des libellés bruts :
+
+```yaml
+tailsfadmin:
+    default_locale: fr
+    locales: ['fr', 'en']       # whitelist de la bascule de langue
+    rtl_locales: ['ar']
+    menu:
+        - group: menu.groups.menu
+          items:
+              - { label: menu.dashboard, path: /, icon: dashboard }
+              - label: menu.tables
+                path: /tables
+                icon: tables
+                children:
+                    - { label: menu.tables_basic, path: /tables/basic }
+```
+
+### 3. Layout d'une page
+
+```twig
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Tableau de bord" />{% endblock %}
+{% block content %}
+    <twig:tsf:Ui:Card title="Bienvenue">
+        <twig:block name="body">Votre première page tailsfadmin.</twig:block>
+    </twig:tsf:Ui:Card>
+{% endblock %}
+```
+
+> Le layout attend une route nommée **`home`** (logo de la sidebar) et
+> **`locale_switch`** si vous utilisez le sélecteur de langue.
+
+### 4. Internationalisation (optionnel)
+
+Installez `symfony/translation`, réglez `framework.default_locale` + `enabled_locales`,
+et fournissez vos catalogues. Le bundle expose ses propres traductions du chrome
+(header, breadcrumb…) et les helpers Twig `tsf_dir()` / `tsf_locales()`.
+
+### 5. Catalogue des composants
+
+Tous les composants `<twig:tsf:… />` (props, slots, exemples) sont documentés
+dans **[docs/components.md](docs/components.md)** ; une galerie vivante est
+servie sur `/ui-kit` dans la démo.
+
 ## Commandes de développement
 
 ```bash
@@ -80,7 +140,16 @@ composer test
 
 # Tests fonctionnels de la démo
 cd demo && php bin/phpunit
+
+# Tests E2E (montage JS réel + audit accessibilité axe-core)
+cd demo && composer test:e2e
+
+# Lint des contrôleurs Stimulus (Biome)
+npx @biomejs/biome check assets/controllers/
 ```
+
+Le versionnement suit **SemVer** ; les évolutions sont consignées dans
+[CHANGELOG.md](CHANGELOG.md) (format Keep a Changelog).
 
 ## Vérifications DoD
 

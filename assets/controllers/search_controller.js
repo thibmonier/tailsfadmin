@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 /**
  * Contrôleur Stimulus search — tailsfadmin--search
@@ -16,16 +16,16 @@ import { Controller } from '@hotwired/stimulus';
  *   - panel : conteneur de la recherche (affiché/masqué)
  */
 export default class extends Controller {
-    static targets = ['input', 'panel'];
-    static values  = { open: { type: Boolean, default: false } };
+    static targets = ["input", "panel"];
+    static values = { open: { type: Boolean, default: false } };
 
     connect() {
         this.#keydown = this.#onKeydown.bind(this);
-        document.addEventListener('keydown', this.#keydown);
+        document.addEventListener("keydown", this.#keydown);
     }
 
     disconnect() {
-        document.removeEventListener('keydown', this.#keydown);
+        document.removeEventListener("keydown", this.#keydown);
     }
 
     // ─── Actions publiques ────────────────────────────────────────────────────
@@ -47,7 +47,7 @@ export default class extends Controller {
 
     /** Ferme si Échap est pressé dans le champ */
     handleEscape(event) {
-        if (event.key === 'Escape') {
+        if (event.key === "Escape") {
             this.close();
         }
     }
@@ -60,8 +60,8 @@ export default class extends Controller {
         // Ignorer si un champ de formulaire est déjà actif
         if (this.#isFormFieldFocused()) return;
 
-        const isCmdK = (event.metaKey || event.ctrlKey) && event.key === 'k';
-        const isSlash = event.key === '/' && !event.metaKey && !event.ctrlKey && !event.altKey;
+        const isCmdK = (event.metaKey || event.ctrlKey) && event.key === "k";
+        const isSlash = event.key === "/" && !event.metaKey && !event.ctrlKey && !event.altKey;
 
         if (isCmdK || isSlash) {
             event.preventDefault(); // Évite "k" ou "/" dans le champ
@@ -74,7 +74,7 @@ export default class extends Controller {
         if (!active) return false;
 
         const tag = active.tagName.toLowerCase();
-        if (tag === 'input' || tag === 'textarea' || tag === 'select') return true;
+        if (tag === "input" || tag === "textarea" || tag === "select") return true;
         if (active.isContentEditable) return true;
 
         // Ne pas ignorer si l'input focusé est celui de notre propre recherche
@@ -86,9 +86,9 @@ export default class extends Controller {
     #applyOpen() {
         if (this.hasPanelTarget) {
             if (this.openValue) {
-                this.panelTarget.removeAttribute('hidden');
+                this.panelTarget.removeAttribute("hidden");
             } else {
-                this.panelTarget.setAttribute('hidden', '');
+                this.panelTarget.setAttribute("hidden", "");
             }
         }
     }

@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 /**
  * Contrôleur Stimulus "theme" — bascule clair/dark persistante.
@@ -21,7 +21,7 @@ export default class extends Controller {
 
     toggle() {
         const current = this.#resolveTheme();
-        const next = current === 'dark' ? 'light' : 'dark';
+        const next = current === "dark" ? "light" : "dark";
         this.#persist(next);
         this.#applyTheme(next);
     }
@@ -31,28 +31,32 @@ export default class extends Controller {
     /** Retourne la préférence courante : localStorage, puis prefers-color-scheme. */
     #resolveTheme() {
         try {
-            const stored = localStorage.getItem('theme');
-            if (stored === 'dark' || stored === 'light') {
+            const stored = localStorage.getItem("theme");
+            if (stored === "dark" || stored === "light") {
                 return stored;
             }
-        } catch (_) { /* localStorage bloqué */ }
+        } catch (_) {
+            /* localStorage bloqué */
+        }
 
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
     }
 
     /** Applique ou retire la classe .dark sur <html>. */
     #applyTheme(theme) {
-        if (theme === 'dark') {
-            document.documentElement.classList.add('dark');
+        if (theme === "dark") {
+            document.documentElement.classList.add("dark");
         } else {
-            document.documentElement.classList.remove('dark');
+            document.documentElement.classList.remove("dark");
         }
     }
 
     /** Persiste le choix dans localStorage (silencieux si bloqué). */
     #persist(theme) {
         try {
-            localStorage.setItem('theme', theme);
-        } catch (_) { /* localStorage bloqué, dégradation silencieuse */ }
+            localStorage.setItem("theme", theme);
+        } catch (_) {
+            /* localStorage bloqué, dégradation silencieuse */
+        }
     }
 }

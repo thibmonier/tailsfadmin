@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 /**
  * Contrôleur Stimulus sidebar — tailsfadmin--sidebar
@@ -16,27 +16,27 @@ import { Controller } from '@hotwired/stimulus';
  *   - collapsed (Boolean) : état collapsed desktop
  */
 export default class extends Controller {
-    static targets = ['sidebar', 'overlay'];
-    static values  = {
-        open:      { type: Boolean, default: false },
+    static targets = ["sidebar", "overlay"];
+    static values = {
+        open: { type: Boolean, default: false },
         collapsed: { type: Boolean, default: false },
     };
 
     connect() {
         // Restaurer l'état desktop depuis localStorage
-        const stored = this.#storageGet('sidebar-collapsed');
+        const stored = this.#storageGet("sidebar-collapsed");
         if (stored !== null) {
-            this.collapsedValue = stored === 'true';
+            this.collapsedValue = stored === "true";
         }
         this.#applyCollapsed();
 
         // Fermer le drawer mobile sur Échap
         this.#handleKeydown = this.#onKeydown.bind(this);
-        document.addEventListener('keydown', this.#handleKeydown);
+        document.addEventListener("keydown", this.#handleKeydown);
     }
 
     disconnect() {
-        document.removeEventListener('keydown', this.#handleKeydown);
+        document.removeEventListener("keydown", this.#handleKeydown);
     }
 
     // ─── Actions publiques ────────────────────────────────────────────────────
@@ -58,7 +58,7 @@ export default class extends Controller {
     /** Bascule collapse/expand desktop */
     toggle() {
         this.collapsedValue = !this.collapsedValue;
-        this.#storageSet('sidebar-collapsed', String(this.collapsedValue));
+        this.#storageSet("sidebar-collapsed", String(this.collapsedValue));
         this.#applyCollapsed();
     }
 
@@ -67,7 +67,7 @@ export default class extends Controller {
     #handleKeydown = null;
 
     #onKeydown(event) {
-        if (event.key === 'Escape' && this.openValue) {
+        if (event.key === "Escape" && this.openValue) {
             this.close();
         }
     }
@@ -76,19 +76,19 @@ export default class extends Controller {
         if (!this.hasSidebarTarget) return;
 
         if (this.openValue) {
-            this.sidebarTarget.classList.remove('-translate-x-full');
-            this.sidebarTarget.classList.add('translate-x-0');
+            this.sidebarTarget.classList.remove("-translate-x-full");
+            this.sidebarTarget.classList.add("translate-x-0");
             if (this.hasOverlayTarget) {
-                this.overlayTarget.classList.remove('hidden');
+                this.overlayTarget.classList.remove("hidden");
             }
-            document.body.classList.add('overflow-hidden');
+            document.body.classList.add("overflow-hidden");
         } else {
-            this.sidebarTarget.classList.add('-translate-x-full');
-            this.sidebarTarget.classList.remove('translate-x-0');
+            this.sidebarTarget.classList.add("-translate-x-full");
+            this.sidebarTarget.classList.remove("translate-x-0");
             if (this.hasOverlayTarget) {
-                this.overlayTarget.classList.add('hidden');
+                this.overlayTarget.classList.add("hidden");
             }
-            document.body.classList.remove('overflow-hidden');
+            document.body.classList.remove("overflow-hidden");
         }
     }
 
@@ -96,13 +96,13 @@ export default class extends Controller {
         if (!this.hasSidebarTarget) return;
 
         if (this.collapsedValue) {
-            this.sidebarTarget.classList.add('sidebar-collapsed');
-            this.sidebarTarget.classList.remove('w-[290px]');
-            this.sidebarTarget.classList.add('w-[88px]');
+            this.sidebarTarget.classList.add("sidebar-collapsed");
+            this.sidebarTarget.classList.remove("w-[290px]");
+            this.sidebarTarget.classList.add("w-[88px]");
         } else {
-            this.sidebarTarget.classList.remove('sidebar-collapsed');
-            this.sidebarTarget.classList.add('w-[290px]');
-            this.sidebarTarget.classList.remove('w-[88px]');
+            this.sidebarTarget.classList.remove("sidebar-collapsed");
+            this.sidebarTarget.classList.add("w-[290px]");
+            this.sidebarTarget.classList.remove("w-[88px]");
         }
     }
 
@@ -111,16 +111,16 @@ export default class extends Controller {
         if (!this.hasSidebarTarget) return;
 
         const focusable = this.sidebarTarget.querySelectorAll(
-            'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])'
+            'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])',
         );
         const first = focusable[0];
-        const last  = focusable[focusable.length - 1];
+        const last = focusable[focusable.length - 1];
 
         if (!first) return;
         first.focus();
 
         this.#focusTrapHandler = (e) => {
-            if (e.key !== 'Tab') return;
+            if (e.key !== "Tab") return;
             if (e.shiftKey) {
                 if (document.activeElement === first) {
                     e.preventDefault();
@@ -133,22 +133,30 @@ export default class extends Controller {
                 }
             }
         };
-        this.sidebarTarget.addEventListener('keydown', this.#focusTrapHandler);
+        this.sidebarTarget.addEventListener("keydown", this.#focusTrapHandler);
     }
 
     #releaseFocus() {
         if (!this.hasSidebarTarget || !this.#focusTrapHandler) return;
-        this.sidebarTarget.removeEventListener('keydown', this.#focusTrapHandler);
+        this.sidebarTarget.removeEventListener("keydown", this.#focusTrapHandler);
         this.#focusTrapHandler = null;
     }
 
     #focusTrapHandler = null;
 
     #storageGet(key) {
-        try { return localStorage.getItem(key); } catch { return null; }
+        try {
+            return localStorage.getItem(key);
+        } catch {
+            return null;
+        }
     }
 
     #storageSet(key, value) {
-        try { localStorage.setItem(key, value); } catch { /* ignoré */ }
+        try {
+            localStorage.setItem(key, value);
+        } catch {
+            /* ignoré */
+        }
     }
 }

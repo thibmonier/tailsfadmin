@@ -7,7 +7,7 @@ const FOCUSABLE_SELECTOR = [
     "input:not([disabled])",
     "select:not([disabled])",
     "textarea:not([disabled])",
-    "[tabindex]:not([tabindex=\"-1\"])",
+    '[tabindex]:not([tabindex="-1"])',
 ].join(", ");
 
 /**
@@ -89,7 +89,11 @@ export default class extends Controller {
 
     /** Ferme la modale sur Échap. */
     #onKeydown(event) {
-        if (event.key === "Escape" && this.hasPanelTarget && !this.panelTarget.hasAttribute("hidden")) {
+        if (
+            event.key === "Escape" &&
+            this.hasPanelTarget &&
+            !this.panelTarget.hasAttribute("hidden")
+        ) {
             this.close();
         }
     }
@@ -101,14 +105,14 @@ export default class extends Controller {
     #trapFocus() {
         if (!this.hasPanelTarget) return;
 
-        const focusable = Array.from(
-            this.panelTarget.querySelectorAll(FOCUSABLE_SELECTOR)
-        ).filter((el) => !el.closest("[hidden]"));
+        const focusable = Array.from(this.panelTarget.querySelectorAll(FOCUSABLE_SELECTOR)).filter(
+            (el) => !el.closest("[hidden]"),
+        );
 
         if (!focusable.length) return;
 
         const first = focusable[0];
-        const last  = focusable[focusable.length - 1];
+        const last = focusable[focusable.length - 1];
 
         // Placer le focus sur le premier élément focusable du dialog
         first.focus();

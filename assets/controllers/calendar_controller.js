@@ -33,9 +33,9 @@ import { Calendar } from "fullcalendar";
  */
 
 const DATE_FORMAT_OPTIONS = {
-    year:  "numeric",
+    year: "numeric",
     month: "long",
-    day:   "numeric",
+    day: "numeric",
 };
 
 /** Formate une date ISO en chaîne lisible. */
@@ -50,7 +50,7 @@ function formatDate(dateStr) {
 
 export default class extends Controller {
     static values = {
-        events:      { type: String, default: "[]" },
+        events: { type: String, default: "[]" },
         initialView: { type: String, default: "dayGridMonth" },
     };
 
@@ -73,13 +73,13 @@ export default class extends Controller {
             // Cela produit un ViewHarness "actif" (fc-view-harness-active) qui reçoit
             // une hauteur calculée à partir de la largeur du conteneur.
             headerToolbar: {
-                left:   "prev,next today",
+                left: "prev,next today",
                 center: "title",
-                right:  "dayGridMonth,timeGridWeek,listWeek",
+                right: "dayGridMonth,timeGridWeek,listWeek",
             },
-            selectable:     true,
-            events:         events,
-            eventColor:     "#465FFF",
+            selectable: true,
+            events: events,
+            eventColor: "#465FFF",
 
             /** Clic sur une date vide → ouvre la modale avec les infos de la date. */
             dateClick: (info) => {
@@ -95,11 +95,7 @@ export default class extends Controller {
                     info.jsEvent.preventDefault();
                     return;
                 }
-                this.#populateModal(
-                    evt.title,
-                    evt.startStr,
-                    evt.endStr || "",
-                );
+                this.#populateModal(evt.title, evt.startStr, evt.endStr || "");
                 this.#openModal();
             },
         });
@@ -128,7 +124,7 @@ export default class extends Controller {
         });
 
         this._observer.observe(document.documentElement, {
-            attributes:      true,
+            attributes: true,
             attributeFilter: ["class"],
         });
     }

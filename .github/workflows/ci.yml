@@ -10,17 +10,17 @@ permissions:
 
 jobs:
   bundle:
-    name: Bundle — PHPStan (max) + tests
+    name: Bundle — PHPStan (max) + cs-fixer + tests + couverture ≥ 80%
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup PHP 8.5
+      - name: Setup PHP 8.5 (pcov)
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.5'
           extensions: intl, opcache
-          coverage: none
+          coverage: pcov
           tools: composer:v2
 
       - name: Cache Composer (bundle)
@@ -39,8 +39,41 @@ jobs:
       - name: PHP-CS-Fixer (dry-run)
         run: vendor/bin/php-cs-fixer fix --dry-run --diff
 
-      - name: Tests bundle
-        run: vendor/bin/phpunit
+      - name: Tests bundle + couverture
+        run: vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-text
+
+      - name: Vérifier le seuil de couverture (≥ 80%)
+        run: |
+          php -r '
+            $xml = simplexml_load_file("coverage.xml");
+            $m = $xml->project->metrics;
+            $covered = (int) $m["coveredstatements"];
+            $total = (int) $m["statements"];
+            $pct = $total > 0 ? round($covered / $total * 100, 2) : 0;
+            echo "Couverture lignes: {$pct}% ({$covered}/{$total})\n";
+            if ($pct < 80) { fwrite(STDERR, "Couverture {$pct}% < 80% requis\n"); exit(1); }
+          '
+
+      - name: Archiver le rapport de couverture
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-bundle
+          path: coverage.xml
+
+  front-lint:
+    name: Front — Biome (contrôleurs Stimulus)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Biome
+        uses: biomejs/setup-biome@v2
+        with:
+          version: latest
+
+      - name: Biome check
+        run: biome ci assets/controllers/
 
   demo:
     name: Démo — CSS Tailwind + tests fonctionnels
@@ -78,3 +111,39 @@ jobs:
       - name: Tests fonctionnels (démo)
         working-directory: demo
         run: php bin/phpunit
+
+  e2e:
+    name: E2E — Panther (montage JS réel + audit axe-core a11y)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Setup Chrome + ChromeDriver
+        uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
+
+      - name: Install (démo)
+        working-directory: demo
+        run: composer install --no-interaction --no-progress --prefer-dist
+
+      - name: Build CSS + AssetMapper
+        working-directory: demo
+        run: |
+          php bin/console tailwind:build --minify
+          php bin/console asset-map:compile
+
+      - name: Tests E2E (Panther + axe-core)
+        working-directory: demo
+        env:
+          PANTHER_NO_SANDBOX: '1'
+          PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage'
+        run: php bin/phpunit --testsuite e2e

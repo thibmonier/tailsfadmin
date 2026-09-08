@@ -28,34 +28,35 @@ Dropzone.autoDiscover = false;
 
 export default class extends Controller {
     static values = {
-        url:           { type: String,  default: "/upload" },
-        maxFiles:      { type: Number,  default: 10 },
-        maxFilesize:   { type: Number,  default: 5 },
-        acceptedFiles: { type: String,  default: "" },
-        paramName:     { type: String,  default: "file" },
+        url: { type: String, default: "/upload" },
+        maxFiles: { type: Number, default: 10 },
+        maxFilesize: { type: Number, default: 5 },
+        acceptedFiles: { type: String, default: "" },
+        paramName: { type: String, default: "file" },
     };
 
     connect() {
         const isDark = document.documentElement.classList.contains("dark");
 
         const options = {
-            url:            this.urlValue,
-            maxFiles:       this.maxFilesValue,
-            maxFilesize:    this.maxFilesizeValue,
-            paramName:      this.paramNameValue,
-            clickable:      true,
+            url: this.urlValue,
+            maxFiles: this.maxFilesValue,
+            maxFilesize: this.maxFilesizeValue,
+            paramName: this.paramNameValue,
+            clickable: true,
             // Messages localisés
-            dictDefaultMessage:      "Glissez-déposez vos fichiers ici ou cliquez pour sélectionner",
-            dictFallbackMessage:     "Votre navigateur ne supporte pas le glisser-déposer.",
-            dictFallbackText:        "Utilisez le formulaire ci-dessous pour téléverser vos fichiers.",
-            dictFileTooBig:          "Fichier trop volumineux ({{filesize}}Mo). Maximum : {{maxFilesize}}Mo.",
-            dictInvalidFileType:     "Ce type de fichier n'est pas accepté.",
-            dictResponseError:       "Le serveur a retourné une erreur {{statusCode}}.",
-            dictCancelUpload:        "Annuler",
-            dictUploadCanceled:      "Upload annulé.",
+            dictDefaultMessage: "Glissez-déposez vos fichiers ici ou cliquez pour sélectionner",
+            dictFallbackMessage: "Votre navigateur ne supporte pas le glisser-déposer.",
+            dictFallbackText: "Utilisez le formulaire ci-dessous pour téléverser vos fichiers.",
+            dictFileTooBig:
+                "Fichier trop volumineux ({{filesize}}Mo). Maximum : {{maxFilesize}}Mo.",
+            dictInvalidFileType: "Ce type de fichier n'est pas accepté.",
+            dictResponseError: "Le serveur a retourné une erreur {{statusCode}}.",
+            dictCancelUpload: "Annuler",
+            dictUploadCanceled: "Upload annulé.",
             dictCancelUploadConfirmation: "Confirmer l'annulation ?",
-            dictRemoveFile:          "Supprimer",
-            dictMaxFilesExceeded:    "Vous ne pouvez pas ajouter plus de fichiers.",
+            dictRemoveFile: "Supprimer",
+            dictMaxFilesExceeded: "Vous ne pouvez pas ajouter plus de fichiers.",
         };
 
         // Ajouter les types MIME si spécifiés

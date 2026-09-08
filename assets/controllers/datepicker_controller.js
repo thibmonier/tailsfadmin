@@ -22,8 +22,8 @@ import "flatpickr/dist/flatpickr.min.css";
  */
 export default class extends Controller {
     static values = {
-        mode:       { type: String,  default: "single" },
-        dateFormat: { type: String,  default: "Y-m-d" },
+        mode: { type: String, default: "single" },
+        dateFormat: { type: String, default: "Y-m-d" },
         enableTime: { type: Boolean, default: false },
     };
 
@@ -31,9 +31,9 @@ export default class extends Controller {
         const isDark = document.documentElement.classList.contains("dark");
 
         this._fp = flatpickr(this.element, {
-            mode:         this.modeValue,
-            dateFormat:   this.dateFormatValue,
-            enableTime:   this.enableTimeValue,
+            mode: this.modeValue,
+            dateFormat: this.dateFormatValue,
+            enableTime: this.enableTimeValue,
             // Injectée après ouverture pour supporter le dark mode
             onReady: (_selectedDates, _dateStr, instance) => {
                 if (isDark) {

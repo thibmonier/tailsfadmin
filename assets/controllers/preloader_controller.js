@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 /**
  * Stimulus controller — preloader
@@ -11,14 +11,14 @@ import { Controller } from '@hotwired/stimulus';
  */
 export default class extends Controller {
     connect() {
-        if (document.readyState === 'complete') {
+        if (document.readyState === "complete") {
             this.#hide();
         } else {
-            window.addEventListener('load', () => this.#hide(), { once: true });
+            window.addEventListener("load", () => this.#hide(), { once: true });
         }
     }
 
     #hide() {
-        this.element.style.display = 'none';
+        this.element.style.display = "none";
     }
 }

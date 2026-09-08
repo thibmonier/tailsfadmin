@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus";
 
 /**
  * Contrôleur Stimulus dropdown — tailsfadmin--dropdown
@@ -15,8 +15,8 @@ import { Controller } from '@hotwired/stimulus';
  *   - open (Boolean) : état du dropdown
  */
 export default class extends Controller {
-    static targets = ['trigger', 'menu'];
-    static values  = { open: { type: Boolean, default: false } };
+    static targets = ["trigger", "menu"];
+    static values = { open: { type: Boolean, default: false } };
 
     connect() {
         // S'assurer que le menu est fermé au départ
@@ -24,16 +24,16 @@ export default class extends Controller {
 
         // Fermeture au clic extérieur
         this.#clickOutside = this.#onClickOutside.bind(this);
-        document.addEventListener('click', this.#clickOutside, true);
+        document.addEventListener("click", this.#clickOutside, true);
 
         // Fermeture à l'Échap global
         this.#keydown = this.#onKeydown.bind(this);
-        document.addEventListener('keydown', this.#keydown);
+        document.addEventListener("keydown", this.#keydown);
     }
 
     disconnect() {
-        document.removeEventListener('click', this.#clickOutside, true);
-        document.removeEventListener('keydown', this.#keydown);
+        document.removeEventListener("click", this.#clickOutside, true);
+        document.removeEventListener("keydown", this.#keydown);
     }
 
     // ─── Actions publiques ────────────────────────────────────────────────────
@@ -61,26 +61,26 @@ export default class extends Controller {
         if (!items.length) return;
 
         const current = document.activeElement;
-        const idx     = items.indexOf(current);
+        const idx = items.indexOf(current);
 
         switch (event.key) {
-            case 'ArrowDown':
+            case "ArrowDown":
                 event.preventDefault();
                 items[(idx + 1) % items.length].focus();
                 break;
-            case 'ArrowUp':
+            case "ArrowUp":
                 event.preventDefault();
                 items[(idx - 1 + items.length) % items.length].focus();
                 break;
-            case 'Home':
+            case "Home":
                 event.preventDefault();
                 items[0].focus();
                 break;
-            case 'End':
+            case "End":
                 event.preventDefault();
                 items[items.length - 1].focus();
                 break;
-            case 'Escape':
+            case "Escape":
                 this.close();
                 if (this.hasTriggerTarget) this.triggerTarget.focus();
                 break;
@@ -90,7 +90,7 @@ export default class extends Controller {
     // ─── Helpers privés ──────────────────────────────────────────────────────
 
     #clickOutside = null;
-    #keydown      = null;
+    #keydown = null;
 
     #onClickOutside(event) {
         if (!this.element.contains(event.target)) {
@@ -99,7 +99,7 @@ export default class extends Controller {
     }
 
     #onKeydown(event) {
-        if (event.key === 'Escape' && this.openValue) {
+        if (event.key === "Escape" && this.openValue) {
             this.close();
             if (this.hasTriggerTarget) this.triggerTarget.focus();
         }
@@ -109,16 +109,16 @@ export default class extends Controller {
         if (this.hasTriggerTarget) {
             // aria-expanded doit vivre sur un élément interactif (le <button>),
             // pas sur le div wrapper (aria-allowed-attr, WCAG).
-            const btn = this.triggerTarget.matches('button')
+            const btn = this.triggerTarget.matches("button")
                 ? this.triggerTarget
-                : this.triggerTarget.querySelector('button') || this.triggerTarget;
-            btn.setAttribute('aria-expanded', String(this.openValue));
+                : this.triggerTarget.querySelector("button") || this.triggerTarget;
+            btn.setAttribute("aria-expanded", String(this.openValue));
         }
         if (this.hasMenuTarget) {
             if (this.openValue) {
-                this.menuTarget.removeAttribute('hidden');
+                this.menuTarget.removeAttribute("hidden");
             } else {
-                this.menuTarget.setAttribute('hidden', '');
+                this.menuTarget.setAttribute("hidden", "");
             }
         }
     }
@@ -131,7 +131,7 @@ export default class extends Controller {
     #getMenuItems() {
         if (!this.hasMenuTarget) return [];
         return Array.from(
-            this.menuTarget.querySelectorAll('[role="menuitem"]:not([disabled]):not([hidden])')
+            this.menuTarget.querySelectorAll('[role="menuitem"]:not([disabled]):not([hidden])'),
         );
     }
 }

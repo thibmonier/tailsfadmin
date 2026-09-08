@@ -29,43 +29,43 @@ function defaultOptions(type, series, height) {
     const base = {
         chart: {
             fontFamily: "Outfit, sans-serif",
-            type:       type,
-            height:     height,
-            toolbar:    { show: false },
+            type: type,
+            height: height,
+            toolbar: { show: false },
             background: "transparent",
         },
-        colors:      BRAND_COLORS,
-        series:      series,
-        dataLabels:  { enabled: false },
+        colors: BRAND_COLORS,
+        series: series,
+        dataLabels: { enabled: false },
         grid: {
             borderColor: "#E4E7EC",
             strokeDashArray: 0,
             xaxis: { lines: { show: false } },
             yaxis: { lines: { show: true } },
         },
-        stroke:  { curve: "straight", width: 2 },
+        stroke: { curve: "straight", width: 2 },
         markers: { size: 0 },
         legend: {
-            show:            true,
-            position:        "top",
+            show: true,
+            position: "top",
             horizontalAlign: "left",
-            fontFamily:      "Outfit",
-            markers:         { radius: 99 },
+            fontFamily: "Outfit",
+            markers: { radius: 99 },
         },
         xaxis: {
             axisBorder: { show: false },
-            axisTicks:  { show: false },
+            axisTicks: { show: false },
         },
         tooltip: { theme: "light" },
-        theme:   { mode: "light" },
+        theme: { mode: "light" },
     };
 
     if (type === "bar") {
         base.plotOptions = {
             bar: {
-                horizontal:              false,
-                columnWidth:             "39%",
-                borderRadius:            5,
+                horizontal: false,
+                columnWidth: "39%",
+                borderRadius: 5,
                 borderRadiusApplication: "end",
             },
         };
@@ -105,15 +105,15 @@ function deepMerge(left, right) {
 
 export default class extends Controller {
     static values = {
-        type:    { type: String,  default: "line" },
-        series:  { type: String,  default: "[]" },
-        options: { type: String,  default: "{}" },
-        height:  { type: Number,  default: 310 },
+        type: { type: String, default: "line" },
+        series: { type: String, default: "[]" },
+        options: { type: String, default: "{}" },
+        height: { type: Number, default: 310 },
     };
 
     connect() {
-        let series  = [];
-        let extra   = {};
+        let series = [];
+        let extra = {};
 
         try {
             series = JSON.parse(this.seriesValue);
@@ -127,10 +127,7 @@ export default class extends Controller {
             console.error("tailsfadmin--apexcharts: options JSON invalide", e);
         }
 
-        const opts  = deepMerge(
-            defaultOptions(this.typeValue, series, this.heightValue),
-            extra,
-        );
+        const opts = deepMerge(defaultOptions(this.typeValue, series, this.heightValue), extra);
 
         // Thème initial
         const dark = document.documentElement.classList.contains("dark");
@@ -146,14 +143,14 @@ export default class extends Controller {
         this._observer = new MutationObserver(() => {
             const isDark = document.documentElement.classList.contains("dark");
             this._chart.updateOptions({
-                theme:  { mode: isDark ? "dark" : "light" },
-                grid:   { borderColor: isDark ? "#374151" : "#E4E7EC" },
+                theme: { mode: isDark ? "dark" : "light" },
+                grid: { borderColor: isDark ? "#374151" : "#E4E7EC" },
                 tooltip: { theme: isDark ? "dark" : "light" },
             });
         });
 
         this._observer.observe(document.documentElement, {
-            attributes:      true,
+            attributes: true,
             attributeFilter: ["class"],
         });
     }
