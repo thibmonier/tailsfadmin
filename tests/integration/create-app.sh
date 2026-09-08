@@ -35,7 +35,13 @@ for excluded in demo tests docs project-management Tools .github; do
 done
 
 echo "==> 2/4 Création de l'app Symfony $SF_VERSION (skeleton)"
+# Flex DOIT être installé globalement AVANT create-project pour que SYMFONY_REQUIRE
+# contraigne réellement le squelette (sinon le flex local n'est pas encore actif et
+# le skeleton épingle symfony/framework-bundle sur sa version par défaut → conflit).
+# Cf. doc Symfony Flex « installer une version spécifique de Symfony ».
 export SYMFONY_REQUIRE="${SF_VERSION}.*"
+composer global config --no-plugins allow-plugins.symfony/flex true
+composer global require --no-interaction --no-progress --no-scripts symfony/flex
 composer create-project symfony/skeleton "$APP_DIR" --no-interaction --no-progress
 cd "$APP_DIR"
 composer config extra.symfony.allow-contrib true
