@@ -68,6 +68,17 @@ final class ModalE2ETest extends PantherTestCase
             'Après clic sur le déclencheur, au moins un panel doit être visible (sans attribut hidden)',
         );
 
+        // Focus trap : le focus doit avoir été déplacé DANS le dialog ouvert.
+        // Garde de régression : un accès invalide au sélecteur focusable faisait
+        // échouer #trapFocus (le focus restait sur le déclencheur, hors panel).
+        $focusInside = $client->executeScript(
+            'return document.querySelector(\'[role="dialog"]:not([hidden])\').contains(document.activeElement);'
+        );
+        self::assertTrue(
+            $focusInside,
+            'Après ouverture, le focus doit être piégé dans le dialog (focus trap fonctionnel)',
+        );
+
         // Fermer via la touche Échap (WebDriverKeys::ESCAPE = \xEE\x80\x8C)
         $client->getKeyboard()->pressKey(WebDriverKeys::ESCAPE);
 

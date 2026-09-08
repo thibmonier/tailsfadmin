@@ -1,5 +1,15 @@
 import { Controller } from "@hotwired/stimulus";
 
+/** Sélecteur des éléments focusables (constante de module — même liste que sidebar_controller). */
+const FOCUSABLE_SELECTOR = [
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "[tabindex]:not([tabindex=\"-1\"])",
+].join(", ");
+
 /**
  * Contrôleur Stimulus modal — tailsfadmin--modal
  * US-011 : open/close, focus trap (Tab/Shift+Tab cyclique), fermeture Échap
@@ -19,16 +29,6 @@ import { Controller } from "@hotwired/stimulus";
  */
 export default class extends Controller {
     static targets = ["panel", "overlay"];
-
-    /** Sélecteur des éléments focusables (même liste que sidebar_controller). */
-    static #FOCUSABLE = [
-        "a[href]",
-        "button:not([disabled])",
-        "input:not([disabled])",
-        "select:not([disabled])",
-        "textarea:not([disabled])",
-        "[tabindex]:not([tabindex=\"-1\"])",
-    ].join(", ");
 
     /** Référence vers l'élément qui avait le focus avant l'ouverture. */
     #openerElement = null;
@@ -102,7 +102,7 @@ export default class extends Controller {
         if (!this.hasPanelTarget) return;
 
         const focusable = Array.from(
-            this.panelTarget.querySelectorAll(this.constructor.#FOCUSABLE)
+            this.panelTarget.querySelectorAll(FOCUSABLE_SELECTOR)
         ).filter((el) => !el.closest("[hidden]"));
 
         if (!focusable.length) return;
