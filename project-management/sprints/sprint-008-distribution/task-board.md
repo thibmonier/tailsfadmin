@@ -7,12 +7,6 @@
 
 | ID | US | Tâche | Est. |
 |----|-----|-------|------|
-| T-028-01 | US-028 | Point d'entrée CSS `@import`-able | 3h |
-| T-028-02 | US-028 | `@source` templates du bundle côté hôte | 2h |
-| T-028-03 | US-028 | Variables brand surchargeables | 2h |
-| T-028-04 | US-028 | Doc intégration Tailwind hôte | 1.5h |
-| T-028-05 | US-028 | Spec smoke CSS (exécutée US-030) | 1.5h |
-| T-028-06 | US-028 | Review CSS + revue visuelle | 0.5h |
 | T-030-01 | US-030 | Script création app vierge + install | 3h |
 | T-030-02 | US-030 | Appliquer étapes documentées | 2h |
 | T-030-03 | US-030 | Smoke : layout admin + JS monté | 3h |
@@ -57,6 +51,12 @@
 | T-027-06 | US-027 | Tests fonctionnels du câblage assets | `tests/Functional/AssetsWiringTest.php` |
 | T-027-07 | US-027 | Doc procédure d'install assets | `README.md` §1 Assets |
 | T-027-08 | US-027 | Review (PHPStan max, CS, 28 tests verts) | DoD ✅ |
+| T-028-01 | US-028 | Point d'entrée CSS `@import`-able (`theme.css`) | `assets/styles/theme.css` |
+| T-028-02 | US-028 | `@source` templates portables (build vérifié) | `.menu-item*` générées |
+| T-028-03 | US-028 | Variables `--color-brand-*` surchargeables | cascade `:root` prouvée |
+| T-028-04 | US-028 | Doc intégration Tailwind hôte | `README.md` §2 Thème CSS |
+| T-028-05 | US-028 | Spec smoke CSS (exécutée US-030) | `specs/css-smoke-spec.md` |
+| T-028-06 | US-028 | Review CSS + build démo vert | DoD ✅ |
 
 ## 🚫 Bloqué
 | ID | US | Raison | Action |

@@ -12,14 +12,20 @@
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-028-01 | [FE-WEB] | Point d'entrée CSS `@import`-able distribué (tokens + `@layer` + dark) | 3h | — | 🔲 |
-| T-028-02 | [FE-WEB] | `@source` scannant les templates du bundle côté hôte | 2h | T-028-01 | 🔲 |
-| T-028-03 | [FE-WEB] | Variables de marque `--color-brand-*` surchargeables après import | 2h | T-028-01 | 🔲 |
-| T-028-04 | [DOC] | Doc intégration Tailwind hôte (standalone, 1 ligne, brand, `.dark`) | 1.5h | T-028-03 | 🔲 |
-| T-028-05 | [TEST] | Spec smoke CSS (exécutée dans US-030) | 1.5h | T-028-02, T-028-03 | 🔲 |
-| T-028-06 | [REV] | Review CSS + revue visuelle clair/dark | 0.5h | T-028-04 | 🔲 |
+| T-028-01 | [FE-WEB] | Point d'entrée CSS `@import`-able distribué (tokens + `@layer` + dark) | 3h | — | ✅ |
+| T-028-02 | [FE-WEB] | `@source` scannant les templates du bundle côté hôte | 2h | T-028-01 | ✅ |
+| T-028-03 | [FE-WEB] | Variables de marque `--color-brand-*` surchargeables après import | 2h | T-028-01 | ✅ |
+| T-028-04 | [DOC] | Doc intégration Tailwind hôte (standalone, 1 ligne, brand, `.dark`) | 1.5h | T-028-03 | ✅ |
+| T-028-05 | [TEST] | Spec smoke CSS (exécutée dans US-030) | 1.5h | T-028-02, T-028-03 | ✅ |
+| T-028-06 | [REV] | Review CSS + revue visuelle clair/dark | 0.5h | T-028-04 | ✅ |
 
-**Total : 10.5h**
+**Total : 10.5h — US-028 terminée (2026-09-08)**
+
+> Implémentation : `theme.css` distribuable (thème sans `@import "tailwindcss"`),
+> `app.css` = entrée standalone (Tailwind + thème), démo passée au pattern hôte.
+> Build démo vérifié (117 KB) : tokens marque, `.menu-item*` (via `@source`),
+> bloc `.dark` sans inversion des gris, Outfit + forms — zéro régression.
+> Revue visuelle clair/dark réelle : reléguée au smoke Chrome d'US-030 (spec figée).
 
 ---
 

@@ -104,7 +104,42 @@ php bin/console asset-map:compile
 > `dropdown`, `alert-dismiss`, `preloader`, `search`, `submenu`) fonctionnent
 > sans cette commande, via le seul path AssetMapper.
 
-### 2. Menu de la sidebar (`config/packages/tailsfadmin.yaml`)
+### 2. Thème CSS (Tailwind hôte)
+
+Le bundle distribue son thème (tokens `@theme`, dark mode, classes composants
+`.menu-item*`…) dans **`assets/styles/theme.css`**. Votre app le branche en
+**une seule ligne**, dans sa propre entrée Tailwind v4 — sans recopier les
+tokens ni le CSS des composants :
+
+```css
+/* assets/styles/app.css de VOTRE application */
+@import "tailwindcss";
+@import "../../vendor/tailsfadmin/tailsfadmin-bundle/assets/styles/theme.css";
+```
+
+- **Standalone, sans Node** : compilez avec le binaire `symfonycasts/tailwind-bundle`
+  (`php bin/console tailwind:build`), comme le reste de votre CSS.
+- **Scan du contenu du bundle** : `theme.css` déclare des `@source` (relatifs,
+  donc portables depuis `vendor/`) vers les templates et contrôleurs du bundle,
+  afin que les utilitaires qu'ils emploient soient bien générés chez vous.
+- **Dark mode** : stratégie par classe — activez `.dark` sur `<html>`. L'échelle
+  de gris n'est **pas** inversée (les composants portent des variantes `dark:`
+  explicites).
+- **Rebranding** : redéfinissez les tokens `--color-brand-*` **après** l'import
+  (la cascade `:root` l'emporte sur `@theme`) — cela repeint boutons, liens et
+  item de menu actif :
+
+  ```css
+  @import "tailwindcss";
+  @import ".../theme.css";
+  :root { --color-brand-500: #7c3aed; --color-brand-600: #6d28d9; }
+  ```
+
+> Besoin d'une entrée « tout-en-un » (Tailwind + thème) ? Importez plutôt
+> `assets/styles/app.css` du bundle. La démo (`demo/assets/styles/app.css`)
+> illustre le pattern hôte ci-dessus.
+
+### 3. Menu de la sidebar (`config/packages/tailsfadmin.yaml`)
 
 Les `label` sont des **clés de traduction** (voir i18n ci-dessous) ou des libellés bruts :
 
@@ -124,7 +159,7 @@ tailsfadmin:
                     - { label: menu.tables_basic, path: /tables/basic }
 ```
 
-### 3. Layout d'une page
+### 4. Layout d'une page
 
 ```twig
 {% extends '@Tailsfadmin/layout/admin.html.twig' %}
@@ -139,13 +174,13 @@ tailsfadmin:
 > Le layout attend une route nommée **`home`** (logo de la sidebar) et
 > **`locale_switch`** si vous utilisez le sélecteur de langue.
 
-### 4. Internationalisation (optionnel)
+### 5. Internationalisation (optionnel)
 
 Installez `symfony/translation`, réglez `framework.default_locale` + `enabled_locales`,
 et fournissez vos catalogues. Le bundle expose ses propres traductions du chrome
 (header, breadcrumb…) et les helpers Twig `tsf_dir()` / `tsf_locales()`.
 
-### 5. Catalogue des composants
+### 6. Catalogue des composants
 
 Tous les composants `<twig:tsf:… />` (props, slots, exemples) sont documentés
 dans **[docs/components.md](docs/components.md)** ; une galerie vivante est
