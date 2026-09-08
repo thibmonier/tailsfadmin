@@ -44,6 +44,10 @@
             "calendar": {
                 "enabled": true,
                 "fetch": "eager"
+            },
+            "vectormap": {
+                "enabled": true,
+                "fetch": "eager"
             }
         }
     },

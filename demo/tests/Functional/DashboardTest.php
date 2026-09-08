@@ -84,4 +84,15 @@ final class DashboardTest extends WebTestCase
 
         self::assertSelectorTextContains('body', 'Démographie');
     }
+
+    public function testDashboardWiresVectorMap(): void
+    {
+        $client = static::createClient();
+        $crawler = $client->request('GET', '/');
+
+        // Carte jsvectormap (US-019) câblée sur son contrôleur Stimulus.
+        self::assertGreaterThanOrEqual(1, $crawler->filter('[data-controller="tailsfadmin--vectormap"]')->count());
+        // Les marqueurs (pays clients) sont sérialisés dans la value.
+        self::assertStringContainsString('France', (string) $client->getResponse()->getContent());
+    }
 }

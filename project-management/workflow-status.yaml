@@ -168,7 +168,8 @@ phases:
         - "LEÇON confirmée (S5→S6) : la revue console navigateur attrape ce que les tests DOM ET E2E ratent — le bug focus trap modal était invisible en DOM/visuel et l'E2E ne vérifiait que la visibilité. Toujours lire la console à l'ouverture d'un composant JS."
         - "Gotchas composants réutilisés : (1) tsf:Ui:Button ne rend pas {{ attributes }} → aucun data-*/id ne passe ; utiliser un <button> brut si besoin d'une action Stimulus. (2) _self.macro() ne traverse pas la frontière d'un slot de Twig Component → utiliser {% include %}. (3) SVG passé en prop : :iconStart=\"var\" (bind), jamais iconStart=\"{{ var }}\" (guillemets internes cassent l'attribut)."
     dette_technique_dark_mode:
-      severite: "moyenne-haute (visuel dark)"
+      statut: "RÉSOLUE ✅ (commit e41b743, décision A) — inversion des gris retirée du bloc .dark, approche TailAdmin confirmée par la source. Vérifié visuellement (galerie /ui-kit + dashboard) : formulaires, alertes, boutons secondary, dropdowns, modals rendent correctement en sombre, 0 régression, 179/179."
+      severite: "moyenne-haute (visuel dark) — RÉSOLU"
       cause_racine: "assets/styles/app.css — le bloc .dark (lignes ~231-233) REDÉFINIT --color-gray-700/800/900 avec des valeurs CLAIRES (gray-800 #1d2939→#d3d8de, gray-900 #101828→#eaecef). Inversion sémantique volontaire ajoutée au portage (Sprint 2), MAIS incompatible avec les composants portés de TailAdmin qui utilisent `dark:bg-gray-{800,900}` en attendant une surface SOMBRE. Vérifié via lecture CSS + computed styles navigateur."
       options_fix:
         - "(A) Retirer l'inversion des gris du bloc .dark (1 endroit) → gray-* redevient standard. Risque : casse les `text-gray-*` SANS variante dark: qui comptaient sur l'auto-inversion (à auditer)."
@@ -181,13 +182,17 @@ phases:
         - "Le dashboard paraissait correct car ses cartes utilisent dark:bg-white/[0.03], pas gray-800."
       corrige_dans_us023: "Uniquement le fond du body/wrapper des layouts auth + 404 (mon erreur : dark:bg-gray-900 → dark:bg-gray-dark)."
       recommandation: "Story dédiée : auditer tous les `dark:bg-gray-{700,800,900}` du bundle (composants + layouts) et soit retirer le `dark:` (laisser l'inversion auto), soit passer à des tokens sombres explicites (gray-dark, white/[0.0x]). Ajouter un test/garde visuelle dark pour les boutons secondary et le modal."
-    bilan_sprint_6: "Sprint 6 TERMINÉ — 4 US (US-021..024) = 23 pts livrés. + fix(modal) focus trap + feat(button) block. Dette dark-mode gris systémique identifiée (story dédiée recommandée). Reste au backlog : US-019 (jsvectormap, carte démographie)."
-    next: "Sprint 6 terminé. Prochaines options : (a) story d'audit dark-mode gris (dette), (b) US-019 carte jsvectormap, (c) Sprint 7 / rétro Sprint 6."
+    bilan_sprint_6: "Sprint 6 TERMINÉ — 4 US (US-021..024) = 23 pts. + fix(modal) focus trap + feat(button) block + fix(dark-mode) inversion gris (décision A) + US-019 (carte jsvectormap) livrée."
+    us_019:
+      status: done              # ✅ hors périmètre initial Sprint 6, réalisée à la suite
+      resume: "Carte du monde jsvectormap 1.7 (vendorée, sans CDN) intégrée à la démographie du dashboard. Contrôleur Stimulus tailsfadmin--vectormap (ADR-004, CSS via pipeline), composant tsf:Chart:VectorMap, marqueurs France/USA. Nécessitait d'ajouter le contrôleur au manifeste assets/package.json (symfony.controllers) — sinon StimulusBundle lève « controller does not exist in the package »."
+      qualite: "demo 180/180 (DashboardTest + vectormap) · E2E Panther 6/6 (montage SVG réel, 176 régions) · PHPStan max 0 · cs-fixer 0 · revue visuelle clair+dark OK (régions dark-aware, marqueurs brand, 0 erreur console)"
+    next: "Sprint 6 + extras terminés (dette dark-mode résolue, US-019 livrée). Options : rétro Sprint 6, pousser la branche, ou Sprint 7."
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
-  etat: "Sprints 1-6 ✅ TERMINÉS. Sprint 6 (US-021..024) livré : dashboard, profil, auth, i18n+RTL. Commits US-021 cd1a51a … US-024 (dernier). Dette dark-mode gris systémique documentée (dette_technique_dark_mode)."
-  prochaine_action: "Sprint 6 terminé — non commité pour US-024 au moment de ce point. Options : rétro Sprint 6, story audit dark-mode (dette), ou US-019 (carte jsvectormap). Vérifier les commits avant de continuer."
+  etat: "Sprints 1-6 ✅ TERMINÉS + extras. Sprint 6 (US-021..024) : dashboard, profil, auth, i18n+RTL. Extras commités : fix(modal) focus trap, feat(button) block, fix(dark-mode) inversion gris (dette RÉSOLUE, décision A), US-019 carte jsvectormap. Rien poussé (branche feature/sprint-001-walking-skeleton)."
+  prochaine_action: "Tout est vert et commité (demo 180/180, E2E 6/6, PHPStan 0, cs-fixer 0). Options : rétro Sprint 6, pousser la branche sur origin, ou démarrer Sprint 7."
   methode:
     - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
     - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."

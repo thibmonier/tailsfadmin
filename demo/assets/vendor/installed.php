@@ -82,4 +82,34 @@
     array (
     ),
   ),
+  'jsvectormap' => 
+  array (
+    'version' => '1.7.0',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
+  'jsvectormap/dist/maps/world.js' => 
+  array (
+    'version' => '1.7.0',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
+  'jsvectormap/dist/jsvectormap.min.css' => 
+  array (
+    'version' => '1.7.0',
+    'dependencies' => 
+    array (
+    ),
+    'extraFiles' => 
+    array (
+    ),
+  ),
 );

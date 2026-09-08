@@ -39,6 +39,10 @@ final class DashboardController extends AbstractController
             'months' => self::MONTHS,
             'orders' => $this->recentOrders(),
             'demographics' => $this->demographics(),
+            'demographicsMarkers' => [
+                ['name' => 'France', 'coords' => [46.0, 2.0]],
+                ['name' => 'États-Unis', 'coords' => [38.0, -97.0]],
+            ],
         ]);
     }
 

@@ -131,10 +131,8 @@
         <div class="col-span-12 xl:col-span-5">
             <twig:tsf:Ui:Card title="Démographie client" subtitle="Nombre de clients par pays">
                 <twig:block name="body">
-                    {# Placeholder carte monde : jsvectormap (US-019) reste au backlog. #}
-                    <div class="flex h-[212px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 text-theme-sm text-gray-400 dark:border-gray-700 dark:bg-white/[0.02]">
-                        Carte monde (jsvectormap — US-019)
-                    </div>
+                    {# Carte du monde jsvectormap (US-019) — marqueurs des pays clients. #}
+                    <twig:tsf:Chart:VectorMap :markers="demographicsMarkers" :height="212" />
                     <div class="mt-6 space-y-5">
                         {% for d in demographics %}
                             <div class="flex items-center justify-between">

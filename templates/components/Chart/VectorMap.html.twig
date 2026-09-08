@@ -1,0 +1,20 @@
+{#
+  Composant VectorMap — tsf:Chart:VectorMap
+  US-019 : carte vectorielle du monde via le contrôleur Stimulus "tailsfadmin--vectormap".
+  Les données (marqueurs) sont sérialisées en JSON et passées en data-*-value.
+#}
+{%- set markersJson = markers|json_encode -%}
+
+<div
+    data-controller="tailsfadmin--vectormap"
+    data-tailsfadmin--vectormap-map-value="{{ map }}"
+    data-tailsfadmin--vectormap-markers-value="{{ markersJson }}"
+    data-testid="chart-vectormap"
+    class="overflow-hidden rounded-2xl"
+>
+    <div
+        data-tailsfadmin--vectormap-target="mapContainer"
+        class="mx-auto w-full"
+        style="height: {{ height }}px"
+    ></div>
+</div>

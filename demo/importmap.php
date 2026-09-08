@@ -34,4 +34,7 @@ return [
     'apexcharts/core' => ['version' => '7.1.0'],
     'fullcalendar/index.global.min.js' => ['version' => '6.1.21'],
     'fullcalendar' => ['path' => './assets/vendor/fullcalendar/fullcalendar-esm.js'],
+    'jsvectormap' => ['version' => '1.7.0'],
+    'jsvectormap/dist/maps/world.js' => ['version' => '1.7.0'],
+    'jsvectormap/dist/jsvectormap.min.css' => ['version' => '1.7.0', 'type' => 'css'],
 ];

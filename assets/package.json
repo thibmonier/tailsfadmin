@@ -66,6 +66,12 @@
                 "main": "controllers/calendar_controller.js",
                 "fetch": "eager",
                 "enabled": true
+            },
+            "vectormap": {
+                "name": "tailsfadmin--vectormap",
+                "main": "controllers/vectormap_controller.js",
+                "fetch": "eager",
+                "enabled": true
             }
         }
     }

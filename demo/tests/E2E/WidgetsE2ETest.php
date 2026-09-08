@@ -19,9 +19,42 @@ use Symfony\Component\Panther\PantherTestCase;
  *   1. ApexCharts monté : attend que la lib injecte son SVG (.apexcharts-canvas).
  *   2. flatpickr ouvert : CSS chargé + icône de taille bornée (<50px).
  *   3. FullCalendar rendu : toolbar + grille daygrid + cellules de jours.
+ *   4. jsvectormap monté : SVG de carte + régions (US-019).
  */
 final class WidgetsE2ETest extends PantherTestCase
 {
+    /**
+     * Prouve que jsvectormap (US-019) se monte réellement sur le dashboard.
+     *
+     * jsvectormap injecte un <svg> contenant des chemins de régions
+     * (.jvm-region) dans le conteneur de carte. Un test fonctionnel ne voit
+     * que l'attribut data-controller ; ce test attend le SVG rendu par la lib.
+     */
+    public function testVectorMapMountsOnDashboard(): void
+    {
+        $client = static::createPantherClient([
+            'browser' => static::CHROME,
+        ]);
+
+        $client->request('GET', '/');
+
+        // jsvectormap dessine son SVG après JS ; on attend une région rendue.
+        $client->waitFor('[data-testid="chart-vectormap"] svg .jvm-region');
+
+        self::assertSelectorExists(
+            '[data-testid="chart-vectormap"] svg',
+            'jsvectormap doit avoir injecté un SVG dans le conteneur de carte.'
+        );
+
+        $regionCount = $client->executeScript(
+            'return document.querySelectorAll(\'[data-testid="chart-vectormap"] .jvm-region\').length;'
+        );
+        self::assertGreaterThan(
+            50,
+            $regionCount,
+            sprintf('La carte du monde doit rendre de nombreuses régions (rendu : %d).', (int) $regionCount)
+        );
+    }
     /**
      * Prouve qu'ApexCharts se monte réellement.
      *
