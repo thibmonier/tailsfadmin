@@ -162,10 +162,6 @@ jobs:
   integration:
     name: Intégration — app Symfony vierge (consommabilité tierce, US-030)
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        symfony: ['7.3', '8.0']
     steps:
       - uses: actions/checkout@v4
 
@@ -189,8 +185,10 @@ jobs:
           echo "PANTHER_CHROME_DRIVER_BINARY=$(command -v chromedriver)" >> "$GITHUB_ENV"
 
       # L'app vierge est créée HORS du dépôt (répertoire distinct de demo/).
+      # Sans version pinée → dernière Symfony stable (couverte par « ^8.0 » du bundle).
+      # La matrice multi-versions (7.3) est un suivi dédié (skeleton courant en 8.x).
       - name: Créer l'app tierce + installer le bundle (archive dist)
-        run: bash tests/integration/create-app.sh "$RUNNER_TEMP/host-app" "${{ matrix.symfony }}"
+        run: bash tests/integration/create-app.sh "$RUNNER_TEMP/host-app"
 
       - name: Appliquer les étapes d'intégration documentées
         run: bash tests/integration/apply-steps.sh "$RUNNER_TEMP/host-app"

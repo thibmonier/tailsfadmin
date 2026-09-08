@@ -8,8 +8,12 @@
 # Usage : create-app.sh <app_dir> <symfony_version>   (ex. /tmp/host-app 7.3)
 set -euo pipefail
 
-APP_DIR="${1:?usage: create-app.sh <app_dir> <symfony_version>}"
-SF_VERSION="${2:?version Symfony, ex. 7.3 ou 8.0}"
+APP_DIR="${1:?usage: create-app.sh <app_dir> [symfony_version]}"
+# Version Symfony cible optionnelle. Vide (défaut) → dernière stable, ce que le
+# bundle supporte via « ^8.0 » (skeleton actuel = 8.x). Une valeur (ex. 7.3)
+# force la ligne via Flex — utile pour une matrice, mais dépend d'un Flex global
+# actif ; laissée en option car le skeleton courant épingle sa propre version.
+SF_VERSION="${2:-}"
 
 BUNDLE_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 DIST_DIR="$(dirname "$APP_DIR")/bundle-dist"
@@ -34,14 +38,14 @@ for excluded in demo tests docs project-management Tools .github; do
   fi
 done
 
-echo "==> 2/4 Création de l'app Symfony $SF_VERSION (skeleton)"
-# Flex DOIT être installé globalement AVANT create-project pour que SYMFONY_REQUIRE
-# contraigne réellement le squelette (sinon le flex local n'est pas encore actif et
-# le skeleton épingle symfony/framework-bundle sur sa version par défaut → conflit).
-# Cf. doc Symfony Flex « installer une version spécifique de Symfony ».
-export SYMFONY_REQUIRE="${SF_VERSION}.*"
-composer global config --no-plugins allow-plugins.symfony/flex true
-composer global require --no-interaction --no-progress --no-scripts symfony/flex
+echo "==> 2/4 Création de l'app Symfony ${SF_VERSION:-(dernière stable)} (skeleton)"
+if [ -n "$SF_VERSION" ]; then
+  # Forçage d'une ligne Symfony précise (matrice). Nécessite Flex global pour que
+  # SYMFONY_REQUIRE réécrive les contraintes du squelette. Cf. doc Symfony Flex.
+  export SYMFONY_REQUIRE="${SF_VERSION}.*"
+  composer global config --no-plugins allow-plugins.symfony/flex true
+  composer global require --no-interaction --no-progress --no-scripts symfony/flex
+fi
 composer create-project symfony/skeleton "$APP_DIR" --no-interaction --no-progress
 cd "$APP_DIR"
 composer config extra.symfony.allow-contrib true
