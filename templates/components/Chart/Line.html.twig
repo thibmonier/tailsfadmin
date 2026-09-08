@@ -1,0 +1,28 @@
+{#
+  Composant Line Chart — tsf:Chart:Line
+  US-018 : graphique en courbes/aires câblé au contrôleur tailsfadmin--apexcharts (ApexCharts v7 vendoré).
+  Aucun Alpine.js. Aucun CDN runtime.
+
+  Les séries et catégories sont sérialisées en JSON et transmises au contrôleur via data-*-value.
+  ApexCharts observe le thème dark/light via MutationObserver dans le contrôleur.
+#}
+
+{%- set seriesJson     = series|json_encode -%}
+{%- set categoriesJson = categories|json_encode -%}
+{%- set extraOptions   = {'xaxis': {'categories': categories}} -%}
+{%- set optionsJson    = extraOptions|json_encode -%}
+
+<div class="rounded-xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="chart-line">
+    {%- if title is not empty -%}
+    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">{{ title }}</h3>
+    {%- endif -%}
+
+    {# Conteneur du graphe — ApexCharts injecte le SVG ici #}
+    <div
+        data-controller="tailsfadmin--apexcharts"
+        data-tailsfadmin--apexcharts-type-value="{{ type }}"
+        data-tailsfadmin--apexcharts-series-value="{{ seriesJson }}"
+        data-tailsfadmin--apexcharts-options-value="{{ optionsJson }}"
+        data-tailsfadmin--apexcharts-height-value="{{ height }}"
+    ></div>
+</div>
