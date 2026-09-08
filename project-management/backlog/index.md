@@ -61,16 +61,16 @@
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
 | US-014 | Composants de formulaire | 8 | Must | 4 | 🟢 |
-| US-015 | Datepicker (flatpickr) — Stimulus | 3 | Should | 5 | 🔴 |
-| US-016 | Upload (Dropzone) — Stimulus | 5 | Should | 5 | 🔴 |
+| US-015 | Datepicker (flatpickr) — Stimulus | 3 | Should | 5 | 🟢 |
+| US-016 | Upload (Dropzone) — Stimulus | 5 | Should | 5 | 🟢 |
 | US-017 | Tables (basiques + avancées) | 5 | Should | 4 | 🟢 |
 
 ### EPIC-005 — Data-viz & calendrier
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-018 | ApexCharts (line/bar/dashboard) — Stimulus | 8 | Must | 4 | 🔴 |
+| US-018 | ApexCharts (line/bar/dashboard) — Stimulus | 8 | Must | 5 | 🟢 |
 | US-019 | Carte vectorielle (jsvectormap) — Stimulus | 5 | Could | 5 | 🔴 |
-| US-020 | Calendrier FullCalendar + modal — Stimulus | 8 | Should | 4 | 🔴 |
+| US-020 | Calendrier FullCalendar + modal — Stimulus | 8 | Should | 5 | 🟢 |
 
 ### EPIC-006 — Pages applicatives & i18n
 | ID | Titre | Points | Priorité | Sprint | Statut |

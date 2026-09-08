@@ -126,13 +126,23 @@ phases:
       qualite: "composer test 78/78 + 2 E2E Panther · PHPStan max 0 · cs-fixer 0 · vérifié visuellement · commité (3 commits)"
       note: "Incident login sous-agent géré sans perte (travail vert au moment de l'expiration, revérifié)."
     sprint_4:
-      status: decomposed         # /workflow:start 4 + /project:decompose-tasks 004
-      but: "Contenu riche : cards, formulaires & tables"
-      scope: "US-013 (5) + US-014 (8) + US-017 (5) = 18 pts ; US-015/016 → Sprint 5"
-      tasks: "20 tâches, ~42h"
-      decision_form: "US-014 = LES DEUX — composants autonomes tsf:Form:* + form theme Symfony qui les réutilise (form_row rend en style TailAdmin). Theme peut déborder en Sprint 5."
-      goal_file: "sprints/sprint-004-formulaires_tables/sprint-goal.md"
-    next: "Implémentation TDD Sprint 4 — US-013 → US-014 (composants → form theme) → US-017"
+      status: done               # ✅ Cards, formulaires & tables
+      scope: "US-013 (5) + US-014 (8) + US-017 (5) = 18 pts (100 % livrés) ; US-015/016 → Sprint 5"
+      done:
+        - "US-013 Card/MediaCard/GridImage/Video (validation alt/HTTPS)"
+        - "US-014 composants tsf:Form:* + form theme Symfony (form_row → style TailAdmin, HTTP 422 géré) — décision « les deux » réalisée"
+        - "US-017 Table + TableAdvanced (dropdown réutilisé, Badge/Avatar)"
+        - "T-TECH-01 galerie /ui-kit enrichie (10 sections, ancres) · T-TECH-02 smoke CSS étendu form/table"
+      qualite: "composer test 117/117 + 2 E2E Panther · PHPStan max 0 · cs-fixer 0 · galerie vérifiée (curl, extension Chrome HS) · commité (4 commits)"
+    bilan_global: "4 sprints · 13 US · 77 pts livrés · ~20 commits · démo fonctionnelle fidèle TailAdmin (clair+dark)"
+    sprint_5:
+      status: decomposed         # /workflow:start 5 + /project:decompose-tasks 005
+      but: "Data-viz & widgets riches (intégrations JS via Stimulus)"
+      scope: "US-018 (8) + US-015 (3) + US-016 (5) + US-020 (8) = 24 pts ; US-019 carte en réserve"
+      tasks: "23 tâches, ~48.5h"
+      note: "Valide le pattern wrapper ADR-004 (libs vendorées via importmap, dark-mode aware). T-TECH-01 étend Panther au montage JS réel."
+      goal_file: "sprints/sprint-005-dataviz_widgets/sprint-goal.md"
+    next: "Implémentation TDD Sprint 5 — US-015 (flatpickr, valide le pattern) → US-016 → US-018 → US-020"
 
 next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
 next_command: "/workflow:implement   (ou /sprint:dev US-001)"
