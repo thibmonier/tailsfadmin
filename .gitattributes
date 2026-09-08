@@ -23,3 +23,4 @@ phpunit.dist.xml         export-ignore
 *.js text eol=lf
 *.json text eol=lf
 *.md text eol=lf
+recipe/                  export-ignore
