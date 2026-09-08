@@ -1,9 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
-import { Calendar } from "@fullcalendar/core/index.js";
-import dayGridPlugin    from "@fullcalendar/daygrid";
-import timeGridPlugin   from "@fullcalendar/timegrid";
-import listPlugin       from "@fullcalendar/list";
-import interactionPlugin from "@fullcalendar/interaction";
+// Bundle global autonome : core + dayGrid + timeGrid + list + interaction (single scope).
+// Tous les plugins sont pré-enregistrés — aucun tableau `plugins` nécessaire.
+import { Calendar } from "fullcalendar";
 
 /**
  * Contrôleur Stimulus calendar — tailsfadmin--calendar
@@ -69,8 +67,11 @@ export default class extends Controller {
         const isDark = document.documentElement.classList.contains("dark");
 
         this._calendar = new Calendar(this.calendarElTarget, {
-            plugins:     [dayGridPlugin, timeGridPlugin, listPlugin, interactionPlugin],
+            // plugins omis : tous pré-enregistrés dans le bundle global fullcalendar v6.
             initialView: this.initialViewValue,
+            // Pas d'option height : FC utilise son aspectRatio par défaut (1.35).
+            // Cela produit un ViewHarness "actif" (fc-view-harness-active) qui reçoit
+            // une hauteur calculée à partir de la largeur du conteneur.
             headerToolbar: {
                 left:   "prev,next today",
                 center: "title",
@@ -103,7 +104,17 @@ export default class extends Controller {
             },
         });
 
-        this._calendar.render();
+        // Différer le render dans requestAnimationFrame : Stimulus appelle connect()
+        // via MutationObserver, potentiellement avant que le navigateur n'ait calculé
+        // le layout (reflow). FullCalendar v6 lit calendarEl.offsetWidth pour calculer
+        // la hauteur de la grille via son aspectRatio. Si offsetWidth = 0 au moment du
+        // render(), la vue daygrid ne se monte pas (ViewHarness reste absent du DOM).
+        // En différant au prochain frame, le layout est garanti calculé.
+        this._rafId = requestAnimationFrame(() => {
+            if (this._calendar) {
+                this._calendar.render();
+            }
+        });
 
         // Dark-mode initial
         if (isDark) {
@@ -123,6 +134,10 @@ export default class extends Controller {
     }
 
     disconnect() {
+        if (this._rafId) {
+            cancelAnimationFrame(this._rafId);
+            this._rafId = null;
+        }
         if (this._observer) {
             this._observer.disconnect();
             this._observer = null;

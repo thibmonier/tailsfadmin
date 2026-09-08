@@ -136,13 +136,16 @@ phases:
       qualite: "composer test 117/117 + 2 E2E Panther · PHPStan max 0 · cs-fixer 0 · galerie vérifiée (curl, extension Chrome HS) · commité (4 commits)"
     bilan_global: "4 sprints · 13 US · 77 pts livrés · ~20 commits · démo fonctionnelle fidèle TailAdmin (clair+dark)"
     sprint_5:
-      status: decomposed         # /workflow:start 5 + /project:decompose-tasks 005
-      but: "Data-viz & widgets riches (intégrations JS via Stimulus)"
-      scope: "US-018 (8) + US-015 (3) + US-016 (5) + US-020 (8) = 24 pts ; US-019 carte en réserve"
-      tasks: "23 tâches, ~48.5h"
-      note: "Valide le pattern wrapper ADR-004 (libs vendorées via importmap, dark-mode aware). T-TECH-01 étend Panther au montage JS réel."
-      goal_file: "sprints/sprint-005-dataviz_widgets/sprint-goal.md"
-    next: "Implémentation TDD Sprint 5 — US-015 (flatpickr, valide le pattern) → US-016 → US-018 → US-020"
+      status: done               # ✅ Data-viz & widgets riches
+      scope: "US-015 (3) + US-016 (5) + US-018 (8) + US-020 (8) = 24 pts (100 % livrés) ; US-019 en réserve"
+      done:
+        - "US-015 flatpickr · US-016 Dropzone · US-018 ApexCharts · US-020 FullCalendar (4 libs vendorées sans CDN, dark-aware)"
+        - "US-020 réutilise le contrôleur modal (US-011) sans le modifier"
+        - "T-TECH-01 Panther étendu : 3 E2E de montage JS réel (SVG ApexCharts, flatpickr, grille FullCalendar)"
+        - "assets/vendor versionnés (reproductibilité offline)"
+      qualite: "composer test 157/157 + 5 E2E Panther · PHPStan max 0 · cs-fixer 0 · commité (6 commits)"
+    bilan_global: "5 sprints · 17 US · 101 pts livrés · ~30 commits · démo fidèle TailAdmin (clair+dark), widgets JS fonctionnels"
+    next: "Sprint 6 : EPIC-006 pages applicatives (US-021 dashboard e-commerce — assemble les charts, US-022 profil, US-023 auth, US-024 i18n)"
 
 next_action: "Démarrer l'implémentation TDD du Sprint 1 (commencer par T-TECH-01/02 puis US-001)"
 next_command: "/workflow:implement   (ou /sprint:dev US-001)"

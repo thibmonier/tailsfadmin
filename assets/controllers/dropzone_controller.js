@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import Dropzone from "dropzone";
+import "dropzone/dist/dropzone.css";
 
 /**
  * Contrôleur Stimulus dropzone — tailsfadmin--dropzone

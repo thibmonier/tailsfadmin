@@ -17,8 +17,8 @@ use Symfony\Component\Panther\PantherTestCase;
  *
  * Tests :
  *   1. ApexCharts monté : attend que la lib injecte son SVG (.apexcharts-canvas).
- *   2. flatpickr ouvert : attend que le calendrier flatpickr s'affiche au clic.
- *   3. FullCalendar rendu : attend que la grille daygrid soit dans le DOM.
+ *   2. flatpickr ouvert : CSS chargé + icône de taille bornée (<50px).
+ *   3. FullCalendar rendu : toolbar + grille daygrid + cellules de jours.
  */
 final class WidgetsE2ETest extends PantherTestCase
 {
@@ -53,11 +53,12 @@ final class WidgetsE2ETest extends PantherTestCase
     }
 
     /**
-     * Prouve que flatpickr s'ouvre au clic sur l'input datepicker.
+     * Prouve que flatpickr s'ouvre au clic ET que le CSS flatpickr est chargé.
      *
-     * Le contrôleur tailsfadmin--datepicker appelle flatpickr(this.element, ...)
-     * dans connect(). Un clic sur l'input doit ouvrir le calendrier flatpickr
-     * (classe .flatpickr-calendar sur un div ajouté au body).
+     * Le contrôleur tailsfadmin--datepicker importe flatpickr/dist/flatpickr.min.css
+     * depuis connect(). Sans ce CSS, les icônes SVG de navigation (prev/next month)
+     * s'affichent à 1372×1372px (chevron géant). Ce test valide que le CSS est actif
+     * en vérifiant que l'icône .flatpickr-next-month svg reste sous 50px de hauteur.
      */
     public function testFlatpickrOpensOnInputClick(): void
     {
@@ -79,14 +80,40 @@ final class WidgetsE2ETest extends PantherTestCase
             '.flatpickr-calendar.open',
             'flatpickr doit s\'ouvrir au clic et ajouter .flatpickr-calendar.open au DOM.'
         );
+
+        // Assertion durcie : le CSS flatpickr doit borner la taille de l'icône SVG.
+        // Sans CSS, le chevron .flatpickr-next-month svg mesure ~1372×1372px.
+        // Avec CSS, il doit être ≤ 50px (taille de l'élément parent .flatpickr-next-month).
+        $iconHeight = $client->executeScript("
+            const svg = document.querySelector('.flatpickr-calendar.open .flatpickr-next-month svg');
+            if (!svg) return null;
+            return Math.round(svg.getBoundingClientRect().height);
+        ");
+
+        self::assertNotNull(
+            $iconHeight,
+            'L\'icône .flatpickr-next-month svg doit exister dans le calendrier ouvert.'
+        );
+        self::assertLessThan(
+            50,
+            $iconHeight,
+            sprintf(
+                'Le CSS flatpickr doit borner l\'icône SVG (hauteur actuelle : %dpx, attendu < 50px).'
+                . ' Un chevron géant indique que le CSS flatpickr n\'est pas chargé.',
+                (int) $iconHeight,
+            )
+        );
     }
 
     /**
-     * Prouve que FullCalendar rend son interface (toolbar + grille).
+     * Prouve que FullCalendar rend son interface complète : toolbar + grille + cellules.
      *
-     * FullCalendar injecte une structure HTML complexe dans le conteneur cible.
-     * La présence de .fc (root) et .fc-toolbar (barre de navigation prev/next/today)
-     * prouve que le calendrier s'est correctement monté et rendu.
+     * FullCalendar v6 injecte son CSS via JS (<style data-fullcalendar>) et rend
+     * le calendrier dans le calendarElTarget. La présence de :
+     *   - .fc-toolbar : barre de navigation prev/next/today
+     *   - .fc-scrollgrid : table principale de la grille
+     *   - .fc-daygrid-day : cellules de jours individuelles
+     * prouve que le calendrier s'est monté et rendu correctement.
      */
     public function testFullCalendarRendersGrid(): void
     {
@@ -96,8 +123,7 @@ final class WidgetsE2ETest extends PantherTestCase
 
         $client->request('GET', '/ui-kit');
 
-        // FullCalendar injecte la classe .fc sur un div racine dans calendarElTarget,
-        // puis .fc-toolbar pour la barre de navigation.
+        // FullCalendar injecte .fc-toolbar puis la grille. On attend la toolbar d'abord.
         $client->waitFor('[data-testid="calendar"] .fc-toolbar');
 
         self::assertSelectorExists(
@@ -105,10 +131,30 @@ final class WidgetsE2ETest extends PantherTestCase
             'FullCalendar doit avoir rendu sa barre de navigation .fc-toolbar.'
         );
 
-        // Le conteneur racine .fc est également présent
+        // Faire défiler le calendrier dans la fenêtre visible et forcer un recalcul
+        // de taille. FullCalendar v6 utilise un ResizeObserver : si le conteneur est
+        // hors écran lors du montage, les dimensions peuvent être incorrectes et la
+        // grille ne se monte pas. Le scroll + resize déclenche updateSize().
+        $client->executeScript("
+            document.querySelector('[data-testid=\"calendar\"]').scrollIntoView({behavior: 'instant', block: 'center'});
+            window.dispatchEvent(new Event('resize'));
+        ");
+
+        // Assertion durcie : la grille (.fc-scrollgrid) doit être dans le DOM.
+        // Sans le plugin dayGrid ou en cas d'erreur de montage, seule la toolbar
+        // peut apparaître sans la grille.
+        $client->waitFor('[data-testid="calendar"] .fc-scrollgrid');
+
         self::assertSelectorExists(
-            '[data-testid="calendar"] .fc',
-            'FullCalendar doit avoir injecté un élément racine .fc dans le conteneur.'
+            '[data-testid="calendar"] .fc-scrollgrid',
+            'FullCalendar doit avoir rendu la table principale .fc-scrollgrid (grille daygrid).'
+        );
+
+        // Assertion durcie : des cellules de jours individuelles doivent être présentes.
+        // L\'absence de .fc-daygrid-day indique que la vue dayGridMonth ne s\'est pas montée.
+        self::assertSelectorExists(
+            '[data-testid="calendar"] .fc-daygrid-day',
+            'FullCalendar doit avoir rendu au moins une cellule .fc-daygrid-day.'
         );
     }
 }

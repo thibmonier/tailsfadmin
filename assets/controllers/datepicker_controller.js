@@ -1,5 +1,6 @@
 import { Controller } from "@hotwired/stimulus";
 import flatpickr from "flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
 
 /**
  * Contrôleur Stimulus datepicker — tailsfadmin--datepicker
