@@ -1,0 +1,83 @@
+{#
+  Composant Calendrier — tsf:Calendar
+  US-020 : FullCalendar v6 vendoré via importmap + contrôleur tailsfadmin--calendar.
+  Modale d'événement : réutilise tsf:Ui:Modal (US-011) sans modification.
+  Aucun Alpine.js. Aucun CDN runtime.
+
+  Le contrôleur reçoit :
+    - events via data-tailsfadmin--calendar-events-value (JSON)
+    - initialView via data-tailsfadmin--calendar-initial-view-value
+
+  La modale d'événement est détectée par le contrôleur via
+  querySelector('[data-controller*="tailsfadmin--modal"]') à l'intérieur
+  de l'élément calendrier ; open() est appelé via getControllerForElementAndIdentifier.
+
+  Cibles du contrôleur calendar (pour remplir la modale) :
+    - calendarEl  : conteneur dans lequel FullCalendar rend le SVG
+    - eventTitle  : titre de l'événement (dans le header de la modale)
+    - eventStart  : date de début (dans le body de la modale)
+    - eventEnd    : date de fin (dans le body de la modale)
+#}
+
+{%- set eventsJson = events|json_encode -%}
+
+{# Wrapper : le data-controller="tailsfadmin--calendar" englobe calendrier + modale #}
+<div
+    data-controller="tailsfadmin--calendar"
+    data-tailsfadmin--calendar-events-value="{{ eventsJson }}"
+    data-tailsfadmin--calendar-initial-view-value="{{ initialView }}"
+    data-testid="calendar"
+>
+    {%- if title is not empty -%}
+    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">{{ title }}</h3>
+    {%- endif -%}
+
+    {# Conteneur calendrier — FullCalendar injecte le HTML ici #}
+    <div
+        data-tailsfadmin--calendar-target="calendarEl"
+        class="rounded-xl border border-gray-200 bg-white p-2 dark:border-gray-800 dark:bg-white/[0.03]"
+    ></div>
+
+    {# ── Modale d'événement — réutilise tsf:Ui:Modal (US-011) ────────────── #}
+    <twig:tsf:Ui:Modal labelId="cal-event-modal-label">
+
+        {# Pas de trigger ici : le contrôleur calendar ouvre la modale
+           directement via getControllerForElementAndIdentifier. #}
+
+        <twig:block name="header">
+            <h4
+                id="cal-event-modal-label"
+                class="text-lg font-semibold text-gray-800 dark:text-white"
+                data-tailsfadmin--calendar-target="eventTitle"
+            >Événement</h4>
+        </twig:block>
+
+        <twig:block name="body">
+            <dl class="space-y-3 text-sm">
+                <div class="flex items-baseline gap-2">
+                    <dt class="min-w-[3.5rem] font-medium text-gray-700 dark:text-gray-300">Début :</dt>
+                    <dd
+                        class="text-gray-600 dark:text-gray-400"
+                        data-tailsfadmin--calendar-target="eventStart"
+                    >—</dd>
+                </div>
+                <div class="flex items-baseline gap-2">
+                    <dt class="min-w-[3.5rem] font-medium text-gray-700 dark:text-gray-300">Fin :</dt>
+                    <dd
+                        class="text-gray-600 dark:text-gray-400"
+                        data-tailsfadmin--calendar-target="eventEnd"
+                    >—</dd>
+                </div>
+            </dl>
+        </twig:block>
+
+        <twig:block name="footer">
+            <button
+                type="button"
+                class="inline-flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/5"
+                data-action="click->tailsfadmin--modal#close"
+            >Fermer</button>
+        </twig:block>
+
+    </twig:tsf:Ui:Modal>
+</div>
