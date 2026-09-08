@@ -169,6 +169,11 @@ phases:
         - "Gotchas composants réutilisés : (1) tsf:Ui:Button ne rend pas {{ attributes }} → aucun data-*/id ne passe ; utiliser un <button> brut si besoin d'une action Stimulus. (2) _self.macro() ne traverse pas la frontière d'un slot de Twig Component → utiliser {% include %}. (3) SVG passé en prop : :iconStart=\"var\" (bind), jamais iconStart=\"{{ var }}\" (guillemets internes cassent l'attribut)."
     dette_technique_dark_mode:
       severite: "moyenne-haute (visuel dark)"
+      cause_racine: "assets/styles/app.css — le bloc .dark (lignes ~231-233) REDÉFINIT --color-gray-700/800/900 avec des valeurs CLAIRES (gray-800 #1d2939→#d3d8de, gray-900 #101828→#eaecef). Inversion sémantique volontaire ajoutée au portage (Sprint 2), MAIS incompatible avec les composants portés de TailAdmin qui utilisent `dark:bg-gray-{800,900}` en attendant une surface SOMBRE. Vérifié via lecture CSS + computed styles navigateur."
+      options_fix:
+        - "(A) Retirer l'inversion des gris du bloc .dark (1 endroit) → gray-* redevient standard. Risque : casse les `text-gray-*` SANS variante dark: qui comptaient sur l'auto-inversion (à auditer)."
+        - "(B) Corriger chirurgicalement les ~15 usages `dark:bg-gray-{800,900}` en FOND (Form/Input,InputGroup,Textarea,Select,Upload,Datepicker · Ui/Modal,Dropdown,Button secondary,Preloader,TableAdvanced · Layout/Header) vers `dark:bg-gray-dark` ou `dark:bg-white/[0.0x]`."
+      recommandation: "Story dédiée : choisir (A) ou (B), puis revue dark SYSTÉMATIQUE de chaque composant (galerie /ui-kit + pages) avant/après. NE PAS faire de correctif partiel (crée de l'incohérence). Ajouter une garde visuelle dark (secondary button + inputs + modal panel)."
       constat: "Le thème INVERSE l'échelle de gris sous .dark : gray-800 = #1d2939 (clair) mais devient #d3d8de (sombre-clair) en dark, gray-900 = #101828 → #eaecef. Conséquence : tout `dark:bg-gray-{700,800,900}` utilisé comme FOND rend CLAIR en dark mode."
       impacts:
         - "tsf:Ui:Button variant=secondary (dark:bg-gray-800) : boutons clairs sur fond sombre en dark (confirmé, computed #d3d8de). Touche tous les boutons secondary de l'app en dark (ex. « Modifier » du profil US-022)."
