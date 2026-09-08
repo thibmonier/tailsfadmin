@@ -12,14 +12,30 @@
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-031-01 | [OPS] | Nettoyage métadonnées `composer.json` | 2h | — | 🔲 |
-| T-031-02 | [DOC] | Créer `LICENSE` (MIT) + aligner `package.json` racine | 1h | T-031-01 | 🔲 |
-| T-031-03 | [OPS] | `composer validate --strict` en CI + vérif `.gitattributes` | 1h | T-031-01 | 🔲 |
-| T-031-04 | [DOC] | Badges README (Packagist, licence, CI, PHP) | 1h | T-031-01 | 🔲 |
-| T-031-05 | [OPS] | Soumission Packagist + webhook + tag | 1.5h | US-030, T-031-03, T-031-04 | 🔲 |
+| T-031-01 | [OPS] | Nettoyage métadonnées `composer.json` | 2h | — | ✅ |
+| T-031-02 | [DOC] | Créer `LICENSE` (MIT) + aligner `package.json` racine | 1h | T-031-01 | ✅ |
+| T-031-03 | [OPS] | `composer validate --strict` en CI + vérif `.gitattributes` | 1h | T-031-01 | ✅ |
+| T-031-04 | [DOC] | Badges README (Packagist, licence, CI, PHP) | 1h | T-031-01 | ✅ |
+| T-031-05 | [OPS] | Soumission Packagist + webhook + tag | 1.5h | US-030, T-031-03, T-031-04 | ⚠️ manuel |
 | T-031-06 | [REV] | Vérif `composer require` app vierge + review | 0.5h | T-031-05 | 🔲 |
 
-**Total : 7h**
+**Total : 7h — partie autonome livrée (T-031-01→04, 2026-09-08)**
+
+> **T-031-01** : `version: "1.0.0"` retirée (les tags Git font foi, cohérent avec
+> `branch-alias`), dépendances implicites ajoutées en `require`
+> (`symfony/stimulus-bundle ^2.0`, `symfony/translation`), bloc `support`
+> (issues/source), URL canonique = `github.com/thibmonier/tailsfadmin` (vrai
+> remote). `composer validate --strict` → **valid**, lock rafraîchi.
+> **T-031-02** : `LICENSE` MIT créé ; `package.json` racine déjà clarifié
+> (source de vérité UX = `assets/package.json`, cf. T-027-05).
+> **T-031-03** : étape `composer validate --strict` **bloquante** dans le job
+> `bundle` ; `.gitattributes` déjà conforme (garde-fou aussi dans create-app.sh).
+> **T-031-04** : 5 badges (Packagist version/downloads, PHP, CI, licence) + URL
+> de clone corrigée dans le README.
+>
+> **T-031-05/06 (non faits — action sortante)** : soumission Packagist, webhook
+> GitHub et **tag de release** relèvent du mainteneur ; à exécuter après le 1er
+> run CI vert (US-030). Non réalisables en autonomie sans autorisation explicite.
 
 ---
 

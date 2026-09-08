@@ -7,12 +7,8 @@
 
 | ID | US | Tâche | Est. |
 |----|-----|-------|------|
-| T-031-01 | US-031 | Nettoyage métadonnées composer.json | 2h |
-| T-031-02 | US-031 | LICENSE + alignement package.json | 1h |
-| T-031-03 | US-031 | `composer validate --strict` CI | 1h |
-| T-031-04 | US-031 | Badges README | 1h |
-| T-031-05 | US-031 | Soumission Packagist + webhook + tag | 1.5h |
-| T-031-06 | US-031 | Vérif require app vierge + review | 0.5h |
+| T-031-05 | US-031 | Soumission Packagist + webhook + tag | 1.5h | ⚠️ action sortante/manuelle (mainteneur) |
+| T-031-06 | US-031 | Vérif require app vierge + review | 0.5h | après T-031-05 |
 
 ### 🟣 Réserve / stretch (US-029)
 | ID | US | Tâche | Est. |
@@ -57,6 +53,10 @@
 | T-030-04 | US-030 | Scénario échec vendoring (marqueur DOM) | `fixtures/SmokeTest.php` |
 | T-030-05 | US-030 | Job CI `integration` matrice 7.3/8.0 | `.github/workflows/ci.yml` |
 | T-030-06 | US-030 | Review (statique : bash -n, php -l, biome) | ⚠️ vert e2e = 1er run CI |
+| T-031-01 | US-031 | Nettoyage métadonnées composer.json (version retirée, deps, support) | `composer validate --strict` ✅ |
+| T-031-02 | US-031 | LICENSE MIT + package.json clarifié | `LICENSE` |
+| T-031-03 | US-031 | `composer validate --strict` bloquant en CI | job `bundle` |
+| T-031-04 | US-031 | Badges README + URL canonique harmonisée | `README.md` |
 
 ## 🚫 Bloqué
 | ID | US | Raison | Action |

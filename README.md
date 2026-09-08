@@ -1,5 +1,11 @@
 # tailsfadmin
 
+[![Packagist Version](https://img.shields.io/packagist/v/tailsfadmin/tailsfadmin-bundle)](https://packagist.org/packages/tailsfadmin/tailsfadmin-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/tailsfadmin/tailsfadmin-bundle)](https://packagist.org/packages/tailsfadmin/tailsfadmin-bundle)
+[![PHP Version](https://img.shields.io/packagist/php-v/tailsfadmin/tailsfadmin-bundle)](composer.json)
+[![CI](https://img.shields.io/github/actions/workflow/status/thibmonier/tailsfadmin/ci.yml?branch=main&label=CI)](https://github.com/thibmonier/tailsfadmin/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/packagist/l/tailsfadmin/tailsfadmin-bundle)](LICENSE)
+
 Thème admin Symfony basé sur TailAdmin — bundle réutilisable (Symfony UX, Stimulus, AssetMapper, Tailwind CSS v4).
 
 ## Architecture du monorepo
@@ -40,8 +46,8 @@ tailsfadmin/
 
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/tailsfadmin/tailsfadmin-bundle.git
-cd tailsfadmin-bundle
+git clone https://github.com/thibmonier/tailsfadmin.git
+cd tailsfadmin
 
 # 2. Installer les dépendances du bundle
 composer install

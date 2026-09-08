@@ -30,6 +30,9 @@ jobs:
           key: composer-bundle-${{ hashFiles('composer.lock') }}
           restore-keys: composer-bundle-
 
+      - name: Valider composer.json (strict — métadonnées Packagist, lock à jour)
+        run: composer validate --strict
+
       - name: Install (bundle)
         run: composer install --no-interaction --no-progress --prefer-dist
 
