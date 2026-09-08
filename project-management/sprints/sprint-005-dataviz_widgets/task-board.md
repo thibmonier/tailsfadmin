@@ -35,7 +35,13 @@ _(vide — toutes les tâches du Sprint 5 sont terminées)_
 |----|----|--------|--------|
 | — | — | — | — |
 
-## Métriques — ✅ SPRINT 5 TERMINÉ
+## Incident post-implémentation (résolu 2026-09-08)
+
+> **Bug CSS des libs détecté au screenshot** (extension Chrome reconnectée), invisible aux 157 tests + 5 E2E : le CSS de flatpickr/Dropzone/FullCalendar n'était pas chargé (une entrée CSS d'importmap n'est rendue en `<link>` que si `import`ée depuis le JS) → icône flatpickr géante + grille FullCalendar non rendue.
+> **Correctif** : `import '<lib>/dist/<lib>.css'` dans les contrôleurs ; FullCalendar migré vers le **bundle standalone** (adaptateur ESM local, **zéro patch de code vendoré** — un 1er essai patchait 4 lignes du vendor, rejeté). **E2E durcis** (icône bornée <50px, grille `.fc-scrollgrid` + cellules). Vérifié au navigateur : datepicker OK, calendrier grille + 5 événements + modale au clic. Commit `fix(assets)`.
+> **Leçon** : un `curl` 200 sur un asset prouve son existence, pas son chargement dans la page → le screenshot + les E2E durcis comblent ce trou.
+
+## Métriques — ✅ SPRINT 5 TERMINÉ (fix inclus)
 - **Tâches** : 23/23 (100 %)
 - **Points** : **24/24 livrés** (US-015, US-016, US-018, US-020)
 - **Qualité** : composer test **157/157** + **5 E2E Panther** · PHPStan max 0 · cs-fixer 0
