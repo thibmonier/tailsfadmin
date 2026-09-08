@@ -1,0 +1,199 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Dashboard e-commerce — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Dashboard" />
+{% endblock %}
+
+{#
+    US-021 — Dashboard e-commerce (assemblage pur).
+    Fidèle à TailAdmin : grille 12 colonnes composant charts, KPI, table et démographie.
+    Données : fournies par DashboardController (fixtures de démo, ADR-002).
+#}
+
+{% macro kpi_icon(name) %}
+    {% set paths = {
+        'users':   'M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z',
+        'cart':    'M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z',
+        'revenue': 'M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0z',
+        'target':  'M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.448 14.9 14.9 0 01.06-.312m-2.24 2.39a4.493 4.493 0 00-1.757 4.306 4.493 4.493 0 004.306-1.758M16.5 9a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z',
+    } %}
+    <svg class="size-6 text-gray-800 dark:text-white/90" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="{{ paths[name] ?? paths['target'] }}" />
+    </svg>
+{% endmacro %}
+
+{% set statusMap = {
+    'delivered': { color: 'success', label: 'Livré' },
+    'pending':   { color: 'warning', label: 'En attente' },
+    'canceled':  { color: 'error',   label: 'Annulé' },
+} %}
+
+{% set targetOptions = {
+    plotOptions: { radialBar: {
+        startAngle: -90, endAngle: 90,
+        hollow: { size: '70%' },
+        track: { background: '#E4E7EC', strokeWidth: '100%', margin: 5 },
+        dataLabels: {
+            name: { show: false },
+            value: { fontSize: '32px', fontWeight: '600', offsetY: -10 },
+        },
+    } },
+    fill: { type: 'solid', colors: ['#465FFF'] },
+    stroke: { lineCap: 'round' },
+    labels: ['Progrès'],
+} %}
+
+{% block content %}
+    <div class="grid grid-cols-12 gap-4 md:gap-6">
+
+        {# ─── Colonne gauche : métriques + ventes mensuelles ─── #}
+        <div class="col-span-12 space-y-6 xl:col-span-7">
+
+            {# Rangée de tuiles KPI (T-021-02) #}
+            <div class="grid grid-cols-2 gap-4 md:gap-6">
+                {% for m in metrics %}
+                    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
+                        <div class="flex size-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
+                            {{ _self.kpi_icon(m.icon) }}
+                        </div>
+                        <div class="mt-5 flex items-end justify-between">
+                            <div>
+                                <span class="text-theme-sm text-gray-500 dark:text-gray-400">{{ m.label }}</span>
+                                <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">{{ m.value }}</h4>
+                            </div>
+                            <twig:tsf:Ui:Badge color="{{ m.trend == 'up' ? 'success' : 'error' }}" size="sm">{{ m.delta }}</twig:tsf:Ui:Badge>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            {# Ventes mensuelles — bar chart (T-021-03) #}
+            <twig:tsf:Ui:Card title="Ventes mensuelles" subtitle="12 derniers mois">
+                <twig:block name="body">
+                    <twig:tsf:Chart:Bar
+                        :series="salesSeries"
+                        :categories="months"
+                        :height="200"
+                    />
+                </twig:block>
+            </twig:tsf:Ui:Card>
+        </div>
+
+        {# ─── Colonne droite : objectif mensuel (jauge radiale) ─── #}
+        <div class="col-span-12 xl:col-span-5">
+            <twig:tsf:Ui:Card title="Objectif mensuel" subtitle="Objectif fixé pour le mois">
+                <twig:block name="body">
+                    <div
+                        class="mx-auto max-w-[330px]"
+                        data-controller="tailsfadmin--apexcharts"
+                        data-tailsfadmin--apexcharts-type-value="radialBar"
+                        data-tailsfadmin--apexcharts-series-value="{{ [target.percent]|json_encode }}"
+                        data-tailsfadmin--apexcharts-options-value="{{ targetOptions|json_encode }}"
+                        data-tailsfadmin--apexcharts-height-value="330"
+                    ></div>
+                    <div class="-mt-6 flex justify-center">
+                        <twig:tsf:Ui:Badge color="success" size="sm">{{ target.delta }} vs mois dernier</twig:tsf:Ui:Badge>
+                    </div>
+                    <p class="mx-auto mt-6 max-w-[380px] text-center text-theme-sm text-gray-500 dark:text-gray-400">
+                        Vous avez gagné {{ target.today }} aujourd'hui, un résultat supérieur au mois dernier. Continuez ainsi !
+                    </p>
+                </twig:block>
+                <twig:block name="footer">
+                    <div class="flex items-center justify-center gap-5 sm:gap-8">
+                        {% for stat in [{ k: 'Objectif', v: target.target, down: true }, { k: 'Revenus', v: target.revenue, down: false }, { k: 'Aujourd\'hui', v: target.today, down: false }] %}
+                            <div class="text-center">
+                                <p class="mb-1 text-theme-xs text-gray-500 dark:text-gray-400">{{ stat.k }}</p>
+                                <p class="flex items-center justify-center gap-1 text-theme-sm font-semibold text-gray-800 dark:text-white/90">{{ stat.v }}</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </twig:block>
+            </twig:tsf:Ui:Card>
+        </div>
+
+        {# ─── Statistiques — area chart pleine largeur (T-021-03) ─── #}
+        <div class="col-span-12">
+            <twig:tsf:Ui:Card title="Statistiques" subtitle="Ventes et revenus cible sur l'année">
+                <twig:block name="body">
+                    <twig:tsf:Chart:Line
+                        :series="statsSeries"
+                        :categories="months"
+                        :height="310"
+                        type="area"
+                    />
+                </twig:block>
+            </twig:tsf:Ui:Card>
+        </div>
+
+        {# ─── Démographie client — placeholder (US-019 optionnel) (T-021-04) ─── #}
+        <div class="col-span-12 xl:col-span-5">
+            <twig:tsf:Ui:Card title="Démographie client" subtitle="Nombre de clients par pays">
+                <twig:block name="body">
+                    {# Placeholder carte monde : jsvectormap (US-019) reste au backlog. #}
+                    <div class="flex h-[212px] items-center justify-center rounded-2xl border border-dashed border-gray-300 bg-gray-50 text-theme-sm text-gray-400 dark:border-gray-700 dark:bg-white/[0.02]">
+                        Carte monde (jsvectormap — US-019)
+                    </div>
+                    <div class="mt-6 space-y-5">
+                        {% for d in demographics %}
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-theme-sm font-semibold text-gray-800 dark:text-white/90">{{ d.country }}</p>
+                                    <span class="text-theme-xs text-gray-500 dark:text-gray-400">{{ d.customers }}</span>
+                                </div>
+                                <div class="flex w-full max-w-[140px] items-center gap-3">
+                                    <div class="relative h-2 w-full rounded-sm bg-gray-200 dark:bg-gray-800">
+                                        <div class="absolute left-0 top-0 h-full rounded-sm bg-brand-500" style="width: {{ d.percent }}%"></div>
+                                    </div>
+                                    <span class="text-theme-sm font-medium text-gray-800 dark:text-white/90">{{ d.percent }}%</span>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </twig:block>
+            </twig:tsf:Ui:Card>
+        </div>
+
+        {# ─── Commandes récentes — table (Avatar + Badge statut) (T-021-04) ─── #}
+        <div class="col-span-12 xl:col-span-7">
+            <twig:tsf:Ui:Card title="Commandes récentes" subtitle="Dernières commandes passées">
+                <twig:block name="body">
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full">
+                            <thead>
+                                <tr class="border-y border-gray-100 dark:border-gray-800">
+                                    <th class="py-3 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">Produit</th>
+                                    <th class="py-3 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">Catégorie</th>
+                                    <th class="py-3 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">Prix</th>
+                                    <th class="py-3 text-left text-theme-xs font-medium text-gray-500 dark:text-gray-400">Statut</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for o in orders %}
+                                    <tr class="border-b border-gray-100 last:border-0 dark:border-gray-800">
+                                        <td class="py-3">
+                                            <div class="flex items-center gap-3">
+                                                <twig:tsf:Ui:Avatar alt="{{ o.product }}" size="sm" />
+                                                <div>
+                                                    <p class="text-theme-sm font-medium text-gray-800 dark:text-white/90">{{ o.product }}</p>
+                                                    <span class="text-theme-xs text-gray-500 dark:text-gray-400">{{ o.variant }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="py-3 text-theme-sm text-gray-500 dark:text-gray-400">{{ o.category }}</td>
+                                        <td class="py-3 text-theme-sm text-gray-500 dark:text-gray-400">{{ o.price }}</td>
+                                        <td class="py-3">
+                                            <twig:tsf:Ui:Badge color="{{ statusMap[o.status].color }}" size="sm">{{ statusMap[o.status].label }}</twig:tsf:Ui:Badge>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </twig:block>
+            </twig:tsf:Ui:Card>
+        </div>
+
+    </div>
+{% endblock %}
