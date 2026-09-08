@@ -40,3 +40,15 @@ services:
         resource: '../src/Twig/Components/'
         autoconfigure: true
         autowire: true
+
+    # US-027 / ADR-007 — installation des dépendances JS dans l'importmap de l'hôte
+    Tailsfadmin\Assets\ImportMapInstallPlanner: ~
+
+    Tailsfadmin\Command\AssetsInstallCommand:
+        arguments:
+            $configReader: '@asset_mapper.importmap.config_reader'
+            $importMapManager: '@asset_mapper.importmap.manager'
+            $planner: '@Tailsfadmin\Assets\ImportMapInstallPlanner'
+            $manifestPath: '%tailsfadmin.dir%/config/importmap-entries.php'
+        tags:
+            - { name: console.command }

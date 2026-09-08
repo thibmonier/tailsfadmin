@@ -1,7 +1,7 @@
 {
     "name": "@tailsfadmin/tailsfadmin-bundle",
     "description": "Thème admin Symfony — contrôleurs Stimulus (bundle tailsfadmin)",
-    "version": "0.1.0",
+    "version": "1.0.0",
     "license": "MIT",
     "keywords": [
         "symfony",
@@ -9,11 +9,90 @@
         "stimulus",
         "admin"
     ],
+    "comment": "Auto-enregistrement UX : la source de vérité est assets/package.json (lu par StimulusBundle, cf. US-019). Ce fichier racine liste les mêmes contrôleurs pour la découverte Flex (ADR-003) ; garder les deux synchronisés.",
     "symfony": {
         "controllers": {
             "preloader": {
                 "name": "tailsfadmin--preloader",
                 "main": "assets/controllers/preloader_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "theme": {
+                "name": "tailsfadmin--theme",
+                "main": "assets/controllers/theme_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "sidebar": {
+                "name": "tailsfadmin--sidebar",
+                "main": "assets/controllers/sidebar_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "dropdown": {
+                "name": "tailsfadmin--dropdown",
+                "main": "assets/controllers/dropdown_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "search": {
+                "name": "tailsfadmin--search",
+                "main": "assets/controllers/search_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "alert-dismiss": {
+                "name": "tailsfadmin--alert-dismiss",
+                "main": "assets/controllers/alert_dismiss_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "modal": {
+                "name": "tailsfadmin--modal",
+                "main": "assets/controllers/modal_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "datepicker": {
+                "name": "tailsfadmin--datepicker",
+                "main": "assets/controllers/datepicker_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "dropzone": {
+                "name": "tailsfadmin--dropzone",
+                "main": "assets/controllers/dropzone_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "apexcharts": {
+                "name": "tailsfadmin--apexcharts",
+                "main": "assets/controllers/apexcharts_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "calendar": {
+                "name": "tailsfadmin--calendar",
+                "main": "assets/controllers/calendar_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "vectormap": {
+                "name": "tailsfadmin--vectormap",
+                "main": "assets/controllers/vectormap_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "submenu": {
+                "name": "tailsfadmin--submenu",
+                "main": "assets/controllers/submenu_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
+            "assets-check": {
+                "name": "tailsfadmin--assets-check",
+                "main": "assets/controllers/assets_check_controller.js",
                 "fetch": "eager",
                 "enabled": true
             }

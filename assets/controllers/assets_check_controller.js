@@ -1,0 +1,57 @@
+import { Controller } from "@hotwired/stimulus";
+
+/**
+ * Libs tierces du bundle mappées à leur contrôleur Stimulus. Une lib n'est
+ * vérifiée que si un élément de la page référence son contrôleur.
+ */
+const LIBS = [
+    { specifier: "apexcharts", controller: "tailsfadmin--apexcharts" },
+    { specifier: "flatpickr", controller: "tailsfadmin--datepicker" },
+    { specifier: "dropzone", controller: "tailsfadmin--dropzone" },
+    { specifier: "jsvectormap", controller: "tailsfadmin--vectormap" },
+    { specifier: "fullcalendar", controller: "tailsfadmin--calendar" },
+];
+
+/**
+ * Préflight des dépendances JS du bundle (US-027 / T-027-04, ADR-007).
+ *
+ * Quand une page charge un composant qui dépend d'une lib tierce non installée
+ * dans l'importmap de l'hôte, le navigateur émet une erreur cryptique
+ * (« Failed to resolve module specifier … »). Ce contrôleur ajoute une erreur
+ * console EXPLICITE nommant la commande à exécuter.
+ *
+ * Non-invasif : il ne modifie pas les contrôleurs de lib (imports statiques
+ * inchangés → aucun risque de régression). Il n'avertit QUE si un composant de
+ * la page dépend réellement de la lib manquante (fidèle au scénario Gherkin).
+ *
+ * S'attache au <body> du layout admin ; utilise `import.meta.resolve` pour
+ * tester la résolution d'un specifier contre l'importmap (dégrade en no-op si
+ * l'API n'est pas disponible — navigateur ancien).
+ */
+export default class extends Controller {
+    connect() {
+        if (typeof import.meta.resolve !== "function") {
+            return;
+        }
+
+        const missing = LIBS.filter(({ specifier, controller }) => {
+            if (!document.querySelector(`[data-controller~="${controller}"]`)) {
+                return false;
+            }
+            try {
+                import.meta.resolve(specifier);
+                return false;
+            } catch {
+                return true;
+            }
+        }).map(({ specifier }) => specifier);
+
+        if (missing.length > 0) {
+            console.error(
+                `[tailsfadmin] Bibliothèque(s) JS non installée(s) : ${missing.join(", ")}. ` +
+                    "Exécutez « php bin/console tailsfadmin:assets:install » " +
+                    "pour les ajouter à l'importmap (vendoring local, sans CDN).",
+            );
+        }
+    }
+}

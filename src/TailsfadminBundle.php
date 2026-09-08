@@ -100,6 +100,10 @@ final class TailsfadminBundle extends AbstractBundle implements PrependExtension
         $builder->setParameter('tailsfadmin.default_locale', \is_string($defaultLocale) ? $defaultLocale : 'fr');
         $builder->setParameter('tailsfadmin.locales', \is_array($locales) ? array_values($locales) : ['fr', 'en', 'ar', 'es', 'de']);
         $builder->setParameter('tailsfadmin.rtl_locales', \is_array($rtlLocales) ? array_values($rtlLocales) : ['ar']);
+
+        // Répertoire racine du bundle — sert à localiser le manifeste des assets
+        // (config/importmap-entries.php) pour la commande tailsfadmin:assets:install.
+        $builder->setParameter('tailsfadmin.dir', $this->getPath());
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -118,6 +122,10 @@ final class TailsfadminBundle extends AbstractBundle implements PrependExtension
                 'asset_mapper' => [
                     'paths' => [
                         $this->getPath() . '/assets/controllers' => 'bundles/tailsfadmin',
+                        // Assets JS livrés par le bundle (shim ESM FullCalendar) exposés
+                        // pour que `tailsfadmin:assets:install` puisse les piner par chemin
+                        // logique (bundles/tailsfadmin-vendor/…) — US-027 / ADR-007.
+                        $this->getPath() . '/assets/vendor-src' => 'bundles/tailsfadmin-vendor',
                     ],
                 ],
                 // 3. Traductions du chrome (header, breadcrumb, actions communes) — US-024.

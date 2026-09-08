@@ -67,14 +67,42 @@ Le bundle est activé automatiquement par Symfony Flex.
 
 ### 1. Assets (AssetMapper + importmap)
 
-Les contrôleurs Stimulus du bundle sont exposés sous `bundles/tailsfadmin`.
-Assurez-vous que votre `config/packages/asset_mapper.yaml` mappe ce chemin et
-que Stimulus est démarré (`assets/bootstrap.js` du skeleton). Compilez avec :
+Les contrôleurs Stimulus du bundle sont exposés automatiquement sous
+`bundles/tailsfadmin` (via `prepend()`, aucune config à écrire). Stimulus doit
+être démarré côté hôte (`assets/bootstrap.js` du skeleton).
+
+**Dépendances JS tierces — commande d'installation.** Cinq contrôleurs du bundle
+s'appuient sur des bibliothèques tierces (ApexCharts, jsvectormap, flatpickr,
+Dropzone, FullCalendar). Un bundle **ne peut pas** injecter d'entrées dans
+l'`importmap.php` de l'hôte (l'importmap n'est pas une config mergeable — voir
+**[ADR-007](docs/adr/0007-propagation-importmap-bundle.md)**). Le bundle fournit
+donc une commande qui ajoute ces pins et **vendore les fichiers localement** :
+
+```bash
+php bin/console tailsfadmin:assets:install
+```
+
+- **Sans CDN au runtime** : les libs sont téléchargées à l'installation puis
+  servies en local (ADR-004/006). La source de vérité des versions pinées est
+  `config/importmap-entries.php`, distribué avec le bundle.
+- **Idempotente** : relançable sans risque, n'ajoute que ce qui manque.
+- **Conflits de version** : si votre app a déjà piné une lib dans une autre
+  version, la commande **ne l'écrase pas** ; elle signale le conflit. Forcez la
+  réécriture avec `--force`.
+- **Garde-fou** : si une page utilise un composant dont la lib n'est pas
+  installée, une **erreur explicite en console** rappelle la commande à lancer
+  (au lieu du cryptique « Failed to resolve module specifier »).
+
+Compilez ensuite les assets :
 
 ```bash
 php bin/console tailwind:build   # CSS Tailwind v4 (symfonycasts/tailwind-bundle)
 php bin/console asset-map:compile
 ```
+
+> Les contrôleurs sans dépendance externe (`theme`, `sidebar`, `modal`,
+> `dropdown`, `alert-dismiss`, `preloader`, `search`, `submenu`) fonctionnent
+> sans cette commande, via le seul path AssetMapper.
 
 ### 2. Menu de la sidebar (`config/packages/tailsfadmin.yaml`)
 
