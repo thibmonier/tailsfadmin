@@ -9,16 +9,8 @@
 |----|-----|-------|------|
 | T-031-05 | US-031 | Soumission Packagist + webhook + tag | 1.5h | ⚠️ action sortante/manuelle (mainteneur) |
 | T-031-06 | US-031 | Vérif require app vierge + review | 0.5h | après T-031-05 |
+| T-029-04 | US-029 | Vérif live recette via app vierge | 2.5h | 🟡 partiel (gardes CI faites) — e2e après canal actif (Packagist) |
 
-### 🟣 Réserve / stretch (US-029)
-| ID | US | Tâche | Est. |
-|----|-----|-------|------|
-| T-029-01 | US-029 | Manifest recette Flex | 3h |
-| T-029-02 | US-029 | Canal recette + dégradation | 2h |
-| T-029-03 | US-029 | Idempotence | 2h |
-| T-029-04 | US-029 | Vérif via app vierge | 2.5h |
-| T-029-05 | US-029 | Doc recette + contribution | 1h |
-| T-029-06 | US-029 | Review | 0.5h |
 
 ## 🔄 En Cours
 | ID | US | Tâche | Démarré |
@@ -57,6 +49,11 @@
 | T-031-02 | US-031 | LICENSE MIT + package.json clarifié | `LICENSE` |
 | T-031-03 | US-031 | `composer validate --strict` bloquant en CI | job `bundle` |
 | T-031-04 | US-031 | Badges README + URL canonique harmonisée | `README.md` |
+| T-029-01 | US-029 | Manifest recette Flex (bundle + config + post-install) | `recipe/.../manifest.json` |
+| T-029-02 | US-029 | Canal recette + dégradation sans AssetMapper | `recipe/README.md` |
+| T-029-03 | US-029 | Idempotence (copy-from-recipe, fichier assets dédié) | `recipe/README.md` |
+| T-029-05 | US-029 | Doc recette + procédure de contribution | `recipe/README.md` |
+| T-029-06 | US-029 | Review (32 tests verts, gardes manifeste) | `RecipeManifestTest` |
 
 ## 🚫 Bloqué
 | ID | US | Raison | Action |

@@ -12,14 +12,29 @@
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-029-01 | [OPS] | Manifest recette (bundles.php, `tailsfadmin.yaml`, post-install-message) | 3h | US-027, US-028 | 🔲 |
-| T-029-02 | [OPS] | Canal recette (contrib publique vs endpoint privé) + dégradation | 2h | T-029-01 | 🔲 |
-| T-029-03 | [BE] | Idempotence (pas d'écrasement sans confirmation) | 2h | T-029-01 | 🔲 |
-| T-029-04 | [TEST] | Vérif via app vierge (US-030) | 2.5h | T-029-03, US-030 | 🔲 |
-| T-029-05 | [DOC] | Doc recette + procédure de contribution | 1h | T-029-04 | 🔲 |
-| T-029-06 | [REV] | Review | 0.5h | T-029-05 | 🔲 |
+| T-029-01 | [OPS] | Manifest recette (bundles.php, `tailsfadmin.yaml`, post-install-message) | 3h | US-027, US-028 | ✅ |
+| T-029-02 | [OPS] | Canal recette (contrib publique vs endpoint privé) + dégradation | 2h | T-029-01 | ✅ |
+| T-029-03 | [BE] | Idempotence (pas d'écrasement sans confirmation) | 2h | T-029-01 | ✅ |
+| T-029-04 | [TEST] | Vérif via app vierge (US-030) | 2.5h | T-029-03, US-030 | 🟡 |
+| T-029-05 | [DOC] | Doc recette + procédure de contribution | 1h | T-029-04 | ✅ |
+| T-029-06 | [REV] | Review | 0.5h | T-029-05 | ✅ |
 
-**Total : 11h** (hors périmètre engagé — réalisé si stretch)
+**Total : 11h — recette livrée (prête pour recipes-contrib), 2026-09-08**
+
+> **Livrables** : `recipe/tailsfadmin/tailsfadmin-bundle/1.0/` (manifest.json +
+> `config/packages/tailsfadmin.yaml` + `tailsfadmin_assets.yaml`), `recipe/README.md`.
+> `recipe/` en **export-ignore** (destiné à recipes-contrib, pas au package).
+> - **T-029-01** : enregistrement bundle (`Tailsfadmin\TailsfadminBundle`), config
+>   par défaut (menu + locales fr/en/ar/es/de), message post-install (assets 027 + CSS 028).
+> - **T-029-02** : canal = `recipes-contrib` (post-Packagist) ou endpoint privé
+>   (documentés) ; path AssetMapper dans un fichier séparé → dégradation propre
+>   sans AssetMapper (clé inerte).
+> - **T-029-03** : idempotence via `copy-from-recipe` (Flex n'écrase pas) + config
+>   assets additive (fichier dédié).
+> - **T-029-04 (🟡 partiel)** : gardes anti-dérive en CI (`RecipeManifestTest`,
+>   4 tests) ; la vérif live e2e exige un canal actif (Packagist/recipes-contrib).
+> - **T-029-05/06** : `recipe/README.md` (fonctionnement, contribution, endpoint
+>   privé, dégradation) ; gates verts (32 tests, PHPStan max, CS).
 
 ---
 
