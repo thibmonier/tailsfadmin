@@ -105,9 +105,9 @@
     {%- endif -%}
 
     {%- if multiple -%}
-        {%- set tailBase = 'w-full rounded-lg border bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90' -%}
+        {%- set tailBase = 'w-full min-h-40 rounded-lg border bg-transparent px-4 py-2 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90' -%}
     {%- else -%}
-        {%- set tailBase = 'h-11 w-full appearance-none rounded-lg border bg-transparent pl-4 pr-11 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90' -%}
+        {%- set tailBase = 'h-11 w-full appearance-none bg-none rounded-lg border bg-transparent pl-4 pr-11 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:ring-3 focus:outline-hidden dark:bg-gray-900 dark:text-white/90' -%}
     {%- endif -%}
 
     {%- if errors|length > 0 or (attr['aria-invalid'] is defined and attr['aria-invalid'] == 'true') -%}
@@ -119,7 +119,7 @@
     {%- set attr = attr|merge({class: (tailBase ~ ' ' ~ tailState ~ ' ' ~ attr.class|default(''))|trim}) -%}
 
     <div class="relative">
-        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+        <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple" size="{{ attr.size|default(5) }}"{% endif %}>
             {%- if placeholder is not none -%}
                 <option value=""{% if placeholder_attr|default({}) %}{% with {attr: placeholder_attr} %}{{ block('attributes') }}{% endwith %}{% endif %}{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
             {%- endif -%}

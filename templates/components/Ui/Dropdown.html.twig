@@ -21,7 +21,11 @@
     data-controller="tailsfadmin--dropdown"
 >
     {# ── Déclencheur (trigger) ─────────────────────────────────────────────── #}
-    <div data-tailsfadmin--dropdown-target="trigger" aria-expanded="false">
+    <div
+        data-tailsfadmin--dropdown-target="trigger"
+        data-action="click->tailsfadmin--dropdown#toggle"
+        aria-expanded="false"
+    >
         {% block trigger %}{% endblock %}
     </div>
 

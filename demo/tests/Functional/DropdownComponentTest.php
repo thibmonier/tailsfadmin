@@ -51,6 +51,23 @@ final class DropdownComponentTest extends WebTestCase
         );
     }
 
+    /**
+     * Régression : le trigger DOIT porter data-action pour appeler #toggle
+     * (le contrôleur n'attache pas l'écouteur lui-même) — sinon le dropdown
+     * ne s'ouvre jamais au clic.
+     */
+    public function testDropdownTriggerHasToggleAction(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/ui-kit');
+
+        self::assertResponseIsSuccessful();
+        self::assertSelectorExists(
+            '[data-action*="tailsfadmin--dropdown#toggle"]',
+            'Le déclencheur du dropdown doit appeler #toggle via data-action (sinon il ne s\'ouvre pas au clic)'
+        );
+    }
+
     public function testDropdownMenuTargetExists(): void
     {
         $client = static::createClient();
