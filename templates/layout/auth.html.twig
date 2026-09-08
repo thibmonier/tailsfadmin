@@ -1,0 +1,61 @@
+{#
+  Layout auth — @Tailsfadmin/layout/auth.html.twig
+  US-023 : gabarit centré sans sidebar/header pour les écrans d'entrée
+  (connexion, inscription) et les pages utilitaires plein écran (404).
+
+  Blocs :
+    title    — titre du document
+    content  — contenu principal centré (OBLIGATOIRE dans les pages filles)
+    aside    — colonne décorative droite (défaut : logo + baseline sur fond brand)
+
+  Dark mode : classe ".dark" sur <html> (ADR-001 / US-005), anti-FOUC inline.
+  Accessibilité : skip-link vers #auth-content.
+#}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}tailsfadmin{% endblock %}</title>
+
+    {# Anti-FOUC dark mode (US-005) #}
+    <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+    {% block stylesheets %}{% endblock %}
+    {% block javascripts %}
+        {% block importmap %}{{ importmap('app') }}{% endblock %}
+    {% endblock %}
+</head>
+<body class="font-outfit bg-white dark:bg-gray-dark">
+
+    <a
+        href="#auth-content"
+        class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[99999] focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+    >
+        Aller au contenu principal
+    </a>
+
+    <div class="relative flex min-h-screen w-full flex-col justify-center lg:flex-row dark:bg-gray-dark">
+
+        {# ─── Colonne formulaire (gauche) ─── #}
+        <div class="flex w-full flex-1 flex-col lg:w-1/2">
+            <main id="auth-content" class="mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-4 py-10 sm:px-6">
+                {% block content %}{% endblock %}
+            </main>
+        </div>
+
+        {# ─── Colonne décorative (droite, masquée en mobile) ─── #}
+        {% block aside %}
+            <div class="relative hidden h-auto w-full items-center justify-center bg-brand-950 lg:flex lg:w-1/2 dark:bg-white/5">
+                <div class="flex flex-col items-center gap-4 text-center">
+                    <a href="{{ path('home') }}" class="font-outfit text-4xl font-bold text-white">tailsfadmin</a>
+                    <p class="max-w-xs text-theme-sm text-white/60">
+                        Thème d'administration Symfony, propre et accessible, inspiré de TailAdmin.
+                    </p>
+                </div>
+            </div>
+        {% endblock %}
+    </div>
+</body>
+</html>

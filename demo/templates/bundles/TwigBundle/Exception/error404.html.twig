@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{#
+    US-023 — Page d'erreur 404 (override TwigBundle).
+    Utilisée par Symfony en production (kernel.debug=false). En prod, AUCUNE
+    stack trace n'est exposée (scénario erreur US-023) : page métier centrée,
+    message générique, bouton retour. En dev, Symfony affiche la page de debug.
+#}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page introuvable — tailsfadmin</title>
+    <script>try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.classList.add('dark')}catch(e){}</script>
+    <link rel="stylesheet" href="{{ asset('styles/app.css') }}">
+</head>
+<body class="font-outfit bg-white dark:bg-gray-dark">
+    <div class="flex min-h-screen flex-col items-center justify-center overflow-hidden p-6">
+        <div class="mx-auto w-full max-w-[472px] text-center">
+            <h1 class="mb-4 text-title-md font-bold text-gray-800 dark:text-white/90 xl:text-title-2xl">Erreur</h1>
+
+            <p class="text-[100px] font-bold leading-none text-brand-500 sm:text-[140px]" aria-label="404">404</p>
+
+            <p class="mb-8 mt-6 text-base text-gray-700 dark:text-gray-300 sm:text-lg">
+                La page que vous recherchez semble introuvable.
+            </p>
+
+            <a
+                href="{{ path('home') }}"
+                class="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-3.5 text-sm font-medium text-gray-700 shadow-theme-xs transition hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]"
+            >
+                Retour à l'accueil
+            </a>
+        </div>
+
+        <p class="absolute bottom-6 left-1/2 -translate-x-1/2 text-theme-sm text-gray-500 dark:text-gray-400">
+            &copy; {{ "now"|date("Y") }} — tailsfadmin
+        </p>
+    </div>
+</body>
+</html>

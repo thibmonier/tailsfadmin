@@ -1,0 +1,55 @@
+{% extends '@Tailsfadmin/layout/auth.html.twig' %}
+
+{% block title %}Inscription — tailsfadmin{% endblock %}
+
+{#
+    US-023 — Page d'inscription (UI de démo, pas d'authentification réelle).
+    Réutilise le layout auth, tsf:Form:Input/Checkbox (US-014), tsf:Ui:Button (US-010).
+#}
+
+{% set googleIcon %}<svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.75 10.19c0-.64-.06-1.25-.16-1.84H10v3.49h4.9a4.2 4.2 0 01-1.82 2.75v2.28h2.94c1.72-1.59 2.73-3.93 2.73-6.68z" fill="#4285F4"/><path d="M10 19c2.46 0 4.53-.82 6.03-2.2l-2.94-2.29c-.82.55-1.86.87-3.09.87-2.38 0-4.39-1.6-5.11-3.76H1.86v2.36A9 9 0 0010 19z" fill="#34A853"/><path d="M4.89 11.62a5.4 5.4 0 010-3.24V6.02H1.86a9 9 0 000 7.96l3.03-2.36z" fill="#FBBC05"/><path d="M10 4.62c1.34 0 2.55.46 3.5 1.37l2.6-2.6A8.98 8.98 0 0010 1a9 9 0 00-8.14 5.02l3.03 2.36C5.61 6.22 7.62 4.62 10 4.62z" fill="#EB4335"/></svg>{% endset %}
+{% set xIcon %}<svg viewBox="0 0 20 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M15.14 2.5h2.6l-5.68 6.49L18.75 17.5h-5.23l-4.1-5.36-4.69 5.36H2.13l6.07-6.94L1.5 2.5h5.36l3.7 4.9 4.58-4.9zm-.91 13.44h1.44L6.63 3.98H5.08l9.15 11.96z"/></svg>{% endset %}
+
+{% block content %}
+    <div class="w-full max-w-md pt-6">
+        <a href="{{ path('home') }}" class="inline-flex items-center gap-1 text-theme-sm text-gray-500 transition hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300">
+            <svg class="size-4" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12.5 15l-5-5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Retour au tableau de bord
+        </a>
+    </div>
+
+    <div class="mb-5 sm:mb-8">
+        <h1 class="mb-2 text-title-sm font-semibold text-gray-800 dark:text-white/90 sm:text-title-md">Inscription</h1>
+        <p class="text-theme-sm text-gray-500 dark:text-gray-400">
+            Renseignez vos informations pour créer votre compte.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+        <twig:tsf:Ui:Button variant="secondary" :block="true" :iconStart="googleIcon">Google</twig:tsf:Ui:Button>
+        <twig:tsf:Ui:Button variant="secondary" :block="true" :iconStart="xIcon">X.com</twig:tsf:Ui:Button>
+    </div>
+
+    <div class="relative py-5">
+        <div class="absolute inset-0 flex items-center"><span class="w-full border-t border-gray-200 dark:border-gray-800"></span></div>
+        <div class="relative flex justify-center"><span class="bg-white px-4 text-theme-sm text-gray-400 dark:bg-gray-dark">Ou</span></div>
+    </div>
+
+    <form method="post" action="{{ path('auth_register') }}" class="space-y-5">
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+            <twig:tsf:Form:Input label="Prénom" name="first_name" placeholder="Votre prénom" :required="true" />
+            <twig:tsf:Form:Input label="Nom" name="last_name" placeholder="Votre nom" :required="true" />
+        </div>
+        <twig:tsf:Form:Input label="E-mail" name="email" type="email" placeholder="info@exemple.fr" :required="true" />
+        <twig:tsf:Form:Input label="Mot de passe" name="password" type="password" placeholder="Choisissez un mot de passe" :required="true" />
+
+        <twig:tsf:Form:Checkbox label="J'accepte les conditions générales et la politique de confidentialité." name="terms" />
+
+        <twig:tsf:Ui:Button variant="primary" size="lg" type="submit" :block="true">Créer mon compte</twig:tsf:Ui:Button>
+    </form>
+
+    <p class="mt-5 text-center text-theme-sm text-gray-500 dark:text-gray-400">
+        Vous avez déjà un compte ?
+        <a href="{{ path('auth_login') }}" class="font-medium text-brand-500 hover:text-brand-600">Se connecter</a>
+    </p>
+{% endblock %}
