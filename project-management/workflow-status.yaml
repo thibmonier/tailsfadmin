@@ -187,12 +187,23 @@ phases:
       status: done              # ✅ hors périmètre initial Sprint 6, réalisée à la suite
       resume: "Carte du monde jsvectormap 1.7 (vendorée, sans CDN) intégrée à la démographie du dashboard. Contrôleur Stimulus tailsfadmin--vectormap (ADR-004, CSS via pipeline), composant tsf:Chart:VectorMap, marqueurs France/USA. Nécessitait d'ajouter le contrôleur au manifeste assets/package.json (symfony.controllers) — sinon StimulusBundle lève « controller does not exist in the package »."
       qualite: "demo 180/180 (DashboardTest + vectormap) · E2E Panther 6/6 (montage SVG réel, 176 régions) · PHPStan max 0 · cs-fixer 0 · revue visuelle clair+dark OK (régions dark-aware, marqueurs brand, 0 erreur console)"
-    next: "Sprint 6 + extras terminés (dette dark-mode résolue, US-019 livrée). Options : rétro Sprint 6, pousser la branche, ou Sprint 7."
+    ceremonies_sprint_6:
+      review: done              # sprints/sprint-006-pages_i18n/sprint-review.md
+      retro: done               # sprints/sprint-006-pages_i18n/sprint-retro.md
+      push: done                # origin/feature/sprint-001-walking-skeleton @ 7f7e8f6
+    sprint_7:
+      status: started           # Planning P1 fait (sprint-goal.md) — à décomposer
+      but: "Qualité, accessibilité & livrabilité (dernier sprint, EPIC-007)"
+      scope: "US-025 (accessibilité WCAG AA, 5) + US-026 (CI/doc/CHANGELOG/livrabilité, 8) = 13 pts"
+      goal_file: "sprints/sprint-007-qualite_a11y_doc/sprint-goal.md"
+      ordre: "US-025 (audit axe-core + corrections ARIA/focus/contraste clair/dark/RTL) → US-026 (CI intègre a11y + PHPStan/tests/lint + README/catalogue/CHANGELOG SemVer)"
+      note: "US-025 bloque US-026. Actions rétro S6 intégrées : ADR intégration lib JS, garde visuelle dark, doc gotchas composants."
+    next: "Sprint 7 démarré (Planning P1). Prochaine étape : /project:decompose-tasks 007 puis implémentation TDD US-025 → US-026."
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
-  etat: "Sprints 1-6 ✅ TERMINÉS + extras. Sprint 6 (US-021..024) : dashboard, profil, auth, i18n+RTL. Extras commités : fix(modal) focus trap, feat(button) block, fix(dark-mode) inversion gris (dette RÉSOLUE, décision A), US-019 carte jsvectormap. Rien poussé (branche feature/sprint-001-walking-skeleton)."
-  prochaine_action: "Tout est vert et commité (demo 180/180, E2E 6/6, PHPStan 0, cs-fixer 0). Options : rétro Sprint 6, pousser la branche sur origin, ou démarrer Sprint 7."
+  etat: "Sprints 1-6 ✅ + extras, review+rétro S6 faites, branche POUSSÉE (origin @ 7f7e8f6). Sprint 7 DÉMARRÉ (sprint-goal.md rédigé, pas encore décomposé). Reste : US-025 (a11y) + US-026 (CI/doc)."
+  prochaine_action: "Décomposer le Sprint 7 (/project:decompose-tasks 007) puis implémenter en TDD : US-025 (accessibilité WCAG AA, audit axe-core + corrections, clair/dark/RTL) → US-026 (CI complète + README + catalogue composants + CHANGELOG SemVer). Voir sprints/sprint-007-qualite_a11y_doc/sprint-goal.md."
   methode:
     - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
     - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."
