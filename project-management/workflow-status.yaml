@@ -209,8 +209,9 @@ phases:
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
-  etat: "🎉 TOUS LES SPRINTS (1-7) LIVRÉS. Sprint 7 terminé : US-025 (a11y WCAG AA, axe 0 violation, 0711a73) + US-026 (CI+doc+CHANGELOG 1.0.0, 7aefe6a). Bundle 1.0.0. Non poussé depuis le dernier push (commits S7 locaux). Cérémonies S7 (review/rétro) et tag v1.0.0 restent à faire."
-  prochaine_action: "Pousser les commits S7, puis : Sprint Review S7 + Rétrospective S7 (clôture projet), puis tag/release v1.0.0. Vérifier la CI verte sur la PR (couverture ≥80%, E2E+axe, biome)."
+  etat: "🎉 PROJET LIVRÉ. 7 sprints ✅. Review+rétro S7 faites. Tag v1.0.0 poussé + GitHub Release créée. Branche feature poussée (HEAD 3da46f0)."
+  blocage_ci_main: "La CI ne s'est pas encore exécutée : le workflow se déclenche sur push→main ou pull_request, mais `main` distant (c9c2587) est une branche ORPHELINE sans historique commun avec la branche feature (PR impossible). Établir main = projet nécessite un push --force sur main (destructif sur ce placeholder) — À ARBITRER PAR L'UTILISATEUR. Vérifs CI-équivalentes locales OK sauf couverture (pcov CI only) : PHPStan max 0, cs-fixer 0, biome 0, démo 180/180 + E2E 14/14."
+  prochaine_action: "Décider du sort de `main` : (a) force-push feature→main pour établir la ligne de release et déclencher la CI, ou (b) autre stratégie. Puis vérifier la CI verte (couverture ≥80%)."
   methode:
     - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
     - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."
