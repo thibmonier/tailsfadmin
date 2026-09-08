@@ -24,13 +24,15 @@ const LIBS = [
  * inchangés → aucun risque de régression). Il n'avertit QUE si un composant de
  * la page dépend réellement de la lib manquante (fidèle au scénario Gherkin).
  *
- * S'attache au <body> du layout admin ; utilise `import.meta.resolve` pour
- * tester la résolution d'un specifier contre l'importmap (dégrade en no-op si
- * l'API n'est pas disponible — navigateur ancien).
+ * S'attache au <body> du layout admin ; lit le JSON de l'importmap rendu dans le
+ * DOM (`<script type="importmap">`) pour savoir si un specifier est déclaré —
+ * déterministe et portable, contrairement à `import.meta.resolve` (indisponible
+ * dans certains contextes). Dégrade en no-op si aucun importmap n'est présent.
  */
 export default class extends Controller {
     connect() {
-        if (typeof import.meta.resolve !== "function") {
+        const imports = this.#importmapImports();
+        if (imports === null) {
             return;
         }
 
@@ -38,12 +40,7 @@ export default class extends Controller {
             if (!document.querySelector(`[data-controller~="${controller}"]`)) {
                 return false;
             }
-            try {
-                import.meta.resolve(specifier);
-                return false;
-            } catch {
-                return true;
-            }
+            return !(specifier in imports);
         }).map(({ specifier }) => specifier);
 
         if (missing.length > 0) {
@@ -56,6 +53,22 @@ export default class extends Controller {
             // un test d'intégration (US-030) de détecter l'absence de vendoring de
             // façon déterministe, sans dépendre de la capture des logs navigateur.
             document.documentElement.dataset.tailsfadminMissingLibs = missing.join(",");
+        }
+    }
+
+    /**
+     * Table `imports` de l'importmap rendue par AssetMapper, ou null si absente
+     * ou illisible (dégradation en no-op).
+     */
+    #importmapImports() {
+        const script = document.querySelector('script[type="importmap"]');
+        if (!script) {
+            return null;
+        }
+        try {
+            return JSON.parse(script.textContent).imports ?? {};
+        } catch {
+            return null;
         }
     }
 }
