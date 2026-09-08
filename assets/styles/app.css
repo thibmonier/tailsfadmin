@@ -215,23 +215,22 @@
 
 /* ── Tokens dark mode (stratégie classe sur <html>) ── */
 /* Cf. US-005 — bascule via data-attribute ou classe .dark */
+/*
+  Approche TailAdmin (décision A, correctif dette dark-mode) :
+  l'échelle de gris N'EST PAS inversée sous .dark — les composants portés de
+  TailAdmin s'appuient sur des variantes `dark:` EXPLICITES (dark:bg-gray-900,
+  dark:text-white/90, …) avec un gray-900 qui RESTE sombre (#101828) en dark.
+  L'inversion des gris (ajoutée au portage Sprint 2) rendait clair tout
+  `dark:bg-gray-{800,900}` utilisé comme fond ; elle a été retirée.
+
+  Seuls sont conservés en dark : l'éclaircissement de la marque (lisibilité sur
+  fond sombre) et gray-dark (fond principal du body, cf. layout admin).
+*/
 .dark {
   --color-brand-500: #7592ff;
   --color-brand-400: #9cb9ff;
   --color-brand-50: rgba(70, 95, 255, 0.12);
 
-  --color-gray-25: #1a2231;
-  --color-gray-50: #1e2d3d;
-  --color-gray-100: #202b3b;
-  --color-gray-200: #313d4f;
-  --color-gray-300: #404e61;
-  --color-gray-400: #556271;
-  --color-gray-500: #8593a2;
-  --color-gray-600: #9da8b5;
-  --color-gray-700: #b4bdc8;
-  --color-gray-800: #d3d8de;
-  --color-gray-900: #eaecef;
-  --color-gray-950: #f5f6f8;
   --color-gray-dark: #111827;
 }
 
