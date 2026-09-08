@@ -1,8 +1,8 @@
 # MyProject - PHP Project
 
-**Stack**: PHP 8.5, Composer, PSR Standards, PHPUnit 12
+**Stack**: PHP 8.5, Composer, PSR Standards, PHPUnit 12/13
 
-> Note (rétro Sprint 1) : **PHPUnit 12** est retenu comme framework de test. Pest 4 exige PHPUnit 11 et est donc **incompatible** avec PHPUnit 12 — ne pas l'ajouter à cette stack.
+> Note (rétro Sprint 1, MAJ Sprint 8) : **PHPUnit 12 ou 13** (`^12.2 || ^13.0`). Pest 4 exige PHPUnit 11 et reste donc **incompatible** — ne pas l'ajouter à cette stack.
 
 ## Quick Reference
 
