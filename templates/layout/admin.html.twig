@@ -15,7 +15,7 @@
   Accessibilité : skip-link vers #main-content.
 #}
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ app.request.locale }}" dir="{{ tsf_dir() }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +40,7 @@
         href="#main-content"
         class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[99999999] focus:rounded-lg focus:bg-brand-500 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
     >
-        Aller au contenu principal
+        {{ 'chrome.skip_to_content'|trans }}
     </a>
 
     {# ─── Preloader ─── #}

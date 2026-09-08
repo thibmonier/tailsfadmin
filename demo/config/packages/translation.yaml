@@ -1,0 +1,9 @@
+framework:
+    default_locale: fr
+    # Whitelist des locales supportées (fr/en complètes ; ar RTL + es/de en structure).
+    enabled_locales: ['fr', 'en', 'ar', 'es', 'de']
+    translator:
+        default_path: '%kernel.project_dir%/translations'
+        fallbacks:
+            - en
+        providers:

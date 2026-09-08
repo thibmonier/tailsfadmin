@@ -17,12 +17,22 @@ services:
         alias: Tailsfadmin\Menu\MenuBuilder
         public: true
 
-    # Extension Twig — is_active() + tsf_icon()
+    # Extension Twig — is_active() + tsf_icon() + tsf_dir()
     Tailsfadmin\Twig\TailsfadminExtension:
         arguments:
             - '@request_stack'
+            - '%tailsfadmin.rtl_locales%'
+            - '%tailsfadmin.locales%'
         tags:
             - { name: twig.extension }
+
+    # i18n (US-024) — résout la locale de session à chaque requête (whitelist)
+    Tailsfadmin\EventSubscriber\LocaleSubscriber:
+        arguments:
+            - '%tailsfadmin.default_locale%'
+            - '%tailsfadmin.locales%'
+        tags:
+            - { name: kernel.event_subscriber }
 
     # Composants Twig — autowiring + autoconfiguration
     # Le tag "twig.component" est appliqué automatiquement via #[AsTwigComponent]

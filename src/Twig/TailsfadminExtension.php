@@ -14,11 +14,27 @@ use Twig\TwigFunction;
  * Fonctions disponibles dans les templates :
  *   - is_active(path)  : retourne true si le chemin courant correspond au path donné
  *   - tsf_icon(name)   : retourne le SVG inline de l'icône demandée
+ *   - tsf_dir()        : retourne 'rtl' ou 'ltr' selon la locale courante (US-024)
  */
 final class TailsfadminExtension extends AbstractExtension
 {
+    /** Métadonnées d'affichage par locale (nom natif + drapeau). */
+    private const LOCALE_META = [
+        'fr' => ['native' => 'Français', 'flag' => '🇫🇷'],
+        'en' => ['native' => 'English', 'flag' => '🇬🇧'],
+        'ar' => ['native' => 'العربية', 'flag' => '🇸🇦'],
+        'es' => ['native' => 'Español', 'flag' => '🇪🇸'],
+        'de' => ['native' => 'Deutsch', 'flag' => '🇩🇪'],
+    ];
+
+    /**
+     * @param list<string> $locales    Whitelist des locales supportées
+     * @param list<string> $rtlLocales Locales rendues de droite à gauche
+     */
     public function __construct(
         private readonly RequestStack $requestStack,
+        private readonly array $rtlLocales = ['ar'],
+        private readonly array $locales = ['fr', 'en'],
     ) {
     }
 
@@ -28,7 +44,46 @@ final class TailsfadminExtension extends AbstractExtension
         return [
             new TwigFunction('is_active', $this->isActive(...)),
             new TwigFunction('tsf_icon', $this->tsfIcon(...), ['is_safe' => ['html']]),
+            new TwigFunction('tsf_dir', $this->tsfDir(...)),
+            new TwigFunction('tsf_locales', $this->tsfLocales(...)),
         ];
+    }
+
+    /**
+     * Liste des locales supportées avec métadonnées d'affichage (US-024).
+     *
+     * @return list<array{code: string, native: string, flag: string, dir: string, current: bool}>
+     */
+    public function tsfLocales(): array
+    {
+        $current = null !== ($request = $this->requestStack->getCurrentRequest())
+            ? $request->getLocale()
+            : '';
+
+        $result = [];
+        foreach ($this->locales as $code) {
+            $meta = self::LOCALE_META[$code] ?? ['native' => strtoupper($code), 'flag' => '🏳️'];
+            $result[] = [
+                'code' => $code,
+                'native' => $meta['native'],
+                'flag' => $meta['flag'],
+                'dir' => \in_array($code, $this->rtlLocales, true) ? 'rtl' : 'ltr',
+                'current' => $code === $current,
+            ];
+        }
+
+        return $result;
+    }
+
+    /**
+     * Retourne la direction d'écriture ('rtl' ou 'ltr') de la locale courante (US-024).
+     */
+    public function tsfDir(): string
+    {
+        $request = $this->requestStack->getCurrentRequest();
+        $locale = null !== $request ? $request->getLocale() : '';
+
+        return \in_array($locale, $this->rtlLocales, true) ? 'rtl' : 'ltr';
     }
 
     /**

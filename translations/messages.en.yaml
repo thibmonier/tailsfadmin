@@ -1,0 +1,33 @@
+# tailsfadmin chrome catalog (bundle) — layout labels (header, sidebar, breadcrumb).
+chrome:
+    skip_to_content: 'Skip to main content'
+    menu_toggle: 'Menu'
+    home: 'Home'
+    search:
+        placeholder: 'Search… (/ or Ctrl+K)'
+        label: 'Search'
+    toggle_theme: 'Toggle light and dark mode'
+    notifications:
+        label: 'Notifications'
+        title: 'Notifications'
+        view_all: 'View all notifications'
+        n1_title: 'New message'
+        n1_time: '5 min ago'
+        n2_title: 'Task completed'
+        n2_time: '1h ago'
+        n3_title: 'System alert'
+        n3_time: 'Yesterday'
+    user:
+        menu_label: 'User menu'
+        name: 'Admin'
+        email: 'admin@example.com'
+        profile: 'Profile'
+        settings: 'Settings'
+        logout: 'Log out'
+    breadcrumb:
+        home: 'Home'
+    sidebar:
+        collapse: 'Collapse menu'
+        main_nav: 'Main menu'
+    language:
+        label: 'Language'

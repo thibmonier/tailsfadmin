@@ -65,6 +65,16 @@ final class TailsfadminBundle extends AbstractBundle implements PrependExtension
                         ->end()
                     ->end()
                 ->end()
+                // i18n (US-024) : locale par défaut, whitelist des locales, locales RTL.
+                ->scalarNode('default_locale')->defaultValue('fr')->end()
+                ->arrayNode('locales')
+                    ->scalarPrototype()->end()
+                    ->defaultValue(['fr', 'en', 'ar', 'es', 'de'])
+                ->end()
+                ->arrayNode('rtl_locales')
+                    ->scalarPrototype()->end()
+                    ->defaultValue(['ar'])
+                ->end()
             ->end()
         ;
     }
@@ -82,6 +92,14 @@ final class TailsfadminBundle extends AbstractBundle implements PrependExtension
         /** @var list<array<string, mixed>> $menu */
         $menu = $config['menu'] ?? [];
         $builder->setParameter('tailsfadmin.menu', $menu);
+
+        // i18n (US-024) : paramètres injectables (subscriber, Twig extension, sélecteur de langue).
+        $defaultLocale = $config['default_locale'] ?? 'fr';
+        $locales = $config['locales'] ?? ['fr', 'en', 'ar', 'es', 'de'];
+        $rtlLocales = $config['rtl_locales'] ?? ['ar'];
+        $builder->setParameter('tailsfadmin.default_locale', \is_string($defaultLocale) ? $defaultLocale : 'fr');
+        $builder->setParameter('tailsfadmin.locales', \is_array($locales) ? array_values($locales) : ['fr', 'en', 'ar', 'es', 'de']);
+        $builder->setParameter('tailsfadmin.rtl_locales', \is_array($rtlLocales) ? array_values($rtlLocales) : ['ar']);
     }
 
     public function prepend(ContainerBuilder $container): void
@@ -101,6 +119,11 @@ final class TailsfadminBundle extends AbstractBundle implements PrependExtension
                     'paths' => [
                         $this->getPath() . '/assets/controllers' => 'bundles/tailsfadmin',
                     ],
+                ],
+                // 3. Traductions du chrome (header, breadcrumb, actions communes) — US-024.
+                //    Le consommateur doit avoir symfony/translation activé.
+                'translator' => [
+                    'paths' => [$this->getPath() . '/translations'],
                 ],
             ]);
         }

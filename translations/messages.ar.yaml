@@ -1,0 +1,33 @@
+# tailsfadmin — catalogue arabe (RTL). Locale de démonstration du support RTL (US-024).
+chrome:
+    skip_to_content: 'الانتقال إلى المحتوى الرئيسي'
+    menu_toggle: 'القائمة'
+    home: 'الرئيسية'
+    search:
+        placeholder: 'بحث… (/ أو Ctrl+K)'
+        label: 'بحث'
+    toggle_theme: 'تبديل الوضع الفاتح والداكن'
+    notifications:
+        label: 'الإشعارات'
+        title: 'الإشعارات'
+        view_all: 'عرض كل الإشعارات'
+        n1_title: 'رسالة جديدة'
+        n1_time: 'قبل 5 دقائق'
+        n2_title: 'اكتملت المهمة'
+        n2_time: 'قبل ساعة'
+        n3_title: 'تنبيه النظام'
+        n3_time: 'أمس'
+    user:
+        menu_label: 'قائمة المستخدم'
+        name: 'المسؤول'
+        email: 'admin@example.com'
+        profile: 'الملف الشخصي'
+        settings: 'الإعدادات'
+        logout: 'تسجيل الخروج'
+    breadcrumb:
+        home: 'الرئيسية'
+    sidebar:
+        collapse: 'طي القائمة'
+        main_nav: 'القائمة الرئيسية'
+    language:
+        label: 'اللغة'

@@ -1,0 +1,34 @@
+# Catalogue chrome tailsfadmin (bundle) — libellés du layout (header, sidebar, breadcrumb).
+# Fourni par le bundle ; le consommateur peut surcharger via ses propres catalogues.
+chrome:
+    skip_to_content: 'Aller au contenu principal'
+    menu_toggle: 'Menu'
+    home: 'Accueil'
+    search:
+        placeholder: 'Rechercher… (/ ou Ctrl+K)'
+        label: 'Rechercher'
+    toggle_theme: 'Basculer entre le mode clair et le mode sombre'
+    notifications:
+        label: 'Notifications'
+        title: 'Notifications'
+        view_all: 'Voir toutes les notifications'
+        n1_title: 'Nouveau message'
+        n1_time: 'Il y a 5 min'
+        n2_title: 'Tâche complétée'
+        n2_time: 'Il y a 1h'
+        n3_title: 'Alerte système'
+        n3_time: 'Hier'
+    user:
+        menu_label: 'Menu utilisateur'
+        name: 'Admin'
+        email: 'admin@example.com'
+        profile: 'Profil'
+        settings: 'Paramètres'
+        logout: 'Déconnexion'
+    breadcrumb:
+        home: 'Accueil'
+    sidebar:
+        collapse: 'Réduire le menu'
+        main_nav: 'Menu principal'
+    language:
+        label: 'Langue'

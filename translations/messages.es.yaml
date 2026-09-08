@@ -1,0 +1,16 @@
+# tailsfadmin — catálogo español (estructura ; las claves faltantes recurren a `en`).
+chrome:
+    search:
+        placeholder: 'Buscar… (/ o Ctrl+K)'
+        label: 'Buscar'
+    notifications:
+        title: 'Notificaciones'
+        view_all: 'Ver todas las notificaciones'
+    user:
+        profile: 'Perfil'
+        settings: 'Ajustes'
+        logout: 'Cerrar sesión'
+    breadcrumb:
+        home: 'Inicio'
+    language:
+        label: 'Idioma'

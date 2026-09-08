@@ -148,7 +148,7 @@ phases:
     correctifs_post_demo:
       - "fix(ui) 5e78c53 : double chevron select, select multiple (min-h/size), ouverture dropdowns (data-action#toggle manquant depuis S3) — vérifié navigateur, poussé. Bug dropdown = angle mort tests DOM → test de régression ajouté."
     sprint_6:
-      status: in_progress        # /workflow:start 6 + /project:decompose-tasks 006
+      status: done               # ✅ Pages applicatives & i18n (23 pts livrés)
       but: "Pages applicatives & i18n (assemblage)"
       scope: "US-021 (5) + US-022 (5) + US-023 (5) + US-024 (8) = 23 pts ; US-019 carte optionnelle dans US-021"
       tasks: "27 tâches, ~54h"
@@ -160,7 +160,8 @@ phases:
         - "fix(modal) ✅ BUG a11y trouvé par la revue console d'US-022 : modal_controller accédait à `this.constructor.#FOCUSABLE` (privé statique) → TypeError dans #trapFocus, focus trap KO (la modale s'affichait quand même, donc l'E2E d'US-011 ne l'avait pas vu). Corrigé : sélecteur en constante de module. Garde de régression ajoutée à ModalE2ETest (focus doit être piégé dans le dialog)."
         - "US-023 ✅ Pages auth + utilitaires. Layout auth du bundle (@Tailsfadmin/layout/auth.html.twig, centré 2 colonnes, sans sidebar). AuthController /auth/login + /auth/register (UI de démo, pas d'auth réelle), signin (email/password/remember/social/liens) + signup (prénom/nom/email/password/CGU). PagesController /pages/blank (gabarit héritant du layout admin). Page 404 : override TwigBundle error404.html.twig, testée en prod (debug=false) SANS stack trace. Routes alignées sur le menu (tailsfadmin.yaml)."
         - "feat(button) : prop `block` (w-full) ajoutée à tsf:Ui:Button (US-010) — nécessaire aux CTA pleine largeur des formulaires auth. Défaut false, non-breaking."
-      qualite_us021_022_023: "demo 174/174 (DashboardTest 7 + ProfileTest 7 + AuthPagesTest 4) · E2E Panther 5/5 · bundle PHPStan max 0 · cs-fixer 0 · revue visuelle clair+dark des 4 pages auth OK"
+        - "US-024 ✅ i18n FR/EN + RTL + sélecteur de langue. symfony/translation installé (démo). Bundle : LocaleSubscriber (session→whitelist, priorité 20), config locales/default_locale/rtl_locales (configure()+params), prepend translations/ path, tsf_dir()+tsf_locales() (Twig ext), catalogues chrome messages.{fr,en,ar}.yaml complets + es/de structure. Chrome (header/sidebar/breadcrumb/skip-link) externalisé en |trans, <html lang dir> dynamique, classes rtl: (chevrons ms-auto, panneaux ltr:/rtl:). Sélecteur de langue dans le header (réutilise tsf:Ui:Dropdown, 5 langues nom natif+drapeau). Démo : LocaleController /locale/{locale} (session, redirect same-origin anti open-redirect), menu en clés menu.* + catalogues démo messages.{fr,en,ar}.yaml."
+      qualite_us021_022_023_024: "demo 179/179 (+ LocaleTest 5) · E2E Panther 5/5 · bundle PHPStan max 0 · cs-fixer 0 · revue visuelle FR/EN/AR + RTL + **dark×RTL** OK (sidebar à droite, layout miroir, 0 erreur console) — action dark×RTL reportée des rétros enfin réalisée."
       notes_suivi_s6:
         - "HomeController + home/index + HomeControllerTest supprimés (le dashboard devient la landing `/`). Route conservée sous le nom `home` car la sidebar du bundle lie `path('home')`."
         - "Tooling qualité racine (PHPStan/cs-fixer) ne couvre que le bundle src/tests, PAS demo/ — le contrôleur démo n'est pas analysé statiquement (écrit en style Symfony : final, promu, attributs, typé)."
@@ -175,12 +176,13 @@ phases:
         - "Le dashboard paraissait correct car ses cartes utilisent dark:bg-white/[0.03], pas gray-800."
       corrige_dans_us023: "Uniquement le fond du body/wrapper des layouts auth + 404 (mon erreur : dark:bg-gray-900 → dark:bg-gray-dark)."
       recommandation: "Story dédiée : auditer tous les `dark:bg-gray-{700,800,900}` du bundle (composants + layouts) et soit retirer le `dark:` (laisser l'inversion auto), soit passer à des tokens sombres explicites (gray-dark, white/[0.0x]). Ajouter un test/garde visuelle dark pour les boutons secondary et le modal."
-    next: "Implémentation TDD Sprint 6 — US-023 (auth/utilitaires : signin, signup, blank, 404) → US-024 (i18n + RTL), revue visuelle à chaque page"
+    bilan_sprint_6: "Sprint 6 TERMINÉ — 4 US (US-021..024) = 23 pts livrés. + fix(modal) focus trap + feat(button) block. Dette dark-mode gris systémique identifiée (story dédiée recommandée). Reste au backlog : US-019 (jsvectormap, carte démographie)."
+    next: "Sprint 6 terminé. Prochaines options : (a) story d'audit dark-mode gris (dette), (b) US-019 carte jsvectormap, (c) Sprint 7 / rétro Sprint 6."
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
-  etat: "Sprints 1-5 ✅. Sprint 6 en cours : US-021 ✅ (cd1a51a) + US-022 ✅ (profil, 03af798/246033f) + US-023 ✅ (auth/utilitaires). Reste US-024 (i18n + RTL). Dette dark-mode gris identifiée (voir dette_technique_dark_mode)."
-  prochaine_action: "Implémenter US-024 (i18n FR/EN + structure RTL + sélecteur de langue). Voir sprints/sprint-006-pages_i18n/tasks/US-024-tasks.md. Composant Translation + EventSubscriber (ADR-005), catalogues translations/ en+fr."
+  etat: "Sprints 1-6 ✅ TERMINÉS. Sprint 6 (US-021..024) livré : dashboard, profil, auth, i18n+RTL. Commits US-021 cd1a51a … US-024 (dernier). Dette dark-mode gris systémique documentée (dette_technique_dark_mode)."
+  prochaine_action: "Sprint 6 terminé — non commité pour US-024 au moment de ce point. Options : rétro Sprint 6, story audit dark-mode (dette), ou US-019 (carte jsvectormap). Vérifier les commits avant de continuer."
   methode:
     - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
     - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."

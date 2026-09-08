@@ -15,7 +15,7 @@
             {# Hamburger — ouvre le drawer mobile (US-006, tailsfadmin--sidebar) #}
             <button
                 class="flex h-10 w-10 items-center justify-center rounded-lg border-gray-200 text-gray-500 lg:h-11 lg:w-11 lg:border dark:border-gray-800 dark:text-gray-400"
-                aria-label="Menu"
+                aria-label="{{ 'chrome.menu_toggle'|trans }}"
                 type="button"
                 data-action="click->tailsfadmin--sidebar#open"
             >
@@ -38,7 +38,7 @@
             </button>
 
             {# Logo mobile #}
-            <a href="{{ path('home') }}" class="lg:hidden" aria-label="Accueil">
+            <a href="{{ path('home') }}" class="lg:hidden" aria-label="{{ 'chrome.home'|trans }}">
                 <span class="font-outfit text-lg font-bold text-brand-500">tailsfadmin</span>
             </a>
         </div>
@@ -59,9 +59,9 @@
                 <input
                     type="search"
                     id="search-input"
-                    placeholder="Rechercher… (/ ou Ctrl+K)"
+                    placeholder="{{ 'chrome.search.placeholder'|trans }}"
                     class="w-full rounded-lg border border-gray-200 bg-gray-50 py-2 pl-10 pr-4 text-sm text-gray-700 placeholder-gray-400 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-brand-200 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:placeholder-gray-600 dark:focus:border-brand-500"
-                    aria-label="Rechercher"
+                    aria-label="{{ 'chrome.search.label'|trans }}"
                     data-tailsfadmin--search-target="input"
                     data-action="keydown->tailsfadmin--search#handleEscape"
                     autocomplete="off"
@@ -82,7 +82,7 @@
             <button
                 type="button"
                 class="flex lg:hidden h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 dark:border-gray-800 dark:text-gray-400"
-                aria-label="Rechercher"
+                aria-label="{{ 'chrome.search.label'|trans }}"
             >
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                     <path fill-rule="evenodd" clip-rule="evenodd" d="M3.75 8.25C3.75 5.76472 5.76472 3.75 8.25 3.75C10.7353 3.75 12.75 5.76472 12.75 8.25C12.75 10.7353 10.7353 12.75 8.25 12.75C5.76472 12.75 3.75 10.7353 3.75 8.25ZM8.25 2.25C4.93629 2.25 2.25 4.93629 2.25 8.25C2.25 11.5637 4.93629 14.25 8.25 14.25C9.66289 14.25 10.9635 13.769 11.9952 12.9596L14.7678 15.7322C15.0607 16.0251 15.5355 16.0251 15.8284 15.7322C16.1213 15.4393 16.1213 14.9645 15.8284 14.6716L13.0558 11.899C13.8649 10.8674 14.25 9.59289 14.25 8.25C14.25 4.93629 11.5637 2.25 8.25 2.25Z" fill="currentColor"/>
@@ -95,7 +95,7 @@
                 data-controller="tailsfadmin--theme"
                 data-action="click->tailsfadmin--theme#toggle"
                 class="flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                aria-label="Basculer entre le mode clair et le mode sombre"
+                aria-label="{{ 'chrome.toggle_theme'|trans }}"
             >
                 {# Icône soleil — visible en mode sombre (dark:block), masquée en clair #}
                 <svg class="hidden dark:block fill-current" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -107,6 +107,34 @@
                 </svg>
             </button>
 
+            {# ─── Sélecteur de langue (US-024) — réutilise tsf:Ui:Dropdown ─── #}
+            <twig:tsf:Ui:Dropdown align="right">
+                <twig:block name="trigger">
+                    <button
+                        type="button"
+                        class="flex h-10 items-center gap-1.5 rounded-lg border border-gray-200 px-2.5 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                        aria-label="{{ 'chrome.language.label'|trans }}"
+                        aria-haspopup="true"
+                    >
+                        {% for l in tsf_locales() %}{% if l.current %}<span class="text-base leading-none" aria-hidden="true">{{ l.flag }}</span><span class="hidden text-sm font-medium uppercase sm:inline">{{ l.code }}</span>{% endif %}{% endfor %}
+                    </button>
+                </twig:block>
+                <twig:block name="menu">
+                    {% for l in tsf_locales() %}
+                        <a
+                            href="{{ path('locale_switch', {locale: l.code}) }}"
+                            role="menuitem"
+                            hreflang="{{ l.code }}"
+                            class="flex items-center gap-2.5 px-4 py-2 text-sm transition-colors focus:outline-none {{ l.current ? 'font-medium text-brand-500' : 'text-gray-700 dark:text-gray-300' }} hover:bg-gray-50 dark:hover:bg-gray-700 focus:bg-gray-50 dark:focus:bg-gray-700"
+                            {% if l.current %}aria-current="true"{% endif %}
+                        >
+                            <span class="text-base leading-none" aria-hidden="true">{{ l.flag }}</span>
+                            <span>{{ l.native }}</span>
+                        </a>
+                    {% endfor %}
+                </twig:block>
+            </twig:tsf:Ui:Dropdown>
+
             {# ─── Dropdown notifications (US-007) ─────────────────────────── #}
             <div
                 class="relative"
@@ -115,7 +143,7 @@
                 <button
                     type="button"
                     class="relative flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
-                    aria-label="Notifications"
+                    aria-label="{{ 'chrome.notifications.label'|trans }}"
                     aria-haspopup="true"
                     aria-expanded="false"
                     data-tailsfadmin--dropdown-target="trigger"
@@ -125,7 +153,7 @@
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M10 2C7.23858 2 5 4.23858 5 7V9.5L3.5 11V13H16.5V11L15 9.5V7C15 4.23858 12.7614 2 10 2ZM10 18C8.89543 18 8 17.1046 8 16H12C12 17.1046 11.1046 18 10 18Z" fill="currentColor"/>
                     </svg>
                     {# Badge compteur #}
-                    <span class="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-500 text-[10px] font-bold text-white" aria-label="3 notifications">3</span>
+                    <span class="absolute -top-1 flex h-4 w-4 items-center justify-center rounded-full bg-brand-500 text-[10px] font-bold text-white ltr:-right-1 rtl:-left-1" aria-label="{{ 'chrome.notifications.label'|trans }}">3</span>
                 </button>
 
                 {# Panneau notifications #}
@@ -133,12 +161,12 @@
                     data-tailsfadmin--dropdown-target="menu"
                     data-action="keydown->tailsfadmin--dropdown#navigate"
                     role="menu"
-                    aria-label="Notifications"
+                    aria-label="{{ 'chrome.notifications.label'|trans }}"
                     hidden
-                    class="absolute right-0 top-full mt-2 w-80 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900 z-50"
+                    class="absolute ltr:right-0 rtl:left-0 top-full mt-2 w-80 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900 z-50"
                 >
                     <div class="border-b border-gray-100 px-4 py-3 dark:border-gray-800">
-                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white">Notifications</h3>
+                        <h3 class="text-sm font-semibold text-gray-900 dark:text-white">{{ 'chrome.notifications.title'|trans }}</h3>
                     </div>
                     <ul class="divide-y divide-gray-100 dark:divide-gray-800 max-h-80 overflow-y-auto">
                         <li>
@@ -147,8 +175,8 @@
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="currentColor" opacity=".2"/><circle cx="8" cy="8" r="3" fill="currentColor"/></svg>
                                 </span>
                                 <div class="min-w-0 flex-1">
-                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">Nouveau message</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Il y a 5 min</p>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ 'chrome.notifications.n1_title'|trans }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ 'chrome.notifications.n1_time'|trans }}</p>
                                 </div>
                             </a>
                         </li>
@@ -158,8 +186,8 @@
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                                 </span>
                                 <div class="min-w-0 flex-1">
-                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">Tâche complétée</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Il y a 1h</p>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ 'chrome.notifications.n2_title'|trans }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ 'chrome.notifications.n2_time'|trans }}</p>
                                 </div>
                             </a>
                         </li>
@@ -169,15 +197,15 @@
                                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M8 5v4M8 11.5v.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M2 12L8 2l6 10H2z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
                                 </span>
                                 <div class="min-w-0 flex-1">
-                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">Alerte système</p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Hier</p>
+                                    <p class="text-sm font-medium text-gray-900 dark:text-white truncate">{{ 'chrome.notifications.n3_title'|trans }}</p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ 'chrome.notifications.n3_time'|trans }}</p>
                                 </div>
                             </a>
                         </li>
                     </ul>
                     <div class="border-t border-gray-100 px-4 py-2.5 dark:border-gray-800">
                         <a href="#" role="menuitem" class="block text-center text-xs font-medium text-brand-500 hover:text-brand-600 dark:text-brand-400 focus:outline-none">
-                            Voir toutes les notifications
+                            {{ 'chrome.notifications.view_all'|trans }}
                         </a>
                     </div>
                 </div>
@@ -191,7 +219,7 @@
                 <button
                     type="button"
                     class="flex h-10 w-10 items-center justify-center rounded-full border-2 border-gray-200 bg-gray-100 text-gray-600 transition-colors hover:border-brand-400 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
-                    aria-label="Menu utilisateur"
+                    aria-label="{{ 'chrome.user.menu_label'|trans }}"
                     aria-haspopup="true"
                     aria-expanded="false"
                     data-tailsfadmin--dropdown-target="trigger"
@@ -205,14 +233,14 @@
                     data-tailsfadmin--dropdown-target="menu"
                     data-action="keydown->tailsfadmin--dropdown#navigate"
                     role="menu"
-                    aria-label="Menu utilisateur"
+                    aria-label="{{ 'chrome.user.menu_label'|trans }}"
                     hidden
-                    class="absolute right-0 top-full mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900 z-50"
+                    class="absolute ltr:right-0 rtl:left-0 top-full mt-2 w-56 rounded-xl border border-gray-200 bg-white shadow-lg dark:border-gray-700 dark:bg-gray-900 z-50"
                 >
                     {# Infos utilisateur #}
                     <div class="border-b border-gray-100 px-4 py-3 dark:border-gray-800">
-                        <p class="text-sm font-semibold text-gray-900 dark:text-white">Admin</p>
-                        <p class="truncate text-xs text-gray-500 dark:text-gray-400">admin@example.com</p>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white">{{ 'chrome.user.name'|trans }}</p>
+                        <p class="truncate text-xs text-gray-500 dark:text-gray-400">{{ 'chrome.user.email'|trans }}</p>
                     </div>
 
                     <ul class="py-1.5">
@@ -223,7 +251,7 @@
                                 class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white transition-colors focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-800"
                             >
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C6.34315 2 5 3.34315 5 5C5 6.65685 6.34315 8 8 8C9.65685 8 11 6.65685 11 5C11 3.34315 9.65685 2 8 2ZM6.5 5C6.5 4.17157 7.17157 3.5 8 3.5C8.82843 3.5 9.5 4.17157 9.5 5C9.5 5.82843 8.82843 6.5 8 6.5C7.17157 6.5 6.5 5.82843 6.5 5ZM3.5 13C3.5 11.0706 5.57081 9.5 8 9.5C10.4292 9.5 12.5 11.0706 12.5 13H3.5Z" fill="currentColor"/></svg>
-                                Profil
+                                {{ 'chrome.user.profile'|trans }}
                             </a>
                         </li>
                         <li>
@@ -233,7 +261,7 @@
                                 class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white transition-colors focus:outline-none focus:bg-gray-50 dark:focus:bg-gray-800"
                             >
                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.99998 1.25C6.7574 1.25 5.75 2.2574 5.75 3.5C5.75 4.7426 6.7574 5.75 7.99998 5.75C9.24257 5.75 10.25 4.7426 10.25 3.5C10.25 2.2574 9.24257 1.25 7.99998 1.25ZM7.25 3.5C7.25 3.08579 7.58579 2.75 7.99998 2.75C8.41418 2.75 8.75 3.08579 8.75 3.5C8.75 3.91421 8.41418 4.25 7.99998 4.25C7.58579 4.25 7.25 3.91421 7.25 3.5ZM4.5 8C4.5 6.48122 5.98122 5.25 7.99998 5.25C10.0188 5.25 11.5 6.48122 11.5 8V8.75H13V10.25H11.5V11C11.5 12.5188 10.0188 13.75 7.99998 13.75C5.98122 13.75 4.5 12.5188 4.5 11V10.25H3V8.75H4.5V8Z" fill="currentColor"/></svg>
-                                Paramètres
+                                {{ 'chrome.user.settings'|trans }}
                             </a>
                         </li>
                     </ul>
@@ -245,7 +273,7 @@
                             class="flex items-center gap-2.5 px-4 py-2 text-sm text-error-600 hover:bg-error-50 dark:text-error-400 dark:hover:bg-error-900/20 transition-colors focus:outline-none focus:bg-error-50 dark:focus:bg-error-900/20"
                         >
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M5.75 2.25H3.25V13.75H5.75V12.25H4.75V3.75H5.75V2.25ZM7.25 4.75L10.25 8L7.25 11.25V9.25H3.25V6.75H7.25V4.75Z" fill="currentColor"/></svg>
-                            Déconnexion
+                            {{ 'chrome.user.logout'|trans }}
                         </a>
                     </div>
                 </div>

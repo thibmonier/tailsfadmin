@@ -1,0 +1,16 @@
+# tailsfadmin — deutscher Katalog (Struktur ; fehlende Schlüssel fallen auf `en` zurück).
+chrome:
+    search:
+        placeholder: 'Suchen… (/ oder Ctrl+K)'
+        label: 'Suchen'
+    notifications:
+        title: 'Benachrichtigungen'
+        view_all: 'Alle Benachrichtigungen anzeigen'
+    user:
+        profile: 'Profil'
+        settings: 'Einstellungen'
+        logout: 'Abmelden'
+    breadcrumb:
+        home: 'Startseite'
+    language:
+        label: 'Sprache'

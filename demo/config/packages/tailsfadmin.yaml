@@ -1,80 +1,82 @@
+# Menu de la démo. Les `label` sont des CLÉS DE TRADUCTION (US-024) résolues via
+# |trans dans le composant Sidebar ; catalogues dans demo/translations/messages.*.yaml.
 tailsfadmin:
     menu:
-        - group: Menu
+        - group: menu.groups.menu
           items:
-              - label: Dashboard
+              - label: menu.dashboard
                 path: /
                 icon: dashboard
                 children: []
 
-              - label: Calendrier
+              - label: menu.calendar
                 path: /calendar
                 icon: calendar
                 children: []
 
-              - label: Profil
+              - label: menu.profile
                 path: /profile
                 icon: user-profile
                 children: []
 
-              - label: Formulaires
+              - label: menu.forms
                 path: /forms
                 icon: forms
                 children:
-                    - label: Mise en page
+                    - label: menu.forms_layout
                       path: /forms/layout
-                    - label: Éléments
+                    - label: menu.forms_elements
                       path: /forms/elements
 
-              - label: Tableaux
+              - label: menu.tables
                 path: /tables
                 icon: tables
                 children:
-                    - label: Tableaux basiques
+                    - label: menu.tables_basic
                       path: /tables/basic
-                    - label: Tableaux avancés
+                    - label: menu.tables_advanced
                       path: /tables/advanced
 
-              - label: Pages
+              - label: menu.pages
                 path: /pages
                 icon: pages
                 children:
-                    - label: Paramètres
+                    - label: menu.pages_settings
                       path: /pages/settings
-                    - label: Page vierge
+                    - label: menu.pages_blank
                       path: /pages/blank
 
-        - group: Others
+        - group: menu.groups.others
           items:
-              - label: Graphiques
+              - label: menu.charts
                 path: /charts
                 icon: charts
                 children:
-                    - label: Line Chart
+                    - label: menu.charts_line
                       path: /charts/line
-                    - label: Bar Chart
+                    - label: menu.charts_bar
                       path: /charts/bar
 
-              - label: Éléments UI
+              - label: menu.ui
                 path: /ui
                 icon: ui-elements
                 children:
-                    - label: Alertes
+                    - label: menu.ui_alerts
                       path: /ui/alerts
-                    - label: Badges
+                    - label: menu.ui_badges
                       path: /ui/badges
-                    - label: Boutons
+                    - label: menu.ui_buttons
                       path: /ui/buttons
-                    - label: Images
+                    - label: menu.ui_images
                       path: /ui/images
-                    - label: Vidéos
+                    - label: menu.ui_videos
                       path: /ui/videos
 
-              - label: Authentification
+              - label: menu.auth
                 path: /auth
                 icon: authentication
                 children:
-                    - label: Connexion
+                    - label: menu.auth_login
                       path: /auth/login
-                    - label: Inscription
+                    - label: menu.auth_register
                       path: /auth/register

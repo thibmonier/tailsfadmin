@@ -11,7 +11,7 @@
 >
     {# En-tête sidebar : logo + bouton collapse desktop #}
     <div class="flex items-center justify-between gap-2 pt-8 pb-7 sidebar-header">
-        <a href="{{ path('home') }}" aria-label="Accueil">
+        <a href="{{ path('home') }}" aria-label="{{ 'chrome.home'|trans }}">
             <span class="font-outfit text-2xl font-bold text-brand-500">tailsfadmin</span>
         </a>
 
@@ -20,7 +20,7 @@
             type="button"
             data-action="click->tailsfadmin--sidebar#toggle"
             class="hidden lg:flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white transition-colors"
-            aria-label="Réduire le menu"
+            aria-label="{{ 'chrome.sidebar.collapse'|trans }}"
         >
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5 10C2.5 9.58579 2.83579 9.25 3.25 9.25H16.75C17.1642 9.25 17.5 9.58579 17.5 10C17.5 10.4142 17.1642 10.75 16.75 10.75H3.25C2.83579 10.75 2.5 10.4142 2.5 10Z" fill="currentColor"/>
@@ -31,12 +31,12 @@
     </div>
 
     <div class="flex flex-col overflow-y-auto duration-300 ease-linear no-scrollbar">
-        <nav aria-label="Menu principal">
+        <nav aria-label="{{ 'chrome.sidebar.main_nav'|trans }}">
 
             {% for group in this.groups %}
                 <div class="mb-6">
                     <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
-                        {{ group.label }}
+                        {{ group.label|trans }}
                     </h3>
 
                     <ul class="flex flex-col gap-4">
@@ -56,10 +56,10 @@
                                             <span class="{{ isActive ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}">
                                                 {{ tsf_icon(item.icon) }}
                                             </span>
-                                            <span class="menu-item-text ltr:ml-2 rtl:mr-2">{{ item.label }}</span>
+                                            <span class="menu-item-text ltr:ml-2 rtl:mr-2">{{ item.label|trans }}</span>
                                             {# Chevron #}
                                             <svg
-                                                class="ml-auto transition-transform duration-200 {{ isActive ? 'rotate-180' : '' }}"
+                                                class="ms-auto transition-transform duration-200 {{ isActive ? 'rotate-180' : '' }}"
                                                 width="16" height="16" viewBox="0 0 16 16"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                                             >
@@ -78,7 +78,7 @@
                                                         class="{{ is_active(child.path) ? 'text-brand-500 font-medium' : 'text-gray-600 dark:text-gray-400' }} block py-1 text-sm hover:text-brand-500 dark:hover:text-white transition-colors ltr:text-left rtl:text-right"
                                                         {% if is_active(child.path) %}aria-current="page"{% endif %}
                                                     >
-                                                        {{ child.label }}
+                                                        {{ child.label|trans }}
                                                     </a>
                                                 </li>
                                             {% endfor %}
@@ -94,7 +94,7 @@
                                         <span class="{{ isActive ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}">
                                             {{ tsf_icon(item.icon) }}
                                         </span>
-                                        <span class="menu-item-text ltr:ml-2 rtl:mr-2">{{ item.label }}</span>
+                                        <span class="menu-item-text ltr:ml-2 rtl:mr-2">{{ item.label|trans }}</span>
                                     </a>
                                 {% endif %}
                             </li>
