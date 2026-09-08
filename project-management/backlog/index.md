@@ -1,18 +1,17 @@
 # Backlog Index — tailsfadmin
 
-> Dernière mise à jour : 2026-09-07
+> Dernière mise à jour : 2026-09-08 · **v1.0.0 livrée** (EPIC-001..007), **v2 planifiée** (EPIC-008/009)
 
 ---
 
 ## Résumé Global
 
-| Type | 🔴 To Do | 🟡 In Progress | ⏸️ Blocked | 🟢 Done | Total |
-|------|----------|----------------|------------|---------|-------|
-| EPICs | 7 | 0 | 0 | 0 | 7 |
-| User Stories | 26 | 0 | 0 | 0 | 26 |
-| Tasks | 0 | 0 | 0 | 0 | 0 |
+| Type | 🔴 To Do | 🟢 Done | Total |
+|------|----------|---------|-------|
+| EPICs | 2 (v2) | 7 (v1) | 9 |
+| User Stories | 9 (v2) | 25 (v1) | 34 |
 
-**Story Points totaux :** 144 · **Vélocité cible :** 20-40 pts/sprint · **Sprints estimés :** 5-7
+**v1 :** ~139 pts livrés (7 sprints) · **v2 :** ~52 pts planifiés (EPIC-008 26 + EPIC-009 26)
 
 ---
 
@@ -20,71 +19,53 @@
 
 | ID | Nom | Statut | Priorité | US | Points |
 |----|-----|--------|----------|-----|--------|
-| EPIC-001 | Fondations & socle technique | 🔴 To Do | Must | 3 | 16 |
-| EPIC-002 | Layout & navigation | 🔴 To Do | Must | 4 | 26 |
-| EPIC-003 | Bibliothèque de composants UI | 🔴 To Do | Must | 6 | 24 |
-| EPIC-004 | Formulaires & tables | 🔴 To Do | Must | 4 | 21 |
-| EPIC-005 | Data-viz & calendrier | 🔴 To Do | Should | 3 | 21 |
-| EPIC-006 | Pages applicatives & i18n | 🔴 To Do | Should | 4 | 23 |
-| EPIC-007 | Qualité, accessibilité & doc | 🔴 To Do | Must | 2 | 13 |
+| EPIC-001 | Fondations & socle technique | 🟢 Done | Must | 3 | 16 |
+| EPIC-002 | Layout & navigation | 🟢 Done | Must | 4 | 26 |
+| EPIC-003 | Bibliothèque de composants UI | 🟢 Done | Must | 6 | 24 |
+| EPIC-004 | Formulaires & tables | 🟢 Done | Must | 4 | 21 |
+| EPIC-005 | Data-viz & calendrier | 🟢 Done | Should | 3 | 21 |
+| EPIC-006 | Pages applicatives & i18n | 🟢 Done | Should | 4 | 23 |
+| EPIC-007 | Qualité, accessibilité & doc | 🟢 Done | Must | 2 | 13 |
+| **EPIC-008** | **Distribution & consommabilité** | 🔴 To Do | Must | 5 | 26 |
+| **EPIC-009** | **Bibliothèque de pages d'exemples** | 🔴 To Do | Should | 4 | 26 |
 
 ---
 
-## User Stories
+## User Stories — v1 (livrée)
 
-### EPIC-001 — Fondations & socle technique
+Toutes les US US-001 → US-026 sont **🟢 Done** (bundle tailsfadmin 1.0.0).
+US-019 (carte jsvectormap) livrée en Sprint 6 ; US-025/026 en Sprint 7.
+
+| Sprint | US livrées |
+|--------|-----------|
+| 1 | US-001, US-002, US-003, US-004 |
+| 2 | US-005, US-006, US-007 |
+| 3 | US-008..US-012 |
+| 4 | US-013, US-014, US-017 |
+| 5 | US-015, US-016, US-018, US-020 |
+| 6 | US-021, US-022, US-023, US-024, US-019 |
+| 7 | US-025, US-026 |
+
+---
+
+## User Stories — v2 (planifiée)
+
+### EPIC-008 — Distribution & consommabilité (Sprint 8)
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-001 | Squelette bundle + application de démo | 5 | Must | 1 | 🟢 |
-| US-002 | AssetMapper + Tailwind v4 + design tokens | 8 | Must | 1 | 🟢 |
-| US-003 | Exécution FrankenPHP / PHP 8.5 | 3 | Must | 1 | 🟢 |
+| US-027 | Recette d'assets : importmap fourni par le bundle | 8 | Must | 8 | 🔴 |
+| US-028 | Thème CSS Tailwind distribuable + personnalisable | 5 | Must | 8 | 🔴 |
+| US-029 | Flex recipe (config auto) | 5 | Should | 8 | 🔴 |
+| US-030 | Test d'intégration app Symfony vierge (CI) | 5 | Must | 8 | 🔴 |
+| US-031 | Publication Packagist | 3 | Must | 8 | 🔴 |
 
-### EPIC-002 — Layout & navigation
+### EPIC-009 — Bibliothèque de pages d'exemples (Sprint 9-10)
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-004 | Layout admin de base | 5 | Must | 1 | 🟢 |
-| US-005 | Dark mode persistant (Stimulus) | 5 | Must | 2 | 🟢 |
-| US-006 | Sidebar responsive multi-niveaux | 8 | Must | 2 | 🟢 |
-| US-007 | Header (recherche, dropdowns, breadcrumb) | 8 | Should | 2 | 🟢 |
-
-### EPIC-003 — Bibliothèque de composants UI
-| ID | Titre | Points | Priorité | Sprint | Statut |
-|----|-------|--------|----------|--------|--------|
-| US-008 | Alerts (4 variantes) | 3 | Must | 3 | 🟢 |
-| US-009 | Badges & Avatars | 3 | Must | 3 | 🟢 |
-| US-010 | Buttons (6 variantes) | 3 | Must | 3 | 🟢 |
-| US-011 | Modals / overlays accessibles (Stimulus) | 5 | Must | 3 | 🟢 |
-| US-012 | Dropdowns accessibles (Stimulus) | 5 | Must | 3 | 🟢 |
-| US-013 | Cards, media, grid images, videos | 5 | Should | 4 | 🟢 |
-
-### EPIC-004 — Formulaires & tables
-| ID | Titre | Points | Priorité | Sprint | Statut |
-|----|-------|--------|----------|--------|--------|
-| US-014 | Composants de formulaire | 8 | Must | 4 | 🟢 |
-| US-015 | Datepicker (flatpickr) — Stimulus | 3 | Should | 5 | 🟢 |
-| US-016 | Upload (Dropzone) — Stimulus | 5 | Should | 5 | 🟢 |
-| US-017 | Tables (basiques + avancées) | 5 | Should | 4 | 🟢 |
-
-### EPIC-005 — Data-viz & calendrier
-| ID | Titre | Points | Priorité | Sprint | Statut |
-|----|-------|--------|----------|--------|--------|
-| US-018 | ApexCharts (line/bar/dashboard) — Stimulus | 8 | Must | 5 | 🟢 |
-| US-019 | Carte vectorielle (jsvectormap) — Stimulus | 5 | Could | 5 | 🔴 |
-| US-020 | Calendrier FullCalendar + modal — Stimulus | 8 | Should | 5 | 🟢 |
-
-### EPIC-006 — Pages applicatives & i18n
-| ID | Titre | Points | Priorité | Sprint | Statut |
-|----|-------|--------|----------|--------|--------|
-| US-021 | Dashboard e-commerce (assemblage) | 5 | Must | 6 | 🔴 |
-| US-022 | Page profil + modals | 5 | Should | 6 | 🔴 |
-| US-023 | Pages auth + utilitaires | 5 | Should | 6 | 🔴 |
-| US-024 | i18n FR/EN + RTL + sélecteur | 8 | Should | 6 | 🔴 |
-
-### EPIC-007 — Qualité, accessibilité & documentation
-| ID | Titre | Points | Priorité | Sprint | Statut |
-|----|-------|--------|----------|--------|--------|
-| US-025 | Accessibilité transversale (WCAG AA) | 5 | Must | 6 | 🔴 |
-| US-026 | CI + documentation + CHANGELOG | 8 | Must | 6 | 🔴 |
+| US-032 | Dashboards supplémentaires (Analytics, Marketing, CRM, SaaS) | 8 | Should | 9 | 🔴 |
+| US-033 | Pages type (Settings, Pricing, Invoice, Kanban, Chat, Files, Inbox) | 8 | Should | 9 | 🔴 |
+| US-034 | Auth & utilitaires étendus (reset, 2FA, 500, maintenance…) | 5 | Could | 9-10 | 🔴 |
+| US-035 | Scaffolding `make:tailsfadmin-page` | 5 | Could | 10 | 🔴 |
 
 ---
 
