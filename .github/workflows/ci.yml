@@ -196,6 +196,9 @@ jobs:
       # Phase 1 — AVANT vendoring : le garde-fou doit signaler la lib manquante.
       - name: Build assets (sans assets:install) + smoke ÉCHEC
         working-directory: ${{ runner.temp }}/host-app
+        env:
+          PANTHER_NO_SANDBOX: '1'
+          PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
         run: |
           php bin/console tailwind:build --minify
           php bin/console asset-map:compile
@@ -211,4 +214,7 @@ jobs:
 
       - name: Smoke NOMINAL (layout admin + composant JS monté)
         working-directory: ${{ runner.temp }}/host-app
+        env:
+          PANTHER_NO_SANDBOX: '1'
+          PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
         run: php bin/phpunit --group nominal
