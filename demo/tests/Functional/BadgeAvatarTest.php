@@ -26,8 +26,8 @@ final class BadgeAvatarTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertSelectorExists(
-            '.bg-brand-50.text-brand-500',
-            'Le badge "primary" doit avoir les classes bg-brand-50 et text-brand-500'
+            '.bg-brand-50.text-brand-700',
+            'Le badge "primary" doit avoir les classes bg-brand-50 et text-brand-700'
         );
     }
 
@@ -38,8 +38,8 @@ final class BadgeAvatarTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertSelectorExists(
-            '.bg-success-50.text-success-600',
-            'Le badge "success" doit avoir les classes bg-success-50 et text-success-600'
+            '.bg-success-50.text-success-700',
+            'Le badge "success" doit avoir les classes bg-success-50 et text-success-700'
         );
     }
 
@@ -50,8 +50,8 @@ final class BadgeAvatarTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertSelectorExists(
-            '.bg-error-50.text-error-600',
-            'Le badge "error" doit avoir les classes bg-error-50 et text-error-600'
+            '.bg-error-50.text-error-700',
+            'Le badge "error" doit avoir les classes bg-error-50 et text-error-700'
         );
     }
 
@@ -62,8 +62,8 @@ final class BadgeAvatarTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertSelectorExists(
-            '.bg-warning-50.text-warning-600',
-            'Le badge "warning" doit avoir les classes bg-warning-50 et text-warning-600'
+            '.bg-warning-50.text-warning-700',
+            'Le badge "warning" doit avoir les classes bg-warning-50 et text-warning-700'
         );
     }
 
@@ -74,8 +74,8 @@ final class BadgeAvatarTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertSelectorExists(
-            '.bg-blue-light-50.text-blue-light-500',
-            'Le badge "info" doit avoir les classes bg-blue-light-50 et text-blue-light-500'
+            '.bg-blue-light-50.text-blue-light-700',
+            'Le badge "info" doit avoir les classes bg-blue-light-50 et text-blue-light-700'
         );
     }
 

@@ -72,6 +72,12 @@
                 "main": "controllers/vectormap_controller.js",
                 "fetch": "eager",
                 "enabled": true
+            },
+            "submenu": {
+                "name": "tailsfadmin--submenu",
+                "main": "controllers/submenu_controller.js",
+                "fetch": "eager",
+                "enabled": true
             }
         }
     }

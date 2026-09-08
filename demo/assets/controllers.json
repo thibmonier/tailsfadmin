@@ -48,6 +48,10 @@
             "vectormap": {
                 "enabled": true,
                 "fetch": "eager"
+            },
+            "submenu": {
+                "enabled": true,
+                "fetch": "eager"
             }
         }
     },

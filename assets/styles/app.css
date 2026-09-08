@@ -260,6 +260,21 @@
   body {
     @apply font-outfit relative z-1 bg-gray-50 text-base font-normal;
   }
+
+  /* Indicateur de focus clavier visible (WCAG 2.4.7 / US-025).
+     Filet de sécurité pour tout élément interactif sans style focus explicite ;
+     n'apparaît qu'au clavier (:focus-visible), jamais au clic souris. */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  summary:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
 }
 
 /* ── Composants menu sidebar ─────────────────────────── */
@@ -277,7 +292,8 @@
   }
 
   .menu-item-active {
-    @apply bg-brand-50 text-brand-500;
+    /* text-brand-700 (et non 500) pour un contraste ≥ 4,5:1 sur bg-brand-50 (WCAG AA). */
+    @apply bg-brand-50 text-brand-700;
   }
 
   .menu-item-inactive {

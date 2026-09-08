@@ -35,7 +35,7 @@
 
             {% for group in this.groups %}
                 <div class="mb-6">
-                    <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-400">
+                    <h3 class="mb-4 text-xs uppercase leading-[20px] text-gray-500 dark:text-gray-400">
                         {{ group.label|trans }}
                     </h3>
 
@@ -46,11 +46,16 @@
                                 {% set hasChildren = item.children|length > 0 %}
 
                                 {% if hasChildren %}
-                                    {# Item avec sous-menu #}
-                                    <div x-data="{ open: {{ isActive ? 'true' : 'false' }} }">
+                                    {# Item avec sous-menu repliable (US-025, contrôleur Stimulus) #}
+                                    <div
+                                        data-controller="tailsfadmin--submenu"
+                                        data-tailsfadmin--submenu-open-value="{{ isActive ? 'true' : 'false' }}"
+                                    >
                                         <button
                                             type="button"
                                             class="{{ isActive ? 'menu-item menu-item-active' : 'menu-item menu-item-inactive' }} group w-full"
+                                            data-tailsfadmin--submenu-target="button"
+                                            data-action="click->tailsfadmin--submenu#toggle"
                                             aria-expanded="{{ isActive ? 'true' : 'false' }}"
                                         >
                                             <span class="{{ isActive ? 'menu-item-icon-active' : 'menu-item-icon-inactive' }}">
@@ -59,7 +64,7 @@
                                             <span class="menu-item-text ltr:ml-2 rtl:mr-2">{{ item.label|trans }}</span>
                                             {# Chevron #}
                                             <svg
-                                                class="ms-auto transition-transform duration-200 {{ isActive ? 'rotate-180' : '' }}"
+                                                class="ms-auto transition-transform duration-200 group-aria-[expanded=true]:rotate-180"
                                                 width="16" height="16" viewBox="0 0 16 16"
                                                 fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
                                             >
@@ -69,8 +74,12 @@
                                             </svg>
                                         </button>
 
-                                        {# Sous-menu #}
-                                        <ul class="{{ isActive ? '' : 'hidden' }} mt-2 ml-6 flex flex-col gap-1 ltr:border-l rtl:border-r border-gray-200 dark:border-gray-700 pl-4">
+                                        {# Sous-menu (masqué via l'attribut hidden quand replié → hors tab order) #}
+                                        <ul
+                                            data-tailsfadmin--submenu-target="menu"
+                                            {% if not isActive %}hidden{% endif %}
+                                            class="mt-2 ml-6 flex flex-col gap-1 ltr:border-l rtl:border-r border-gray-200 dark:border-gray-700 pl-4"
+                                        >
                                             {% for child in item.children %}
                                                 <li>
                                                     <a

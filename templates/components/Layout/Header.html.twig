@@ -68,7 +68,7 @@
                 />
 
                 {# Hint raccourcis #}
-                <span class="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 text-xs text-gray-400 dark:text-gray-600 pointer-events-none" aria-hidden="true">
+                <span class="absolute right-3 top-1/2 -translate-y-1/2 hidden sm:flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400 pointer-events-none" aria-hidden="true">
                     <kbd class="rounded border border-gray-200 bg-white px-1 dark:border-gray-700 dark:bg-gray-900">Ctrl</kbd>
                     <kbd class="rounded border border-gray-200 bg-white px-1 dark:border-gray-700 dark:bg-gray-900">K</kbd>
                 </span>
@@ -112,9 +112,10 @@
                 <twig:block name="trigger">
                     <button
                         type="button"
-                        class="flex h-10 items-center gap-1.5 rounded-lg border border-gray-200 px-2.5 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-white"
+                        class="flex h-10 items-center gap-1.5 rounded-lg border border-gray-200 px-2.5 text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-700 dark:border-gray-800 dark:text-gray-300 dark:hover:bg-gray-800 dark:hover:text-white"
                         aria-label="{{ 'chrome.language.label'|trans }}"
                         aria-haspopup="true"
+                        aria-expanded="false"
                     >
                         {% for l in tsf_locales() %}{% if l.current %}<span class="text-base leading-none" aria-hidden="true">{{ l.flag }}</span><span class="hidden text-sm font-medium uppercase sm:inline">{{ l.code }}</span>{% endif %}{% endfor %}
                     </button>

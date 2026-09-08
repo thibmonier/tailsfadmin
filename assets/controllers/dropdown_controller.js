@@ -107,7 +107,12 @@ export default class extends Controller {
 
     #syncAria() {
         if (this.hasTriggerTarget) {
-            this.triggerTarget.setAttribute('aria-expanded', String(this.openValue));
+            // aria-expanded doit vivre sur un élément interactif (le <button>),
+            // pas sur le div wrapper (aria-allowed-attr, WCAG).
+            const btn = this.triggerTarget.matches('button')
+                ? this.triggerTarget
+                : this.triggerTarget.querySelector('button') || this.triggerTarget;
+            btn.setAttribute('aria-expanded', String(this.openValue));
         }
         if (this.hasMenuTarget) {
             if (this.openValue) {

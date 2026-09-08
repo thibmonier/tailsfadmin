@@ -21,10 +21,11 @@
     data-controller="tailsfadmin--dropdown"
 >
     {# ── Déclencheur (trigger) ─────────────────────────────────────────────── #}
+    {# aria-expanded est posé par le contrôleur sur le <button> interne (pas sur ce div :
+       aria-expanded n'est pas un attribut ARIA valide sur un div sans rôle — WCAG). #}
     <div
         data-tailsfadmin--dropdown-target="trigger"
         data-action="click->tailsfadmin--dropdown#toggle"
-        aria-expanded="false"
     >
         {% block trigger %}{% endblock %}
     </div>
