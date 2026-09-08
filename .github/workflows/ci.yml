@@ -216,6 +216,17 @@ jobs:
           php bin/console tailwind:build --minify
           php bin/console asset-map:compile
 
+      # (diagnostic temporaire) Rendre la home pour révéler une éventuelle 500.
+      - name: (diag) Rendu de la home
+        working-directory: ${{ runner.temp }}/host-app
+        run: |
+          php -S 127.0.0.1:8899 -t public >/tmp/srv.log 2>&1 &
+          sleep 3
+          echo "----- HTTP / -----"
+          curl -s -o /tmp/home.html -w "HTTP %{http_code}\n" http://127.0.0.1:8899/ || true
+          sed -n '1,80p' /tmp/home.html
+          echo "----- server log -----"; cat /tmp/srv.log || true
+
       # Scénario NOMINAL (T-030-03) : la page admin fonctionne, un composant monte.
       - name: Smoke NOMINAL (Panther — layout admin + Dropdown monté)
         working-directory: ${{ runner.temp }}/host-app
