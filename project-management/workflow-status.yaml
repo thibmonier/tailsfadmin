@@ -192,13 +192,14 @@ phases:
       retro: done               # sprints/sprint-006-pages_i18n/sprint-retro.md
       push: done                # origin/feature/sprint-001-walking-skeleton @ 7f7e8f6
     sprint_7:
-      status: started           # Planning P1 fait (sprint-goal.md) — à décomposer
+      status: decomposed        # Planning P1 (sprint-goal) + P2 (/project:decompose-tasks 007)
       but: "Qualité, accessibilité & livrabilité (dernier sprint, EPIC-007)"
       scope: "US-025 (accessibilité WCAG AA, 5) + US-026 (CI/doc/CHANGELOG/livrabilité, 8) = 13 pts"
+      tasks: "14 tâches, ~30.5h"
       goal_file: "sprints/sprint-007-qualite_a11y_doc/sprint-goal.md"
-      ordre: "US-025 (audit axe-core + corrections ARIA/focus/contraste clair/dark/RTL) → US-026 (CI intègre a11y + PHPStan/tests/lint + README/catalogue/CHANGELOG SemVer)"
-      note: "US-025 bloque US-026. Actions rétro S6 intégrées : ADR intégration lib JS, garde visuelle dark, doc gotchas composants."
-    next: "Sprint 7 démarré (Planning P1). Prochaine étape : /project:decompose-tasks 007 puis implémentation TDD US-025 → US-026."
+      ordre: "US-025 (axe-core auto + corrections ARIA/focus/contraste + sous-menus repliables, clair/dark/RTL) → US-026 (CI: couverture PCOV≥80% + E2E/axe + biome ; doc: README + catalogue + CHANGELOG + ADR-006)"
+      decisions_p2: "biome (lint front) · axe-core automatisé bloquant · sous-menus sidebar repliables (Stimulus + aria-expanded, remplace Alpine vestigial). Actions rétro S6 rattachées (garde dark T-025-05, ADR-006 T-026-07, gotchas T-026-05)."
+    next: "Implémentation TDD Sprint 7 — US-025 (commencer par T-025-01 helper axe-core) → US-026, revue visuelle clair/dark/RTL + audit a11y."
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
