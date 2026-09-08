@@ -73,9 +73,20 @@ Le bundle est activé automatiquement par Symfony Flex.
 
 ### 1. Assets (AssetMapper + importmap)
 
-Les contrôleurs Stimulus du bundle sont exposés automatiquement sous
-`bundles/tailsfadmin` (via `prepend()`, aucune config à écrire). Stimulus doit
-être démarré côté hôte (`assets/bootstrap.js` du skeleton).
+Les contrôleurs Stimulus du bundle vivent sous `bundles/tailsfadmin`. Stimulus
+doit être démarré côté hôte (`assets/bootstrap.js` du skeleton). Déclarez le path
+AssetMapper des contrôleurs dans votre `config/packages/asset_mapper.yaml` (le
+`prepend()` du bundle ne survit pas au merge Flex ; la recette Flex — à venir —
+l'automatisera) :
+
+```yaml
+framework:
+    asset_mapper:
+        paths:
+            'assets/': ''
+            'vendor/tailsfadmin/tailsfadmin-bundle/assets/controllers': 'bundles/tailsfadmin'
+            'vendor/tailsfadmin/tailsfadmin-bundle/assets/vendor-src': 'bundles/tailsfadmin-vendor'
+```
 
 **Dépendances JS tierces — commande d'installation.** Cinq contrôleurs du bundle
 s'appuient sur des bibliothèques tierces (ApexCharts, jsvectormap, flatpickr,

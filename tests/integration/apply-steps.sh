@@ -23,6 +23,18 @@ cat > assets/styles/app.css <<'CSS'
 @import "../../vendor/tailsfadmin/tailsfadmin-bundle/assets/styles/theme.css";
 CSS
 
+echo "==> Path AssetMapper du bundle (le prepend() ne survit pas au merge Flex — cf. démo)"
+# Tant que la recette Flex (US-029) n'automatise pas, l'hôte déclare le path des
+# contrôleurs du bundle (et le shim vendor-src), comme demo/config/packages/asset_mapper.yaml.
+cat > config/packages/asset_mapper.yaml <<'YAML'
+framework:
+    asset_mapper:
+        paths:
+            'assets/': ''
+            'vendor/tailsfadmin/tailsfadmin-bundle/assets/controllers': 'bundles/tailsfadmin'
+            'vendor/tailsfadmin/tailsfadmin-bundle/assets/vendor-src': 'bundles/tailsfadmin-vendor'
+YAML
+
 echo "==> Config binaire Tailwind (la recette ne pose pas toujours binary_version)"
 cat > config/packages/symfonycasts_tailwind.yaml <<'YAML'
 symfonycasts_tailwind:
