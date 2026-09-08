@@ -28,7 +28,11 @@
                 <a href="#section-modals"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Modals</a>
                 <a href="#section-form-theme" class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Form Symfony</a>
                 <a href="#section-form-components" class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Composants Form</a>
+                <a href="#section-datepicker" class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Datepicker</a>
                 <a href="#section-tables"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Tables</a>
+                <a href="#section-upload"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Upload</a>
+                <a href="#section-charts"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Graphiques</a>
+                <a href="#section-calendar"  class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Calendrier</a>
             </nav>
         </header>
 
@@ -581,6 +585,33 @@
 
         </section>
 
+        {# ─── US-015 : Datepicker ──────────────────────────────────────────────── #}
+        <section id="section-datepicker" data-testid="section-datepicker">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Datepicker — flatpickr (US-015)</h2>
+
+            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                {# Datepicker simple (mode single) #}
+                <div data-testid="datepicker-single">
+                    <twig:tsf:Form:Datepicker label="Date unique" name="date_single" placeholder="Sélectionner une date" />
+                </div>
+
+                {# Datepicker plage (mode range) #}
+                <div data-testid="datepicker-range">
+                    <twig:tsf:Form:Datepicker label="Plage de dates" name="date_range" mode="range" placeholder="Début → Fin" />
+                </div>
+
+                {# Datepicker avec heure #}
+                <div data-testid="datepicker-time">
+                    <twig:tsf:Form:Datepicker label="Date et heure" name="date_time" :enableTime="true" dateFormat="Y-m-d H:i" placeholder="Sélectionner date et heure" />
+                </div>
+
+                {# Datepicker désactivé #}
+                <div data-testid="datepicker-disabled">
+                    <twig:tsf:Form:Datepicker label="Désactivé" name="date_disabled" value="2026-01-15" :disabled="true" />
+                </div>
+            </div>
+        </section>
+
         {# ─── US-017 : Tables ─────────────────────────────────────────────────── #}
         <section id="section-tables" data-testid="section-tables">
             <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Tables (US-017)</h2>
@@ -608,6 +639,109 @@
                     {name: 'Eric Legrand', role: 'DevOps', project: 'Infrastructure', status: 'cancel', budget: '2.0K'},
                 ] -%}
                 <twig:tsf:Ui:TableAdvanced title="Projets en cours" :rows="tableAdvRows" />
+            </div>
+        </section>
+
+        {# ─── US-016 : Upload Dropzone ─────────────────────────────────────────── #}
+        <section id="section-upload" data-testid="section-upload">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Upload Dropzone (US-016)</h2>
+
+            <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+                {# Zone upload simple #}
+                <div data-testid="upload-simple">
+                    <twig:tsf:Form:Upload
+                        label="Fichiers"
+                        url="/demo/upload"
+                        hint="Glissez-déposez vos fichiers ici"
+                        subHint="ou cliquez pour sélectionner"
+                    />
+                </div>
+
+                {# Zone upload avec restrictions #}
+                <div data-testid="upload-restricted">
+                    <twig:tsf:Form:Upload
+                        label="Images uniquement"
+                        url="/demo/upload"
+                        acceptedFiles="image/*"
+                        :maxFiles="3"
+                        :maxFilesize="10"
+                        hint="Glissez-déposez vos images ici"
+                        subHint="ou cliquez pour sélectionner"
+                    />
+                </div>
+            </div>
+        </section>
+
+        {# ─── US-018 : Graphiques ApexCharts ─────────────────────────────────── #}
+        <section id="section-charts" data-testid="section-charts">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Graphiques ApexCharts (US-018)</h2>
+
+            {# ── Graphique Courbes (Line) ───────────────────────────────────── #}
+            <h3 class="mb-4 text-base font-medium text-gray-700 dark:text-gray-300">Courbes (Line)</h3>
+            <div class="mb-8" data-testid="chart-line-demo">
+                {%- set lineCategories = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'] -%}
+                {%- set lineSeries = [
+                    {name: 'Ventes', data: [180, 190, 170, 160, 175, 165, 170, 205, 230, 210, 240, 235]},
+                    {name: 'Revenus', data: [40, 30, 50, 40, 55, 40, 70, 100, 110, 120, 150, 140]},
+                ] -%}
+                <twig:tsf:Chart:Line
+                    title="Ventes & Revenus — 12 derniers mois"
+                    :series="lineSeries"
+                    :categories="lineCategories"
+                    :height="310"
+                    type="area"
+                />
+            </div>
+
+            {# ── Graphique Barres (Bar) ─────────────────────────────────────── #}
+            <h3 class="mb-4 text-base font-medium text-gray-700 dark:text-gray-300">Barres (Bar)</h3>
+            <div class="mb-8" data-testid="chart-bar-demo">
+                {%- set barCategories = ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'] -%}
+                {%- set barSeries = [
+                    {name: 'Commandes', data: [168, 385, 201, 298, 187, 195, 291, 110, 215, 390, 280, 112]},
+                ] -%}
+                <twig:tsf:Chart:Bar
+                    title="Commandes mensuelles"
+                    :series="barSeries"
+                    :categories="barCategories"
+                    :height="180"
+                />
+            </div>
+
+            {# ── Dashboard : Line seule ─────────────────────────────────────── #}
+            <h3 class="mb-4 text-base font-medium text-gray-700 dark:text-gray-300">Courbe simple (dashboard)</h3>
+            <div data-testid="chart-dashboard-demo">
+                {%- set dashCategories = ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'] -%}
+                {%- set dashSeries = [
+                    {name: 'Visiteurs', data: [420, 550, 380, 630, 490, 710, 520]},
+                ] -%}
+                <twig:tsf:Chart:Line
+                    title="Visiteurs cette semaine"
+                    :series="dashSeries"
+                    :categories="dashCategories"
+                    :height="200"
+                    type="line"
+                />
+            </div>
+        </section>
+
+        {# ─── US-020 : Calendrier FullCalendar ───────────────────────────────── #}
+        <section id="section-calendar" data-testid="section-calendar">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Calendrier FullCalendar (US-020)</h2>
+
+            <div data-testid="calendar-demo">
+                {%- set calEvents = [
+                    {title: 'Réunion Sprint', start: '2026-09-02', color: '#465FFF'},
+                    {title: 'Conf. Design', start: '2026-09-08', end: '2026-09-10', color: '#22C55E'},
+                    {title: 'Code Review', start: '2026-09-15', color: '#F59E0B'},
+                    {title: 'Démo client', start: '2026-09-22', end: '2026-09-23', color: '#EF4444'},
+                    {title: 'Rétro Sprint', start: '2026-09-29', color: '#8B5CF6'},
+                ] -%}
+                <twig:tsf:Calendar
+                    title="Planning Septembre 2026"
+                    :events="calEvents"
+                    initialView="dayGridMonth"
+                />
             </div>
         </section>
 
