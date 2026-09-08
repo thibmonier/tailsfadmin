@@ -78,6 +78,12 @@
                 "main": "controllers/submenu_controller.js",
                 "fetch": "eager",
                 "enabled": true
+            },
+            "assets-check": {
+                "name": "tailsfadmin--assets-check",
+                "main": "controllers/assets_check_controller.js",
+                "fetch": "eager",
+                "enabled": true
             }
         }
     }

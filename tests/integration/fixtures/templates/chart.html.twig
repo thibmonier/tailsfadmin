@@ -1,0 +1,15 @@
+{# Page « chart » (US-030 / T-030-04) : dépend d'ApexCharts (contrôleur
+   tailsfadmin--apexcharts). Sans `tailsfadmin:assets:install`, la lib n'est pas
+   dans l'importmap → le préflight doit signaler l'absence de vendoring. #}
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block content %}
+    <twig:tsf:Ui:Card title="Chart (dépendance ApexCharts)">
+        <twig:block name="body">
+            <twig:tsf:Chart:Bar
+                :series="[{ name: 'Ventes', data: [10, 20, 30] }]"
+                :categories="['Jan', 'Fév', 'Mar']"
+            />
+        </twig:block>
+    </twig:tsf:Ui:Card>
+{% endblock %}

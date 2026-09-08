@@ -1,17 +1,28 @@
 /*
- * CSS d'entrée Tailwind — Application de démo tailsfadmin
+ * Entrée Tailwind de l'application de démo tailsfadmin.
  *
- * Ce fichier importe le CSS source du bundle (tokens, @theme, @plugin).
- * Le chemin relatif "../../assets/styles/app.css" remonte depuis
- * demo/assets/styles/ → demo/assets/ → demo/ → racine du monorepo (bundle).
+ * La démo illustre l'intégration d'un HÔTE tiers (US-028) : elle possède sa
+ * propre directive « @import "tailwindcss" » puis importe le THÈME distribuable
+ * du bundle en une seule ligne — sans recopier les tokens ni le CSS composants.
  *
- * C'est l'entrée Tailwind de la démo (input_css dans symfonycasts_tailwind.yaml).
- * La sortie compilée est servie par AssetMapper.
+ * Le chemin remonte depuis demo/assets/styles/ jusqu'à la racine du monorepo
+ * (le bundle). Un projet tiers viserait plutôt
+ * « ../../vendor/tailsfadmin/tailsfadmin-bundle/assets/styles/theme.css ».
+ *
+ * C'est l'entrée Tailwind de la démo (input par défaut de
+ * symfonycasts/tailwind-bundle). La sortie compilée est servie par AssetMapper.
  */
 
-@import "../../../assets/styles/app.css";
+@import "tailwindcss";
+@import "../../../assets/styles/theme.css";
 
 /*
- * Surcharges ou ajouts spécifiques à la démo (après les tokens du bundle).
- * La démo ne doit contenir que de l'usage, pas de code réutilisable (ADR-002).
+ * Exemple de rebranding (US-028 / T-028-03) — décommenter pour vérifier :
+ * la marque doit changer (boutons, liens, item de menu actif) sans toucher au
+ * bundle. Redéfinition APRÈS l'import → la cascade :root l'emporte sur @theme.
+ *
+ * :root {
+ *     --color-brand-500: #7c3aed;
+ *     --color-brand-600: #6d28d9;
+ * }
  */

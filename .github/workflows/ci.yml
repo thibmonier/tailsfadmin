@@ -30,6 +30,9 @@ jobs:
           key: composer-bundle-${{ hashFiles('composer.lock') }}
           restore-keys: composer-bundle-
 
+      - name: Valider composer.json (strict — métadonnées Packagist, lock à jour)
+        run: composer validate --strict
+
       - name: Install (bundle)
         run: composer install --no-interaction --no-progress --prefer-dist
 
@@ -155,3 +158,68 @@ jobs:
           PANTHER_NO_SANDBOX: '1'
           PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
         run: php bin/phpunit --testsuite e2e
+
+  integration:
+    name: Intégration — app Symfony vierge (consommabilité tierce, US-030)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.5
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.5'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Setup Chrome + ChromeDriver
+        id: setup-chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          install-chromedriver: true
+
+      - name: Résoudre les binaires Chrome (Linux)
+        run: |
+          echo "PANTHER_CHROME_BINARY=$(command -v chrome || echo '${{ steps.setup-chrome.outputs.chrome-path }}')" >> "$GITHUB_ENV"
+          echo "PANTHER_CHROME_DRIVER_BINARY=$(command -v chromedriver)" >> "$GITHUB_ENV"
+
+      # L'app vierge est créée HORS du dépôt (répertoire distinct de demo/).
+      # Sans version pinée → dernière Symfony stable (couverte par « ^8.0 » du bundle).
+      # La matrice multi-versions (7.3) est un suivi dédié (skeleton courant en 8.x).
+      - name: Créer l'app tierce + installer le bundle (archive dist)
+        run: bash tests/integration/create-app.sh "$RUNNER_TEMP/host-app"
+
+      - name: Appliquer les étapes d'intégration documentées
+        run: bash tests/integration/apply-steps.sh "$RUNNER_TEMP/host-app"
+
+      # Scénario d'ÉCHEC (T-030-04), déterministe : AVANT vendoring, l'importmap
+      # de l'hôte ne contient pas apexcharts → une page chart casserait (le
+      # préflight guide l'utilisateur en console). Vérifié par grep, pas au
+      # navigateur (les contrôleurs eager rendent un test navigateur non fiable).
+      - name: Scénario échec — apexcharts absent de l'importmap avant vendoring
+        working-directory: ${{ runner.temp }}/host-app
+        run: |
+          if grep -qi "apexcharts" importmap.php; then
+            echo "❌ apexcharts est déjà dans l'importmap avant tailsfadmin:assets:install"
+            exit 1
+          fi
+          echo "✓ apexcharts absent avant vendoring (garde-fou attendu côté navigateur)"
+
+      # Vendoring (US-027) : la commande ajoute et vendore les libs.
+      - name: tailsfadmin:assets:install + vérif importmap + build
+        working-directory: ${{ runner.temp }}/host-app
+        run: |
+          php bin/console tailsfadmin:assets:install --no-interaction
+          grep -qi "apexcharts" importmap.php || { echo "❌ apexcharts absent après assets:install"; exit 1; }
+          echo "✓ apexcharts présent après vendoring"
+          php bin/console tailwind:build --minify
+          php bin/console asset-map:compile
+
+      # Scénario NOMINAL (T-030-03) : la page admin fonctionne, un composant monte.
+      - name: Smoke NOMINAL (Panther — layout admin + Dropdown monté)
+        working-directory: ${{ runner.temp }}/host-app
+        env:
+          PANTHER_NO_SANDBOX: '1'
+          PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
+        run: php bin/phpunit

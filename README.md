@@ -1,5 +1,11 @@
 # tailsfadmin
 
+[![Packagist Version](https://img.shields.io/packagist/v/tailsfadmin/tailsfadmin-bundle)](https://packagist.org/packages/tailsfadmin/tailsfadmin-bundle)
+[![Total Downloads](https://img.shields.io/packagist/dt/tailsfadmin/tailsfadmin-bundle)](https://packagist.org/packages/tailsfadmin/tailsfadmin-bundle)
+[![PHP Version](https://img.shields.io/packagist/php-v/tailsfadmin/tailsfadmin-bundle)](composer.json)
+[![CI](https://img.shields.io/github/actions/workflow/status/thibmonier/tailsfadmin/ci.yml?branch=main&label=CI)](https://github.com/thibmonier/tailsfadmin/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/packagist/l/tailsfadmin/tailsfadmin-bundle)](LICENSE)
+
 Thème admin Symfony basé sur TailAdmin — bundle réutilisable (Symfony UX, Stimulus, AssetMapper, Tailwind CSS v4).
 
 ## Architecture du monorepo
@@ -40,8 +46,8 @@ tailsfadmin/
 
 ```bash
 # 1. Cloner le dépôt
-git clone https://github.com/tailsfadmin/tailsfadmin-bundle.git
-cd tailsfadmin-bundle
+git clone https://github.com/thibmonier/tailsfadmin.git
+cd tailsfadmin
 
 # 2. Installer les dépendances du bundle
 composer install
@@ -67,16 +73,90 @@ Le bundle est activé automatiquement par Symfony Flex.
 
 ### 1. Assets (AssetMapper + importmap)
 
-Les contrôleurs Stimulus du bundle sont exposés sous `bundles/tailsfadmin`.
-Assurez-vous que votre `config/packages/asset_mapper.yaml` mappe ce chemin et
-que Stimulus est démarré (`assets/bootstrap.js` du skeleton). Compilez avec :
+Les contrôleurs Stimulus du bundle vivent sous `bundles/tailsfadmin`. Stimulus
+doit être démarré côté hôte (`assets/bootstrap.js` du skeleton). Déclarez le path
+AssetMapper des contrôleurs dans votre `config/packages/asset_mapper.yaml` (le
+`prepend()` du bundle ne survit pas au merge Flex ; la recette Flex — à venir —
+l'automatisera) :
+
+```yaml
+framework:
+    asset_mapper:
+        paths:
+            'assets/': ''
+            'vendor/tailsfadmin/tailsfadmin-bundle/assets/controllers': 'bundles/tailsfadmin'
+            'vendor/tailsfadmin/tailsfadmin-bundle/assets/vendor-src': 'bundles/tailsfadmin-vendor'
+```
+
+**Dépendances JS tierces — commande d'installation.** Cinq contrôleurs du bundle
+s'appuient sur des bibliothèques tierces (ApexCharts, jsvectormap, flatpickr,
+Dropzone, FullCalendar). Un bundle **ne peut pas** injecter d'entrées dans
+l'`importmap.php` de l'hôte (l'importmap n'est pas une config mergeable — voir
+**[ADR-007](docs/adr/0007-propagation-importmap-bundle.md)**). Le bundle fournit
+donc une commande qui ajoute ces pins et **vendore les fichiers localement** :
+
+```bash
+php bin/console tailsfadmin:assets:install
+```
+
+- **Sans CDN au runtime** : les libs sont téléchargées à l'installation puis
+  servies en local (ADR-004/006). La source de vérité des versions pinées est
+  `config/importmap-entries.php`, distribué avec le bundle.
+- **Idempotente** : relançable sans risque, n'ajoute que ce qui manque.
+- **Conflits de version** : si votre app a déjà piné une lib dans une autre
+  version, la commande **ne l'écrase pas** ; elle signale le conflit. Forcez la
+  réécriture avec `--force`.
+- **Garde-fou** : si une page utilise un composant dont la lib n'est pas
+  installée, une **erreur explicite en console** rappelle la commande à lancer
+  (au lieu du cryptique « Failed to resolve module specifier »).
+
+Compilez ensuite les assets :
 
 ```bash
 php bin/console tailwind:build   # CSS Tailwind v4 (symfonycasts/tailwind-bundle)
 php bin/console asset-map:compile
 ```
 
-### 2. Menu de la sidebar (`config/packages/tailsfadmin.yaml`)
+> Les contrôleurs sans dépendance externe (`theme`, `sidebar`, `modal`,
+> `dropdown`, `alert-dismiss`, `preloader`, `search`, `submenu`) fonctionnent
+> sans cette commande, via le seul path AssetMapper.
+
+### 2. Thème CSS (Tailwind hôte)
+
+Le bundle distribue son thème (tokens `@theme`, dark mode, classes composants
+`.menu-item*`…) dans **`assets/styles/theme.css`**. Votre app le branche en
+**une seule ligne**, dans sa propre entrée Tailwind v4 — sans recopier les
+tokens ni le CSS des composants :
+
+```css
+/* assets/styles/app.css de VOTRE application */
+@import "tailwindcss";
+@import "../../vendor/tailsfadmin/tailsfadmin-bundle/assets/styles/theme.css";
+```
+
+- **Standalone, sans Node** : compilez avec le binaire `symfonycasts/tailwind-bundle`
+  (`php bin/console tailwind:build`), comme le reste de votre CSS.
+- **Scan du contenu du bundle** : `theme.css` déclare des `@source` (relatifs,
+  donc portables depuis `vendor/`) vers les templates et contrôleurs du bundle,
+  afin que les utilitaires qu'ils emploient soient bien générés chez vous.
+- **Dark mode** : stratégie par classe — activez `.dark` sur `<html>`. L'échelle
+  de gris n'est **pas** inversée (les composants portent des variantes `dark:`
+  explicites).
+- **Rebranding** : redéfinissez les tokens `--color-brand-*` **après** l'import
+  (la cascade `:root` l'emporte sur `@theme`) — cela repeint boutons, liens et
+  item de menu actif :
+
+  ```css
+  @import "tailwindcss";
+  @import ".../theme.css";
+  :root { --color-brand-500: #7c3aed; --color-brand-600: #6d28d9; }
+  ```
+
+> Besoin d'une entrée « tout-en-un » (Tailwind + thème) ? Importez plutôt
+> `assets/styles/app.css` du bundle. La démo (`demo/assets/styles/app.css`)
+> illustre le pattern hôte ci-dessus.
+
+### 3. Menu de la sidebar (`config/packages/tailsfadmin.yaml`)
 
 Les `label` sont des **clés de traduction** (voir i18n ci-dessous) ou des libellés bruts :
 
@@ -96,7 +176,7 @@ tailsfadmin:
                     - { label: menu.tables_basic, path: /tables/basic }
 ```
 
-### 3. Layout d'une page
+### 4. Layout d'une page
 
 ```twig
 {% extends '@Tailsfadmin/layout/admin.html.twig' %}
@@ -111,13 +191,13 @@ tailsfadmin:
 > Le layout attend une route nommée **`home`** (logo de la sidebar) et
 > **`locale_switch`** si vous utilisez le sélecteur de langue.
 
-### 4. Internationalisation (optionnel)
+### 5. Internationalisation (optionnel)
 
 Installez `symfony/translation`, réglez `framework.default_locale` + `enabled_locales`,
 et fournissez vos catalogues. Le bundle expose ses propres traductions du chrome
 (header, breadcrumb…) et les helpers Twig `tsf_dir()` / `tsf_locales()`.
 
-### 5. Catalogue des composants
+### 6. Catalogue des composants
 
 Tous les composants `<twig:tsf:… />` (props, slots, exemples) sont documentés
 dans **[docs/components.md](docs/components.md)** ; une galerie vivante est
