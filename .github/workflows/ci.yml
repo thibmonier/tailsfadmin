@@ -112,7 +112,7 @@ jobs:
 
       - name: Tests fonctionnels (démo)
         working-directory: demo
-        run: php bin/phpunit
+        run: php bin/phpunit --testsuite "Project Test Suite"
 
   e2e:
     name: E2E — Panther (montage JS réel + audit axe-core a11y)
