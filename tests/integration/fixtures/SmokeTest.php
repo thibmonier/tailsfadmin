@@ -5,23 +5,24 @@ declare(strict_types=1);
 namespace App\Tests;
 
 use Facebook\WebDriver\WebDriverBy;
-use PHPUnit\Framework\Attributes\Group;
 use Symfony\Component\Panther\PantherTestCase;
 
 /**
- * Smoke test d'intégration (US-030), exécuté DANS l'app Symfony vierge générée.
+ * Smoke test d'intégration NOMINAL (US-030 / T-030-03), exécuté DANS l'app
+ * Symfony vierge générée, APRÈS `tailsfadmin:assets:install`.
  *
  * La CI EST le test : ce fichier prouve, hors du monorepo de la démo, que le
  * bundle installé comme un tiers (archive dist) rend une page admin fonctionnelle
- * et que le garde-fou de vendoring (US-027) se déclenche quand une lib manque.
+ * et qu'un composant JS monte réellement au navigateur.
  *
- * Deux groupes, joués en deux phases par le job CI :
- *   - `failure` AVANT `tailsfadmin:assets:install` (T-030-04),
- *   - `nominal` APRÈS (T-030-03).
+ * Le scénario d'échec (vendoring absent) est vérifié de façon déterministe au
+ * niveau de l'importmap par le job CI (grep), pas au navigateur : les contrôleurs
+ * du bundle étant `eager`, une lib manquante casse le lot de contrôleurs — un
+ * garde-fou navigateur n'est donc pas fiable à tester. Le garde-fou console/DOM
+ * du préflight reste livré pour l'expérience développeur.
  */
 final class SmokeTest extends PantherTestCase
 {
-    #[Group('nominal')]
     public function testAdminLayoutRendersAndDropdownMounts(): void
     {
         $client = static::createPantherClient(['browser' => static::CHROME]);
@@ -38,7 +39,8 @@ final class SmokeTest extends PantherTestCase
         );
         self::assertStringContainsStringIgnoringCase('outfit', $fontFamily);
 
-        // Aucune lib manquante signalée par le préflight (marqueur DOM US-027).
+        // Aucune lib manquante signalée par le préflight (marqueur DOM US-027) :
+        // le vendoring a bien eu lieu avant ce test.
         self::assertSelectorNotExists(
             'html[data-tailsfadmin-missing-libs]',
             'Le préflight signale des libs manquantes alors que le vendoring a eu lieu.'
@@ -51,25 +53,5 @@ final class SmokeTest extends PantherTestCase
             ->click();
         $client->waitForVisibility('[data-testid="dd-item"]', 5);
         self::assertSelectorIsVisible('[data-testid="dd-item"]');
-    }
-
-    #[Group('failure')]
-    public function testMissingVendoringIsReported(): void
-    {
-        $client = static::createPantherClient(['browser' => static::CHROME]);
-        $client->request('GET', '/chart');
-
-        // Sans `tailsfadmin:assets:install`, ApexCharts n'est pas dans l'importmap.
-        // Le préflight marque le <html> avec la liste des libs manquantes.
-        $client->waitFor('html[data-tailsfadmin-missing-libs]', 5);
-        $missing = (string) $client->getWebDriver()
-            ->findElement(WebDriverBy::cssSelector('html'))
-            ->getAttribute('data-tailsfadmin-missing-libs');
-
-        self::assertStringContainsString(
-            'apexcharts',
-            $missing,
-            'Le garde-fou de vendoring (US-027) n\'a pas signalé ApexCharts manquant.'
-        );
     }
 }

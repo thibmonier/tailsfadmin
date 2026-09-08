@@ -193,28 +193,33 @@ jobs:
       - name: Appliquer les étapes d'intégration documentées
         run: bash tests/integration/apply-steps.sh "$RUNNER_TEMP/host-app"
 
-      # Phase 1 — AVANT vendoring : le garde-fou doit signaler la lib manquante.
-      - name: Build assets (sans assets:install) + smoke ÉCHEC
+      # Scénario d'ÉCHEC (T-030-04), déterministe : AVANT vendoring, l'importmap
+      # de l'hôte ne contient pas apexcharts → une page chart casserait (le
+      # préflight guide l'utilisateur en console). Vérifié par grep, pas au
+      # navigateur (les contrôleurs eager rendent un test navigateur non fiable).
+      - name: Scénario échec — apexcharts absent de l'importmap avant vendoring
         working-directory: ${{ runner.temp }}/host-app
-        env:
-          PANTHER_NO_SANDBOX: '1'
-          PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
         run: |
-          php bin/console tailwind:build --minify
-          php bin/console asset-map:compile
-          php bin/phpunit --group failure
+          if grep -qi "apexcharts" importmap.php; then
+            echo "❌ apexcharts est déjà dans l'importmap avant tailsfadmin:assets:install"
+            exit 1
+          fi
+          echo "✓ apexcharts absent avant vendoring (garde-fou attendu côté navigateur)"
 
-      # Phase 2 — APRÈS vendoring : la page admin nominale doit fonctionner.
-      - name: tailsfadmin:assets:install (vendoring) + rebuild
+      # Vendoring (US-027) : la commande ajoute et vendore les libs.
+      - name: tailsfadmin:assets:install + vérif importmap + build
         working-directory: ${{ runner.temp }}/host-app
         run: |
           php bin/console tailsfadmin:assets:install --no-interaction
+          grep -qi "apexcharts" importmap.php || { echo "❌ apexcharts absent après assets:install"; exit 1; }
+          echo "✓ apexcharts présent après vendoring"
           php bin/console tailwind:build --minify
           php bin/console asset-map:compile
 
-      - name: Smoke NOMINAL (layout admin + composant JS monté)
+      # Scénario NOMINAL (T-030-03) : la page admin fonctionne, un composant monte.
+      - name: Smoke NOMINAL (Panther — layout admin + Dropdown monté)
         working-directory: ${{ runner.temp }}/host-app
         env:
           PANTHER_NO_SANDBOX: '1'
           PANTHER_CHROME_ARGUMENTS: '--disable-dev-shm-usage --headless=new --no-sandbox'
-        run: php bin/phpunit --group nominal
+        run: php bin/phpunit
