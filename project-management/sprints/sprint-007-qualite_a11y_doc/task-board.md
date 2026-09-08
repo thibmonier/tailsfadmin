@@ -43,6 +43,9 @@
 | — | — | — | — |
 
 ## Métriques
-- **Tâches** : 14 total · 0 terminées (0 %)
-- **Heures** : 30.5h estimées · 0h consommées · 30.5h restantes
-- **Points** : 13 engagés (US-025 5 + US-026 8)
+- **Tâches** : 14 total · **14 terminées (100 %)** ✅
+- **Points** : 13 livrés (US-025 5 + US-026 8)
+- **Qualité** : démo 180/180 + 14/14 E2E (axe 0 violation) · PHPStan max 0 · cs-fixer 0 · biome 0
+- **Commits** : 0711a73 (US-025) · 7aefe6a (US-026)
+
+> Sprint 7 terminé — toutes les tâches T-025-* et T-026-* sont ✅.

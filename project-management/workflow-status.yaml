@@ -192,19 +192,25 @@ phases:
       retro: done               # sprints/sprint-006-pages_i18n/sprint-retro.md
       push: done                # origin/feature/sprint-001-walking-skeleton @ 7f7e8f6
     sprint_7:
-      status: decomposed        # Planning P1 (sprint-goal) + P2 (/project:decompose-tasks 007)
+      status: done              # ✅ Qualité, accessibilité & livrabilité (13 pts)
+      done:
+        - "US-025 ✅ Accessibilité WCAG 2.2 AA. Audit axe-core automatisé (helper Panther, injection vendorée) sur 6 pages clair+dark → 0 violation. Corrections : aria-expanded sur <button> (pas <div>), sous-menus sidebar repliables (contrôleur tailsfadmin--submenu + aria-expanded, hidden hors tab-order), contrastes ≥4,5:1 (badges -700/-400, menu actif brand-700, bouton primary dark:bg-brand-600, secondary dark:text-gray-300, gray-400→500), focus-visible global. Garde anti-régression dark (input/panel restent sombres)."
+        - "US-026 ✅ CI + doc + livrabilité. CI étendue : couverture PCOV ≥80% (seuil bloquant + artefact), job E2E Panther+axe, job Biome (lint front). biome.json + 13 contrôleurs reformatés. README (config/quickstart), docs/components.md (catalogue + gotchas), ADR-006 (intégration lib JS), CHANGELOG 1.0.0, composer.json 1.0.0."
+      qualite: "démo 180/180 fonctionnels + 14/14 E2E (axe 0 violation, toggle sous-menu, garde dark, focus trap, montage libs) · bundle PHPStan max 0 · cs-fixer 0 · biome 0"
+      commits: "0711a73 (US-025) · 7aefe6a (US-026)"
       but: "Qualité, accessibilité & livrabilité (dernier sprint, EPIC-007)"
       scope: "US-025 (accessibilité WCAG AA, 5) + US-026 (CI/doc/CHANGELOG/livrabilité, 8) = 13 pts"
       tasks: "14 tâches, ~30.5h"
       goal_file: "sprints/sprint-007-qualite_a11y_doc/sprint-goal.md"
       ordre: "US-025 (axe-core auto + corrections ARIA/focus/contraste + sous-menus repliables, clair/dark/RTL) → US-026 (CI: couverture PCOV≥80% + E2E/axe + biome ; doc: README + catalogue + CHANGELOG + ADR-006)"
       decisions_p2: "biome (lint front) · axe-core automatisé bloquant · sous-menus sidebar repliables (Stimulus + aria-expanded, remplace Alpine vestigial). Actions rétro S6 rattachées (garde dark T-025-05, ADR-006 T-026-07, gotchas T-026-05)."
-    next: "Implémentation TDD Sprint 7 — US-025 (commencer par T-025-01 helper axe-core) → US-026, revue visuelle clair/dark/RTL + audit a11y."
+    projet_complet: "🎉 7 sprints livrés (US-001..026, hors doublons) — bundle tailsfadmin 1.0.0 : fondations, nav, UI kit, formulaires/tables, data-viz, pages applicatives, i18n+RTL, accessibilité WCAG AA, CI+doc. Reste : cérémonies Sprint 7 (review/rétro) puis tag v1.0.0."
+    next: "Sprint 7 terminé (US-025 + US-026). Prochaines étapes : Sprint Review + Rétrospective S7 (clôture projet), puis tag v1.0.0 / release."
 
 # ─── POINT DE REPRISE (après /clear) ────────────────────────────────
 reprise:
-  etat: "Sprints 1-6 ✅ + extras, review+rétro S6 faites, branche POUSSÉE (origin @ 7f7e8f6). Sprint 7 DÉMARRÉ (sprint-goal.md rédigé, pas encore décomposé). Reste : US-025 (a11y) + US-026 (CI/doc)."
-  prochaine_action: "Décomposer le Sprint 7 (/project:decompose-tasks 007) puis implémenter en TDD : US-025 (accessibilité WCAG AA, audit axe-core + corrections, clair/dark/RTL) → US-026 (CI complète + README + catalogue composants + CHANGELOG SemVer). Voir sprints/sprint-007-qualite_a11y_doc/sprint-goal.md."
+  etat: "🎉 TOUS LES SPRINTS (1-7) LIVRÉS. Sprint 7 terminé : US-025 (a11y WCAG AA, axe 0 violation, 0711a73) + US-026 (CI+doc+CHANGELOG 1.0.0, 7aefe6a). Bundle 1.0.0. Non poussé depuis le dernier push (commits S7 locaux). Cérémonies S7 (review/rétro) et tag v1.0.0 restent à faire."
+  prochaine_action: "Pousser les commits S7, puis : Sprint Review S7 + Rétrospective S7 (clôture projet), puis tag/release v1.0.0. Vérifier la CI verte sur la PR (couverture ≥80%, E2E+axe, biome)."
   methode:
     - "Déléguer les tâches multi-étapes à un sous-agent (build a fait tous les sprints), TOUJOURS revérifier soi-même."
     - "Revue VISUELLE obligatoire (screenshot navigateur) + tests — les tests DOM seuls ratent les défauts CSS/JS (leçons S5 : CSS libs non chargé, dropdowns muets)."
