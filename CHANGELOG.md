@@ -9,6 +9,14 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Contrôleur Stimulus `tailsfadmin--clipboard`** : copie une valeur dans le
+  presse-papiers avec retour visuel et dégradation gracieuse (repli
+  `execCommand` hors contexte sécurisé). Déclaré dans les deux `package.json` (US-039).
+- **Page de démo « Intégrations / Clés d'API »** (`/integrations`) : liste de clés
+  factices masquées, révélation en CSS peer (sans JS), copie en un clic, génération
+  et révocation via `tsf:Ui:Modal`, le tout organisé en onglets (`tsf:Ui:Tabs`). La
+  clé en clair n'est affichée qu'une seule fois. Données strictement factices,
+  stockées en session (aucune base, aucun secret réel) (US-039).
 - **Page de démo « Mise en page de formulaire »** (`/forms/layout`) : deux gabarits
   prêts à copier — une colonne (formulaire compact) et sectionné (grille deux
   colonnes responsive avec repli mobile + barre d'actions cohérente). Réutilise le

@@ -49,6 +49,12 @@
                 "fetch": "eager",
                 "enabled": true
             },
+            "clipboard": {
+                "name": "tailsfadmin--clipboard",
+                "main": "controllers/clipboard_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
             "datepicker": {
                 "name": "tailsfadmin--datepicker",
                 "main": "controllers/datepicker_controller.js",

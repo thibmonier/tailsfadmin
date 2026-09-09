@@ -1,0 +1,209 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Intégrations & clés d'API — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Intégrations" />
+{% endblock %}
+
+{#
+    US-039 — Page « Integrations / API keys ». Données STRICTEMENT factices.
+    Réutilise Tabs, Card, Badge et le contrôleur Stimulus tailsfadmin--clipboard.
+    Révéler/masquer en CSS peer (dégradation sans JS). Générer/révoquer via
+    tsf:Ui:Modal. La clé en clair n'est affichée qu'une seule fois (flash).
+#}
+
+{% set primary_btn = 'inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white shadow-theme-xs transition hover:bg-brand-600 focus:outline-hidden focus:ring-3 focus:ring-brand-500/20' %}
+{% set secondary_btn = 'inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 shadow-theme-xs transition hover:bg-gray-50 focus:outline-hidden focus:ring-3 focus:ring-gray-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]' %}
+{% set danger_btn = 'inline-flex items-center justify-center gap-2 rounded-lg bg-error-500 px-4 py-2.5 text-sm font-medium text-white shadow-theme-xs transition hover:bg-error-600 focus:outline-hidden focus:ring-3 focus:ring-error-500/20' %}
+{% set copy_btn = 'inline-flex items-center gap-1.5 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 shadow-theme-xs transition hover:bg-gray-50 focus:outline-hidden data-[copied=true]:border-success-300 data-[copied=true]:text-success-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]' %}
+
+{% block content %}
+    <div class="mx-auto max-w-5xl space-y-6">
+
+        {# Retour de révocation #}
+        {% for message in app.flashes('success') %}
+            <div data-testid="flash-success" role="status" class="rounded-lg border border-success-200 bg-success-50 px-4 py-3 text-sm text-success-700 dark:border-success-800 dark:bg-success-500/10 dark:text-success-400">
+                {{ message }}
+            </div>
+        {% endfor %}
+
+        {# Clé générée — affichée une seule fois #}
+        {% set generatedKey = app.flashes('generated_key')|first %}
+        {% if generatedKey %}
+            <div data-testid="generated-key" role="status" class="rounded-2xl border border-brand-200 bg-brand-50 p-5 dark:border-brand-800 dark:bg-brand-500/10">
+                <h3 class="mb-1 text-sm font-semibold text-gray-800 dark:text-white/90">Votre nouvelle clé d'API</h3>
+                <p class="mb-3 text-sm text-gray-600 dark:text-gray-400">
+                    Copiez-la maintenant : pour votre sécurité, elle ne sera plus jamais affichée.
+                </p>
+                <div class="flex flex-wrap items-center gap-3">
+                    <code class="rounded-lg bg-white px-3 py-2 font-mono text-sm text-gray-800 shadow-theme-xs dark:bg-gray-900 dark:text-white/90">{{ generatedKey }}</code>
+                    <button
+                        type="button"
+                        class="{{ copy_btn }}"
+                        data-controller="tailsfadmin--clipboard"
+                        data-tailsfadmin--clipboard-text-value="{{ generatedKey }}"
+                        data-action="tailsfadmin--clipboard#copy"
+                    >
+                        <span data-tailsfadmin--clipboard-target="label">Copier</span>
+                    </button>
+                </div>
+            </div>
+        {% endif %}
+
+        {# Erreur de génération (formulaire invalide) #}
+        {% if generateForm.vars.submitted and not generateForm.vars.valid %}
+            <div data-testid="generate-error" role="alert" class="rounded-lg border border-error-200 bg-error-50 px-4 py-3 text-sm text-error-700 dark:border-error-800 dark:bg-error-500/10 dark:text-error-400">
+                Impossible de générer la clé : vérifiez les informations saisies.
+            </div>
+        {% endif %}
+
+        <twig:tsf:Ui:Tabs :items="[{id: 'keys', label: 'Clés d\'API'}, {id: 'providers', label: 'Fournisseurs'}]">
+
+            {# ─── Onglet : clés d'API ─────────────────────────────────────────── #}
+            <twig:block name="keys">
+                <div data-testid="tab-panel-keys" class="space-y-4">
+                    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            Gérez les clés utilisées par vos intégrations. Les clés sont masquées
+                            par défaut ; révélez-les ou copiez-les d'un clic.
+                        </p>
+
+                        <twig:tsf:Ui:Modal size="md" labelId="generate-key-title">
+                            <twig:block name="trigger">
+                                <button type="button" class="{{ primary_btn }}" data-testid="generate-trigger">Générer une clé</button>
+                            </twig:block>
+                            <twig:block name="header">
+                                <h3 id="generate-key-title" class="text-lg font-semibold text-gray-800 dark:text-white/90">Générer une clé d'API</h3>
+                            </twig:block>
+                            <twig:block name="body">
+                                {{ form_start(generateForm, {attr: {'data-testid': 'generate-form'}}) }}
+                                    {{ form_row(generateForm.name) }}
+                                    {{ form_row(generateForm.scope) }}
+                                    <div class="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                                        <button type="button" class="{{ secondary_btn }}" data-action="click->tailsfadmin--modal#close">Annuler</button>
+                                        <button type="submit" class="{{ primary_btn }}">Générer la clé</button>
+                                    </div>
+                                {{ form_end(generateForm) }}
+                            </twig:block>
+                        </twig:tsf:Ui:Modal>
+                    </div>
+
+                    <twig:tsf:Ui:Card :padding="'sm'">
+                        <twig:block name="body">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full text-left text-sm">
+                                    <thead>
+                                        <tr class="border-b border-gray-200 text-xs uppercase tracking-wide text-gray-500 dark:border-gray-800 dark:text-gray-400">
+                                            <th scope="col" class="px-4 py-3 font-medium">Nom</th>
+                                            <th scope="col" class="px-4 py-3 font-medium">Clé</th>
+                                            <th scope="col" class="px-4 py-3 font-medium">Périmètre</th>
+                                            <th scope="col" class="px-4 py-3 font-medium">Créée le</th>
+                                            <th scope="col" class="px-4 py-3 font-medium">Dernière utilisation</th>
+                                            <th scope="col" class="px-4 py-3 font-medium">Statut</th>
+                                            <th scope="col" class="px-4 py-3 text-right font-medium">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                                        {% for key in keys %}
+                                            <tr data-testid="api-key-row" data-key-id="{{ key.id }}" class="text-gray-700 dark:text-gray-300">
+                                                <td class="px-4 py-3 font-medium text-gray-800 dark:text-white/90">{{ key.name }}</td>
+                                                <td class="px-4 py-3">
+                                                    <label class="inline-flex cursor-pointer items-center gap-2">
+                                                        <input type="checkbox" class="peer sr-only" data-testid="reveal-toggle" aria-label="Révéler la clé {{ key.name }}">
+                                                        <code class="api-key-masked font-mono text-gray-700 peer-checked:hidden dark:text-gray-300">{{ key.masked }}</code>
+                                                        <code class="api-key-plain hidden font-mono text-gray-700 peer-checked:inline dark:text-gray-300">{{ key.plain }}</code>
+                                                        <span class="text-xs text-brand-500 peer-checked:hidden">Révéler</span>
+                                                        <span class="hidden text-xs text-brand-500 peer-checked:inline">Masquer</span>
+                                                    </label>
+                                                </td>
+                                                <td class="px-4 py-3">{{ key.scope == 'read_write' ? 'Lecture-écriture' : 'Lecture seule' }}</td>
+                                                <td class="px-4 py-3 whitespace-nowrap">{{ key.created }}</td>
+                                                <td class="px-4 py-3 whitespace-nowrap">{{ key.lastUsed }}</td>
+                                                <td class="px-4 py-3">
+                                                    <span data-testid="api-key-status">
+                                                        {% if key.status == 'active' %}
+                                                            <twig:tsf:Ui:Badge color="success" size="sm">Active</twig:tsf:Ui:Badge>
+                                                        {% else %}
+                                                            <twig:tsf:Ui:Badge color="error" size="sm">Révoquée</twig:tsf:Ui:Badge>
+                                                        {% endif %}
+                                                    </span>
+                                                </td>
+                                                <td class="px-4 py-3">
+                                                    <div class="flex items-center justify-end gap-2">
+                                                        <button
+                                                            type="button"
+                                                            class="{{ copy_btn }}"
+                                                            data-controller="tailsfadmin--clipboard"
+                                                            data-tailsfadmin--clipboard-text-value="{{ key.plain }}"
+                                                            data-action="tailsfadmin--clipboard#copy"
+                                                        >
+                                                            <span data-tailsfadmin--clipboard-target="label">Copier</span>
+                                                        </button>
+
+                                                        {% if key.status == 'active' %}
+                                                            <twig:tsf:Ui:Modal size="sm" labelId="revoke-title-{{ key.id }}">
+                                                                <twig:block name="trigger">
+                                                                    <button type="button" class="{{ danger_btn }} px-3 py-1.5 text-xs" data-testid="revoke-trigger">Révoquer</button>
+                                                                </twig:block>
+                                                                <twig:block name="header">
+                                                                    <h3 id="revoke-title-{{ key.id }}" class="text-lg font-semibold text-gray-800 dark:text-white/90">Révoquer « {{ key.name }} » ?</h3>
+                                                                </twig:block>
+                                                                <twig:block name="body">
+                                                                    <p class="mb-6 text-sm text-gray-600 dark:text-gray-400">
+                                                                        Cette action est définitive. Les intégrations utilisant cette clé
+                                                                        cesseront immédiatement de fonctionner.
+                                                                    </p>
+                                                                    {{ form_start(revokeForms[key.id], {attr: {'data-testid': 'revoke-form-' ~ key.id}}) }}
+                                                                        <div class="flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                                                                            <button type="button" class="{{ secondary_btn }}" data-action="click->tailsfadmin--modal#close">Annuler</button>
+                                                                            <button type="submit" class="{{ danger_btn }}">Révoquer la clé</button>
+                                                                        </div>
+                                                                    {{ form_end(revokeForms[key.id]) }}
+                                                                </twig:block>
+                                                            </twig:tsf:Ui:Modal>
+                                                        {% endif %}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </twig:block>
+                    </twig:tsf:Ui:Card>
+                </div>
+            </twig:block>
+
+            {# ─── Onglet : fournisseurs ───────────────────────────────────────── #}
+            <twig:block name="providers">
+                <div data-testid="tab-panel-providers" class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    {% set providers = [
+                        {name: 'Stripe', desc: 'Paiements et facturation', connected: true},
+                        {name: 'GitHub', desc: 'Dépôts et intégration continue', connected: true},
+                        {name: 'Slack', desc: 'Notifications d\'équipe', connected: false},
+                        {name: 'Sentry', desc: 'Suivi des erreurs', connected: false}
+                    ] %}
+                    {% for provider in providers %}
+                        <twig:tsf:Ui:Card :padding="'md'">
+                            <twig:block name="body">
+                                <div class="flex items-start justify-between gap-3">
+                                    <div>
+                                        <h4 class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ provider.name }}</h4>
+                                        <p class="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{{ provider.desc }}</p>
+                                    </div>
+                                    {% if provider.connected %}
+                                        <twig:tsf:Ui:Badge color="success" size="sm">Connecté</twig:tsf:Ui:Badge>
+                                    {% else %}
+                                        <twig:tsf:Ui:Badge color="light" size="sm">Non connecté</twig:tsf:Ui:Badge>
+                                    {% endif %}
+                                </div>
+                            </twig:block>
+                        </twig:tsf:Ui:Card>
+                    {% endfor %}
+                </div>
+            </twig:block>
+
+        </twig:tsf:Ui:Tabs>
+    </div>
+{% endblock %}
