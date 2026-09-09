@@ -7,6 +7,13 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- **`tsf:Ui:Tabs` — variante `segmented`** : conteneur gris pleine largeur avec
+  pastille blanche active (style « Default » TailAdmin) et **rendu des icônes**
+  par onglet (`item.icon`, via le registre `tsf_icon`). Vitrine `/ui-kit` mise à
+  jour avec les 3 styles (segmenté, souligné, souligné + icônes).
+
 ## [1.3.0] — 2026-09-09
 
 ### Added

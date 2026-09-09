@@ -34,7 +34,7 @@ final class Tabs
     /** Id de l'onglet actif (défaut = premier onglet). */
     public ?string $active = null;
 
-    /** Style visuel : underline | pill | boxed. */
+    /** Style visuel : underline | segmented | pill | boxed. */
     public string $variant = 'underline';
 
     /** Id de l'onglet effectivement actif : `active` s'il existe, sinon le premier, sinon null. */
