@@ -13,6 +13,7 @@
 - **User Stories** : US-036, US-037, US-038, US-039, US-040
 - **Points engagés** : 32 (dans la vélocité 20-40)
 - **Durée** : 2 semaines
+- **Version cible** : v1.3.0 (v1.2.0 déjà publiée par un autre lot — menu/header)
 
 | US | Titre | Points | Priorité |
 |----|-------|--------|----------|

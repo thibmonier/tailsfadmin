@@ -1,6 +1,6 @@
 # Backlog Index — tailsfadmin
 
-> Dernière mise à jour : 2026-09-09 · **v1.0.0** (EPIC-001..007) + **v1.1.0 / Sprint 8** (EPIC-008) livrés · **v2 restante** planifiée (EPIC-009/010)
+> Dernière mise à jour : 2026-09-09 · **v1.0.0** (EPIC-001..007) + **v1.1.0 / Sprint 8** (EPIC-008) + **v1.2.0** (menu par permission, slots header — hors sprint tracké) livrés · **v2 restante** planifiée (EPIC-009/010 → cible **v1.3.0**)
 
 ---
 
@@ -11,7 +11,7 @@
 | EPICs | 2 (v2) | 8 (v1 + Sprint 8) | 10 |
 | User Stories | 9 (v2) | 30 (v1 + Sprint 8) | 39 |
 
-**v1 + Sprint 8 :** ~165 pts livrés (8 sprints, bundle **v1.1.0** publié sur Packagist) · **reste v2 :** ~58 pts (EPIC-009 26 + EPIC-010 32)
+**v1 + Sprint 8 :** ~165 pts livrés (8 sprints) · dernière version publiée sur Packagist : **v1.2.0** (v1.1.0 = Sprint 8 ; v1.2.0 = menu/header, hors sprint tracké) · **reste v2 :** ~58 pts (EPIC-009 26 + EPIC-010 32 → cible v1.3.0)
 
 ---
 

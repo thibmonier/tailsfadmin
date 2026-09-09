@@ -25,8 +25,8 @@ mkdir -p "$DIST_DIR"
 mkdir -p "$DIST_DIR/pkg"
 tar -xf "$DIST_DIR/bundle.tar" -C "$DIST_DIR/pkg"
 # Version explicite : l'archive n'embarque pas le tag git, le path repository en
-# a besoin pour résoudre la contrainte « ^1.0 ».
-( cd "$DIST_DIR/pkg" && composer config version "1.0.0" )
+# a besoin pour résoudre la contrainte « ^1.0 » (ligne de version courante : 1.2.x).
+( cd "$DIST_DIR/pkg" && composer config version "1.2.0" )
 
 echo "   Contenu distribué :"
 ls -1 "$DIST_DIR/pkg"
