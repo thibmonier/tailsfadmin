@@ -1,6 +1,6 @@
 # EPIC-010 — Composants d'affichage & pages d'exemple avancées
 
-**Statut :** 🔴 To Do · **Priorité :** Could · **Sprint cible :** v2+ (après EPIC-008/009)
+**Statut :** 🟢 Done · **Priorité :** Could · **Sprint :** 11 (livré v1.3.0, 2026-09-09)
 
 ## Objectif
 

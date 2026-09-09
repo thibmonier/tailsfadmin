@@ -1,6 +1,6 @@
 # US-032 — Dashboards supplémentaires (Analytics, Marketing, CRM, SaaS)
 
-**EPIC :** EPIC-009-pages-exemples · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Should · **Sprint :** Sprint 9
+**EPIC :** EPIC-009-pages-exemples · **Statut :** 🟡 In Progress · **Points :** 8 · **Priorité :** Should · **Sprint :** Sprint 9
 
 ## Carte (Card)
 > En tant que **P-004 — Utilisateur admin**, je veux **plusieurs tableaux de bord métier (Analytics, Marketing, CRM, SaaS)**, afin de **disposer de points de départ variés selon le domaine de mon application**.
