@@ -2,7 +2,7 @@
 
 ## Dépendances externes (livrées, prérequis stables)
 
-- **v1.1.0** (bundle publié) : layout admin, composants Card/Table/Modal/Badge/Avatar/Dropdown/Button, thème CSS distribuable, i18n, contrôleurs Stimulus (`sidebar`, `modal`, `dropdown`, …).
+- **v1.2.0** (dernière version publiée) : layout admin, composants Card/Table/Modal/Badge/Avatar/Dropdown/Button, **menu filtrable par permission** + **slots header surchargeables** (v1.2.0), thème CSS distribuable, i18n, contrôleurs Stimulus (`sidebar`, `modal`, `dropdown`, …).
 - Garde d'auto-enregistrement Stimulus (US-019 / `AssetsWiringTest`) : tout nouveau contrôleur doit être déclaré dans `package.json` **et** `assets/package.json`.
 - Thème de formulaire (EPIC-004) pour US-038.
 

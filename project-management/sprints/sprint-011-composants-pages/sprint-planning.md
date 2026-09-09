@@ -9,13 +9,14 @@
 | Début | 2026-09-09 |
 | Fin | 2026-09-22 (10 jours ouvrés) |
 | Durée | 2 semaines |
+| Version cible | **v1.3.0** (v1.2.0 déjà publiée par un autre lot) |
 | Points engagés | 32 (⚠ voir capacité) |
 
 ## Prérequis de démarrage
 
 | Prérequis | État |
 |-----------|------|
-| Sprint précédent clôturé | ✅ Sprint 8 livré (bundle **v1.1.0** sur Packagist, CI verte) |
+| Sprint précédent clôturé | ✅ Sprint 8 livré (v1.1.0) ; dernière version publiée **v1.2.0** (menu/header, hors sprint tracké) |
 | Rétro précédente | ✅ Sprint 8 (gardes reprises : no-CDN, synchro package.json, dark sans inversion des gris) |
 | Backlog priorisé (PO) | ✅ EPIC-010 cadré, US-036→040 |
 | US « Ready » (gate INVEST) | ✅ 6/6 pour les 5 US (`/gate:validate-backlog`) |
