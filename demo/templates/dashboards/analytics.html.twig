@@ -1,0 +1,53 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+{% import 'dashboards/_macros.html.twig' as dash %}
+
+{% block title %}Dashboard {{ meta.label }} — tailsfadmin{% endblock %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Dashboard {{ meta.label }}" />{% endblock %}
+
+{% block content %}
+    <div class="space-y-6">
+        {{ dash.kpi_grid(kpis) }}
+
+        <div class="grid grid-cols-12 gap-4 md:gap-6">
+            <div class="col-span-12 xl:col-span-7">
+                <twig:tsf:Ui:Card title="Sessions" subtitle="12 derniers mois">
+                    <twig:block name="body">
+                        <twig:tsf:Chart:Line :series="sessionsSeries" :categories="['Jan','Fév','Mar','Avr','Mai','Juin','Juil','Août','Sep','Oct','Nov','Déc']" type="area" :height="300" />
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+            </div>
+            <div class="col-span-12 xl:col-span-5">
+                <twig:tsf:Ui:Card title="Sources d'acquisition" subtitle="Visiteurs par canal">
+                    <twig:block name="body">
+                        <twig:tsf:Chart:Bar :series="sourcesSeries" :categories="sources" :height="300" />
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+            </div>
+        </div>
+
+        <twig:tsf:Ui:Card title="Pages les plus vues">
+            <twig:block name="body">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-left text-sm">
+                        <thead>
+                            <tr class="border-y border-gray-100 text-theme-xs text-gray-500 dark:border-gray-800 dark:text-gray-400">
+                                <th class="py-3 font-medium">Page</th>
+                                <th class="py-3 font-medium">Vues</th>
+                                <th class="py-3 font-medium">Taux de conversion</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in topPages %}
+                                <tr class="border-b border-gray-100 last:border-0 dark:border-gray-800">
+                                    <td class="py-3 font-medium text-gray-800 dark:text-white/90">{{ row.page }}</td>
+                                    <td class="py-3 text-gray-500 dark:text-gray-400">{{ row.views }}</td>
+                                    <td class="py-3"><twig:tsf:Ui:Badge color="info" size="sm">{{ row.rate }}</twig:tsf:Ui:Badge></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </twig:block>
+        </twig:tsf:Ui:Card>
+    </div>
+{% endblock %}

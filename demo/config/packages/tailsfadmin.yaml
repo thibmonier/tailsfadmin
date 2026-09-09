@@ -9,6 +9,19 @@ tailsfadmin:
                 icon: dashboard
                 children: []
 
+              - label: menu.dashboards
+                path: /dashboards
+                icon: charts
+                children:
+                    - label: menu.dashboards_analytics
+                      path: /dashboards/analytics
+                    - label: menu.dashboards_marketing
+                      path: /dashboards/marketing
+                    - label: menu.dashboards_crm
+                      path: /dashboards/crm
+                    - label: menu.dashboards_saas
+                      path: /dashboards/saas
+
               - label: menu.calendar
                 path: /calendar
                 icon: calendar

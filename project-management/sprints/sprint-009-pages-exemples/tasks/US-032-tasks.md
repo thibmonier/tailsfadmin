@@ -12,13 +12,13 @@ Assemblage pur (comme US-021) à partir des composants existants.
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-032-01 | [FE-WEB] | Dashboard **Analytics** (KPI, chart sessions, sources, funnel, top pages) | 3h | — | 🔲 |
-| T-032-02 | [FE-WEB] | Dashboard **Marketing** (campagnes, ROI, audience, ProgressBar) | 2.5h | — | 🔲 |
-| T-032-03 | [FE-WEB] | Dashboard **CRM** (pipeline, deals, activités, table contacts) | 2.5h | — | 🔲 |
-| T-032-04 | [FE-WEB] | Dashboard **SaaS** (MRR, churn, cohortes, area/radial) | 2.5h | — | 🔲 |
-| T-032-05 | [FE-WEB] | Routes + entrée de menu (groupe « Dashboards ») + i18n fr/en/ar | 1.5h | T-032-01..04 | 🔲 |
-| T-032-06 | [TEST] | Tests fonctionnels (4 routes : 200 + structure clé) | 2h | T-032-05 | 🔲 |
-| T-032-07 | [REV] | Doc + review + revue visuelle clair/dark | 1.5h | T-032-06 | 🔲 |
+| T-032-01 | [FE-WEB] | Dashboard **Analytics** (KPI, chart sessions, sources, funnel, top pages) | 3h | — | ✅ |
+| T-032-02 | [FE-WEB] | Dashboard **Marketing** (campagnes, ROI, audience, ProgressBar) | 2.5h | — | ✅ |
+| T-032-03 | [FE-WEB] | Dashboard **CRM** (pipeline, deals, activités, table contacts) | 2.5h | — | ✅ |
+| T-032-04 | [FE-WEB] | Dashboard **SaaS** (MRR, churn, cohortes, area/radial) | 2.5h | — | ✅ |
+| T-032-05 | [FE-WEB] | Routes + entrée de menu (groupe « Dashboards ») + i18n fr/en/ar | 1.5h | T-032-01..04 | ✅ |
+| T-032-06 | [TEST] | Tests fonctionnels (4 routes : 200 + structure clé) | 2h | T-032-05 | ✅ |
+| T-032-07 | [REV] | Doc + review + revue visuelle clair/dark | 1.5h | T-032-06 | ✅ |
 
 **Total : 15.5h**
 

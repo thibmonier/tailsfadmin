@@ -1,0 +1,41 @@
+{#
+    US-032 — Macros partagées des dashboards métier : icône KPI + grille de KPI.
+    Réplique le markup KPI du dashboard existant (US-021), factorisé pour les 4 pages.
+#}
+
+{% macro kpi_icon(name) %}
+    {%- set paths = {
+        'chart':     'M4 20V10h4v10H4Zm6 0V4h4v16h-4Zm6 0v-7h4v7h-4Z',
+        'users':     'M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm0 2c-3.3 0-6 1.8-6 4v2h12v-2c0-2.2-2.7-4-6-4Zm8-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm0 2c-.7 0-1.4.1-2 .3 1.2.9 2 2.2 2 3.7v2h5v-2c0-2.2-2.7-4-5-4Z',
+        'eye':       'M12 5C7 5 2.7 8.1 1 12c1.7 3.9 6 7 11 7s9.3-3.1 11-7c-1.7-3.9-6-7-11-7Zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z',
+        'clock':     'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm.9 5h-1.8v6l4.7 2.8.9-1.5-3.8-2.3V7Z',
+        'cursor':    'M4 3l16 7-6.5 2.2L11 20 4 3Z',
+        'revenue':   'M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm1 15v1h-2v-1H9v-2h4a1 1 0 0 0 0-2h-2a3 3 0 0 1 0-6V5h2v1h2v2h-4a1 1 0 0 0 0 2h2a3 3 0 0 1 0 6Z',
+        'briefcase': 'M9 4a2 2 0 0 0-2 2v1H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3V6a2 2 0 0 0-2-2H9Zm0 3V6h6v1H9Z',
+        'refresh':   'M12 6V3L8 7l4 4V8a4 4 0 1 1-4 4H6a6 6 0 1 0 6-6Z',
+        'cart':      'M7 18a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm10 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM3 4h2l2.6 12.6a1 1 0 0 0 1 .8h9.4a1 1 0 0 0 1-.8L22 8H7'
+    } -%}
+    <svg viewBox="0 0 24 24" fill="currentColor" class="size-6 text-gray-800 dark:text-white/90" aria-hidden="true">
+        <path d="{{ paths[name] ?? paths['chart'] }}" />
+    </svg>
+{% endmacro %}
+
+{% macro kpi_grid(kpis) %}
+    {% import _self as m %}
+    <div data-testid="kpi-grid" class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:gap-6 xl:grid-cols-4">
+        {% for k in kpis %}
+            <div data-testid="kpi-card" class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] md:p-6">
+                <div class="flex size-12 items-center justify-center rounded-xl bg-gray-100 dark:bg-gray-800">
+                    {{ m.kpi_icon(k.icon) }}
+                </div>
+                <div class="mt-5 flex items-end justify-between">
+                    <div>
+                        <span class="text-theme-sm text-gray-500 dark:text-gray-400">{{ k.label }}</span>
+                        <h4 class="mt-2 text-title-sm font-bold text-gray-800 dark:text-white/90">{{ k.value }}</h4>
+                    </div>
+                    <twig:tsf:Ui:Badge color="{{ k.trend == 'up' ? 'success' : 'error' }}" size="sm">{{ k.delta }}</twig:tsf:Ui:Badge>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

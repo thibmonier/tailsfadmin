@@ -50,6 +50,6 @@
 | — | — | — | — |
 
 ## Métriques
-- **Tâches** : 16 total · 0 terminées (0 %)
+- **Tâches** : 16 total · 7 terminées (US-032)
 - **Heures** : 35h estimées
-- **Points** : 16 engagés · 0 livrés
+- **Points** : 16 engagés · **8 livrés** (US-032)

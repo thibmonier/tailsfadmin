@@ -9,6 +9,9 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Dashboards métier de démo** (`/dashboards` + `/dashboards/{analytics,marketing,crm,saas}`) :
+  quatre tableaux de bord assemblés depuis le bundle (KPI, graphiques ApexCharts,
+  tables, Badge, ProgressBar). Données statiques. Menu + i18n fr/en/ar (US-032).
 - **`tsf:Ui:Tabs` — variante `segmented`** : conteneur gris pleine largeur avec
   pastille blanche active (style « Default » TailAdmin) et **rendu des icônes**
   par onglet (`item.icon`, via le registre `tsf_icon`). Vitrine `/ui-kit` mise à
