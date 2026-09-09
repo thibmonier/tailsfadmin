@@ -55,6 +55,12 @@
                 "fetch": "eager",
                 "enabled": true
             },
+            "kanban": {
+                "name": "tailsfadmin--kanban",
+                "main": "controllers/kanban_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
             "datepicker": {
                 "name": "tailsfadmin--datepicker",
                 "main": "controllers/datepicker_controller.js",

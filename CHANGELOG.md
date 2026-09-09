@@ -9,6 +9,13 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Contrôleur Stimulus `tailsfadmin--kanban`** : tableau Kanban avec glisser-déposer
+  **HTML5 natif** (aucune lib / CDN), compteurs par colonne mis à jour au déplacement,
+  **alternative clavier** (« Déplacer vers … ») et annonces **`aria-live`**. Déclaré
+  dans les deux `package.json` (US-040).
+- **Pages de démo « Tâches »** (`/tasks`, `/tasks/kanban`) : vue **liste**
+  filtrable/triable côté serveur (sans JS) et vue **Kanban** à 4 colonnes avec
+  cartes déplaçables (Avatar, Badge). Données factices. Menu + i18n fr/en/ar (US-040).
 - **Contrôleur Stimulus `tailsfadmin--clipboard`** : copie une valeur dans le
   presse-papiers avec retour visuel et dégradation gracieuse (repli
   `execCommand` hors contexte sécurisé). Déclaré dans les deux `package.json` (US-039).

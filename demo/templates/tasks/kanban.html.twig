@@ -1,0 +1,93 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Kanban des tâches — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Kanban" />
+{% endblock %}
+
+{#
+    US-040 (inc. 2) — Tableau Kanban. Glisser-déposer HTML5 natif via le
+    contrôleur Stimulus tailsfadmin--kanban (aucune lib / CDN). Alternative
+    clavier « Déplacer vers … » (menu <details>) + annonces aria-live. Données
+    factices : les déplacements ne sont pas persistés (démo).
+#}
+
+{% set priority_badges = {
+    'high':   {color: 'error',   label: 'Haute'},
+    'medium': {color: 'warning', label: 'Moyenne'},
+    'low':    {color: 'info',    label: 'Basse'}
+} %}
+
+{% block content %}
+    <div data-controller="tailsfadmin--kanban">
+        {# Annonceur pour lecteurs d'écran (déplacements). #}
+        <div class="sr-only" role="status" aria-live="polite" data-tailsfadmin--kanban-target="announcer"></div>
+
+        <div class="flex gap-4 overflow-x-auto pb-4">
+            {% for column in columns %}
+                <section
+                    data-testid="kanban-column"
+                    data-status="{{ column.status }}"
+                    class="flex w-80 shrink-0 flex-col rounded-2xl border border-gray-200 bg-gray-50 dark:border-gray-800 dark:bg-white/[0.02]"
+                >
+                    <header class="flex items-center justify-between px-4 py-3">
+                        <h3 class="text-sm font-semibold text-gray-800 dark:text-white/90">{{ column.label }}</h3>
+                        <span
+                            data-testid="kanban-count"
+                            data-status="{{ column.status }}"
+                            data-tailsfadmin--kanban-target="count"
+                            class="inline-flex h-6 min-w-6 items-center justify-center rounded-full bg-gray-200 px-2 text-xs font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                        >{{ tasksByStatus[column.status]|length }}</span>
+                    </header>
+
+                    <div
+                        data-tailsfadmin--kanban-target="list"
+                        data-status="{{ column.status }}"
+                        data-label="{{ column.label }}"
+                        data-action="dragover->tailsfadmin--kanban#dragOver drop->tailsfadmin--kanban#drop dragenter->tailsfadmin--kanban#dragEnter dragleave->tailsfadmin--kanban#dragLeave"
+                        class="flex min-h-24 flex-1 flex-col gap-3 rounded-b-2xl p-3"
+                    >
+                        {% for task in tasksByStatus[column.status] %}
+                            <article
+                                draggable="true"
+                                tabindex="0"
+                                data-testid="kanban-card"
+                                data-card-id="{{ task.id }}"
+                                data-card-title="{{ task.title }}"
+                                data-action="dragstart->tailsfadmin--kanban#dragStart dragend->tailsfadmin--kanban#dragEnd"
+                                class="cursor-grab rounded-xl border border-gray-200 bg-white p-3 shadow-theme-xs focus:outline-hidden focus:ring-3 focus:ring-brand-500/20 active:cursor-grabbing dark:border-gray-800 dark:bg-gray-900"
+                            >
+                                <h4 class="mb-2 text-sm font-medium text-gray-800 dark:text-white/90">{{ task.title }}</h4>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center gap-2">
+                                        {% set p = priority_badges[task.priority] %}
+                                        <twig:tsf:Ui:Badge color="{{ p.color }}" size="sm">{{ p.label }}</twig:tsf:Ui:Badge>
+                                    </div>
+                                    <twig:tsf:Ui:Avatar alt="{{ task.assignee }}" size="xs" />
+                                </div>
+
+                                {# Alternative clavier au glisser-déposer. #}
+                                <details class="group relative mt-3">
+                                    <summary class="inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-brand-500 hover:text-brand-600">
+                                        Déplacer
+                                    </summary>
+                                    <div class="absolute z-10 mt-1 w-44 rounded-lg border border-gray-200 bg-white p-1 shadow-theme-lg dark:border-gray-800 dark:bg-gray-900">
+                                        {% for target in columns|filter(target => target.status != column.status) %}
+                                            <button
+                                                type="button"
+                                                data-action="tailsfadmin--kanban#moveTo"
+                                                data-status="{{ target.status }}"
+                                                class="block w-full rounded-md px-3 py-1.5 text-left text-xs text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-white/[0.05]"
+                                            >Vers « {{ target.label }} »</button>
+                                        {% endfor %}
+                                    </div>
+                                </details>
+                            </article>
+                        {% endfor %}
+                    </div>
+                </section>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -11,12 +11,12 @@ tableau Kanban où je déplace les cartes, **afin de** suivre et organiser mon t
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-040-01 | [FE-WEB] | Vue liste : route + table triable/filtrable (données factices) | 3h | — | 🔲 |
-| T-040-02 | [FE-WEB] | Vue Kanban : route + colonnes + cartes | 2.5h | — | 🔲 |
-| T-040-03 | [FE-WEB] | Contrôleur Stimulus `kanban` (drag-and-drop HTML5 natif + compteurs) + synchro package.json | 4h | T-040-02 | 🔲 |
-| T-040-04 | [FE-WEB] | Alternative clavier (déplacer via menu) + annonces `aria-live` | 2h | T-040-03 | 🔲 |
-| T-040-05 | [TEST] | E2E Panther déplacement carte + tests rendu liste | 3h | T-040-01, T-040-04 | 🔲 |
-| T-040-06 | [REV] | Doc + review (Kanban : réf. TailAdmin `/task-kanban`) | 1.5h | T-040-05 | 🔲 |
+| T-040-01 | [FE-WEB] | Vue liste : route + table triable/filtrable (données factices) — inc. 1 | 3h | — | ✅ |
+| T-040-02 | [FE-WEB] | Vue Kanban : route + colonnes + cartes — inc. 2 | 2.5h | — | ✅ |
+| T-040-03 | [FE-WEB] | Contrôleur Stimulus `kanban` (drag-and-drop HTML5 natif + compteurs) + synchro 2×package.json + controllers.json | 4h | T-040-02 | ✅ |
+| T-040-04 | [FE-WEB] | Alternative clavier (menu « Déplacer vers ») + annonces `aria-live` | 2h | T-040-03 | ✅ |
+| T-040-05 | [TEST] | Functional (liste + kanban) + E2E Panther (DnD + clavier) | 3h | T-040-01, T-040-04 | ✅ |
+| T-040-06 | [REV] | Doc (CHANGELOG) + review ; revue visuelle clair/dark → job CI `e2e` | 1.5h | T-040-05 | ✅ |
 
 **Total : 16h**
 
