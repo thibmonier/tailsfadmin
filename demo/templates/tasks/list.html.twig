@@ -1,0 +1,117 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Liste des tâches — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Tâches" />
+{% endblock %}
+
+{#
+    US-040 (inc. 1) — Vue liste des tâches. Filtre (statut/priorité) et tri
+    (titre, échéance, priorité, statut) côté serveur via query string : la page
+    fonctionne entièrement sans JavaScript. Données factices.
+#}
+
+{% set status_badges = {
+    'todo':        {color: 'light',   label: 'À faire'},
+    'in_progress': {color: 'info',    label: 'En cours'},
+    'review':      {color: 'warning', label: 'Review'},
+    'done':        {color: 'success', label: 'Terminé'}
+} %}
+{% set priority_badges = {
+    'high':   {color: 'error',   label: 'Haute'},
+    'medium': {color: 'warning', label: 'Moyenne'},
+    'low':    {color: 'info',    label: 'Basse'}
+} %}
+
+{% set select_cls = 'h-11 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90' %}
+
+{% macro sort_header(label, key, sort, dir, filters, testid) %}
+    {% set next_dir = (sort == key and dir == 'asc') ? 'desc' : 'asc' %}
+    {% set indicator = sort == key ? (dir == 'asc' ? ' ▲' : ' ▼') : '' %}
+    <a
+        href="{{ path('tasks', filters|merge({sort: key, dir: next_dir})) }}"
+        data-testid="{{ testid }}"
+        class="inline-flex items-center gap-1 font-medium hover:text-gray-700 dark:hover:text-white/90"
+        {% if sort == key %}aria-sort="{{ dir == 'asc' ? 'ascending' : 'descending' }}"{% endif %}
+    >{{ label }}{{ indicator }}</a>
+{% endmacro %}
+
+{% import _self as tasks %}
+
+{% block content %}
+    <div class="space-y-5">
+
+        {# ─── Filtres ─────────────────────────────────────────────────────────── #}
+        <form method="get" action="{{ path('tasks') }}" data-testid="tasks-filter" class="flex flex-col gap-3 rounded-2xl border border-gray-200 bg-white p-4 sm:flex-row sm:items-end sm:gap-4 dark:border-gray-800 dark:bg-white/[0.03]">
+            <div class="sm:w-48">
+                <label for="filter-status" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Statut</label>
+                <select id="filter-status" name="status" class="{{ select_cls }}">
+                    <option value="all"{{ filters.status == 'all' ? ' selected' : '' }}>Tous les statuts</option>
+                    {% for key, meta in status_badges %}
+                        <option value="{{ key }}"{{ filters.status == key ? ' selected' : '' }}>{{ meta.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="sm:w-48">
+                <label for="filter-priority" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Priorité</label>
+                <select id="filter-priority" name="priority" class="{{ select_cls }}">
+                    <option value="all"{{ filters.priority == 'all' ? ' selected' : '' }}>Toutes les priorités</option>
+                    {% for key, meta in priority_badges %}
+                        <option value="{{ key }}"{{ filters.priority == key ? ' selected' : '' }}>{{ meta.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            {# Conserve le tri courant lors du filtrage. #}
+            <input type="hidden" name="sort" value="{{ sort }}">
+            <input type="hidden" name="dir" value="{{ dir }}">
+            <div class="flex gap-2">
+                <button type="submit" class="inline-flex h-11 items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 text-sm font-medium text-white shadow-theme-xs transition hover:bg-brand-600 focus:outline-hidden focus:ring-3 focus:ring-brand-500/20">Filtrer</button>
+                <a href="{{ path('tasks') }}" class="inline-flex h-11 items-center justify-center gap-2 rounded-lg border border-gray-300 px-5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03]">Réinitialiser</a>
+            </div>
+        </form>
+
+        {# ─── Table ───────────────────────────────────────────────────────────── #}
+        <div class="rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+            <div class="overflow-x-auto">
+                <table data-testid="tasks-table" class="min-w-full text-left text-sm">
+                    <thead>
+                        <tr class="border-b border-gray-200 text-xs uppercase tracking-wide text-gray-500 dark:border-gray-800 dark:text-gray-400">
+                            <th scope="col" class="px-5 py-3">{{ tasks.sort_header('Titre', 'title', sort, dir, filters, 'sort-title') }}</th>
+                            <th scope="col" class="px-5 py-3">Assigné</th>
+                            <th scope="col" class="px-5 py-3">{{ tasks.sort_header('Priorité', 'priority', sort, dir, filters, 'sort-priority') }}</th>
+                            <th scope="col" class="px-5 py-3">{{ tasks.sort_header('Échéance', 'due', sort, dir, filters, 'sort-due') }}</th>
+                            <th scope="col" class="px-5 py-3">{{ tasks.sort_header('Statut', 'status', sort, dir, filters, 'sort-status') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100 dark:divide-gray-800">
+                        {% for task in tasks %}
+                            <tr data-testid="task-row" class="text-gray-700 dark:text-gray-300">
+                                <td data-testid="task-title" class="px-5 py-4 font-medium text-gray-800 dark:text-white/90">{{ task.title }}</td>
+                                <td class="px-5 py-4">
+                                    <span class="inline-flex items-center gap-2">
+                                        <twig:tsf:Ui:Avatar alt="{{ task.assignee }}" size="sm" />
+                                        <span class="whitespace-nowrap">{{ task.assignee }}</span>
+                                    </span>
+                                </td>
+                                <td class="px-5 py-4">
+                                    {% set p = priority_badges[task.priority] %}
+                                    <twig:tsf:Ui:Badge color="{{ p.color }}" size="sm">{{ p.label }}</twig:tsf:Ui:Badge>
+                                </td>
+                                <td class="px-5 py-4 whitespace-nowrap">{{ task.due }}</td>
+                                <td data-testid="task-status" class="px-5 py-4">
+                                    {% set s = status_badges[task.status] %}
+                                    <twig:tsf:Ui:Badge color="{{ s.color }}" size="sm">{{ s.label }}</twig:tsf:Ui:Badge>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="5" class="px-5 py-8 text-center text-gray-500 dark:text-gray-400">Aucune tâche ne correspond aux filtres.</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
