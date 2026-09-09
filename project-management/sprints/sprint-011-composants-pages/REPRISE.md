@@ -18,18 +18,20 @@
 - **US-040 (Task list + Kanban) ✅ TERMINÉE** — livrée en 2 incréments (PR #19 liste, #20 Kanban), CI 6/6 verte.
   Routes `/tasks` (liste filtrable/triable serveur) et `/tasks/kanban` ; nouveau contrôleur Stimulus
   `tailsfadmin--kanban` (DnD HTML5 natif + compteurs + alternative clavier + `aria-live`).
+- **US-037 (6 variantes de layout) ✅ TERMINÉE** — PR #22 mergée, CI 6/6 verte. Galerie `/layouts` ;
+  3 blocs surchargeables ajoutés au layout + prop `mini` sur `tsf:Layout:Sidebar` (sans régression).
 
-## Avancement du sprint
+## Avancement du sprint — ✅ CLÔTURÉ (32/32 pts)
 
 | US | Pts | État |
 |----|-----|------|
 | **US-036** Tabs / ProgressBar / Ribbon | 8 | ✅ **terminée** |
-| US-037 6 layouts d'exemple | 8 | 🔲 à faire |
+| **US-037** 6 layouts d'exemple | 8 | ✅ **terminée** |
 | **US-038** Page Form Layout | 3 | ✅ **terminée** |
 | **US-039** Page Integrations / API keys | 5 | ✅ **terminée** |
 | **US-040** Task list + Kanban | 8 | ✅ **terminée** |
 
-**24 / 32 pts livrés.** Faits : US-036 + US-038 + US-039 + US-040 → reste **US-037** (8 pts).
+**32 / 32 pts livrés — Sprint 011 terminé.** Prochaine étape : Review + Rétro, puis planifier le sprint 12.
 
 ## Ce qui est désormais disponible (livré par US-036)
 
@@ -65,9 +67,11 @@
 
 ## Prochaine étape recommandée
 
-- **US-037** (6 layouts d'exemple, 8 pts) — dernière story du sprint (24/32 → 32/32).
+Sprint 011 **terminé (32/32)**. Toutes les stories mergées sur `main`, CI 6/6 verte.
 
-Lancer p. ex. : `/sprint:dev US-037` (ou implémenter directement selon `tasks/US-037-tasks.md`).
+- **Cérémonies de fin** : Sprint Review + Rétrospective (cf. `sprint-goal.md`).
+- **Release v1.3.0** : taguer (déclenche l'auto-update Packagist — à confirmer au tag).
+- **Sprint 012** : planifier (`/project:decompose-tasks 012`).
 
 ## En attente (externe — à surveiller, pas bloquant)
 
