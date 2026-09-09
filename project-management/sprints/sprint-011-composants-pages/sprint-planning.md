@@ -12,6 +12,15 @@
 | Version cible | **v1.3.0** (v1.2.0 déjà publiée par un autre lot) |
 | Points engagés | 32 (⚠ voir capacité) |
 
+## Décisions de planning (2026-09-09)
+
+1. **Périmètre** : les **32 pts sont engagés** (5 US). US-037 (layouts, 8 pts) reste le
+   **premier candidat au descope** si la mi-sprint accuse un retard — sans quoi les 5 US
+   sont livrées.
+2. **Chevauchement Kanban** : le Kanban est **porté par US-040** ; **retiré d'US-033**
+   (EPIC-009). La **référence TailAdmin `/task-kanban` (live) fait foi** pour le
+   comportement et le visuel. Plus de doublon.
+
 ## Prérequis de démarrage
 
 | Prérequis | État |
@@ -22,7 +31,7 @@
 | US « Ready » (gate INVEST) | ✅ 6/6 pour les 5 US (`/gate:validate-backlog`) |
 | US estimées + AC Gherkin | ✅ 3C + Gherkin (nominal/alternatifs/erreurs) |
 | Décomposition en tâches | ✅ 37 tâches / 79.5h (`tasks/`) |
-| Dépendances identifiées | ✅ US-036 enabler ; chevauchement Kanban US-033 à trancher |
+| Dépendances identifiées | ✅ US-036 enabler ; chevauchement Kanban ✅ tranché (US-040 porte, réf. TailAdmin) |
 
 > **Note d'ordre** : EPIC-009 (Should, sprints 9-10) est **différé volontairement** ;
 > le sprint 011 traite EPIC-010 (Could) en avance de phase, à la demande du PO.
@@ -55,7 +64,7 @@ vélocité, pas en jours-homme théoriques.
 | US-037 | ✅ | ✅ (6) | ✅ 8 | ✅ | TailAdmin /layout-one…six | ✅ |
 | US-038 | ✅ | ✅ (6) | ✅ 3 | ✅ | TailAdmin /form-layout | ✅ |
 | US-039 | ✅ | ✅ (6) | ✅ 5 | ✅ | TailAdmin /api-keys | ✅ |
-| US-040 | ✅ | ✅ (6) | ✅ 8 | ✅ (chevauchement US-033) | TailAdmin /sales,/task-kanban | ✅ |
+| US-040 | ✅ | ✅ (6) | ✅ 8 | ✅ (Kanban attribué à US-040) | TailAdmin /sales,/task-kanban | ✅ |
 
 ## Ordre d'exécution
 
@@ -68,7 +77,7 @@ vélocité, pas en jours-homme théoriques.
 | Planning P1 (Quoi) | 2026-09-09 | `sprint-goal.md` |
 | Planning P2 (Comment) | 2026-09-09 | `tasks/` (décomposition) |
 | Daily (auto-checkpoint) | quotidien | `daily-notes/` |
-| Affinage | mi-sprint | trancher Kanban US-033 + scission éventuelle US-036/037/040 |
+| Affinage | mi-sprint | scission éventuelle US-036/037/040 si retard (Kanban déjà tranché) |
 | Review | 2026-09-22 | `sprint-review.md` (à créer en fin) |
 | Rétrospective | 2026-09-22 | `sprint-retro.md` (à créer en fin) |
 
@@ -78,7 +87,7 @@ vélocité, pas en jours-homme théoriques.
 |--------|-------|--------|------------|
 | Sur-engagement (32 > ~26) | Moyenne | Moyen | US-037 = variable d'ajustement (sortir en 1er) |
 | A11y du drag-and-drop (Kanban) | Moyenne | Élevé | Alternative clavier + `aria-live` dès la conception (T-040-04) |
-| Doublon Kanban US-033 | Moyenne | Faible | Arbitrage en affinage avant de coder US-040 |
+| Doublon Kanban US-033 | ✅ résolu | — | Kanban attribué à US-040 (réf. TailAdmin /task-kanban) ; retiré d'US-033 |
 | Régression synchro package.json | Faible | Moyen | T-TECH-02 + `AssetsWiringTest` (job e2e) |
 
 ## Burndown (prévisionnel)

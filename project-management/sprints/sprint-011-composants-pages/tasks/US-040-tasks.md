@@ -16,7 +16,7 @@ tableau Kanban où je déplace les cartes, **afin de** suivre et organiser mon t
 | T-040-03 | [FE-WEB] | Contrôleur Stimulus `kanban` (drag-and-drop HTML5 natif + compteurs) + synchro package.json | 4h | T-040-02 | 🔲 |
 | T-040-04 | [FE-WEB] | Alternative clavier (déplacer via menu) + annonces `aria-live` | 2h | T-040-03 | 🔲 |
 | T-040-05 | [TEST] | E2E Panther déplacement carte + tests rendu liste | 3h | T-040-01, T-040-04 | 🔲 |
-| T-040-06 | [REV] | Doc + review (dont arbitrage chevauchement US-033) | 1.5h | T-040-05 | 🔲 |
+| T-040-06 | [REV] | Doc + review (Kanban : réf. TailAdmin `/task-kanban`) | 1.5h | T-040-05 | 🔲 |
 
 **Total : 16h**
 
@@ -50,8 +50,9 @@ annonces `aria-live` du déplacement.
 tests fonctionnels de rendu de la vue liste (tri/filtre).
 
 ### T-040-06 · [REV] Doc + review — 1.5h
-**Critères** : Biome ; **arbitrage du chevauchement Kanban avec US-033** tranché et noté ;
-DnD natif sans import non vendoré vérifié ; revue visuelle clair/dark (P-002).
+**Critères** : Biome ; conformité à la **réf. TailAdmin `/task-kanban`** (chevauchement
+US-033 tranché : Kanban porté ici) ; DnD natif sans import non vendoré vérifié ; revue
+visuelle clair/dark (P-002).
 
 ## Graphe
 ```mermaid

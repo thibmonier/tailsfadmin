@@ -56,7 +56,7 @@ Feature: Kanban de tâches
 
 ## INVEST
 - **Independent :** pages de démo autonomes, données factices ; réutilisent des composants livrés.
-- **Negotiable :** ampleur du Kanban (persistance, tri fin) négociable ; consolidation avec l'item Kanban d'US-033 à arbitrer.
+- **Negotiable :** ampleur du Kanban (persistance, tri fin) négociable ; chevauchement US-033 tranché (Kanban ici, réf. TailAdmin `/task-kanban`).
 - **Valuable :** deux vues de suivi de tâches très demandées en back-office.
 - **Estimable :** 2 pages + 1 contrôleur Stimulus (drag-and-drop natif + a11y) → 8 points.
 - **Small :** borné à liste + Kanban en démo, sans backend réel.
@@ -64,7 +64,7 @@ Feature: Kanban de tâches
 
 ## Dépendances
 - **Dépend de :** US-036 (composants), table/badges/avatars/dropdown existants.
-- **Chevauchement :** US-033 (EPIC-009) mentionne un Kanban → à consolider au raffinage pour éviter le doublon.
+- **Chevauchement tranché (2026-09-09) :** le Kanban est porté par **cette US (US-040)** ; il a été **retiré d'US-033** (EPIC-009). **Spec de référence : TailAdmin `/task-kanban` (live)** — fait foi pour le comportement et le visuel.
 - **Bloque :** —
 
 ## Definition of Done

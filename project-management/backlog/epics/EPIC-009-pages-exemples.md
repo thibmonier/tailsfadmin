@@ -21,7 +21,7 @@ commande.
 | ID | Titre | Points | Priorité |
 |----|-------|--------|----------|
 | US-032 | Dashboards supplémentaires : Analytics, Marketing, CRM, SaaS | 8 | Should |
-| US-033 | Pages type applicatives : Settings, Pricing, Invoice, Kanban, Chat, File manager, Inbox | 8 | Should |
+| US-033 | Pages type applicatives : Settings, Pricing, Invoice, Chat, File manager, Inbox | 8 | Should |
 | US-034 | Auth & utilitaires étendus : reset password, 2FA/OTP, 500, maintenance, coming-soon, success | 5 | Could |
 | US-035 | Scaffolding : commande `make:tailsfadmin-page` (gabarits) | 5 | Could |
 
@@ -50,3 +50,5 @@ graph LR
   fois le bundle consommable par une app tierce.
 - Réutiliser au maximum les composants existants ; n'ajouter de nouveaux composants
   bundle que si un motif se répète (règle des 3).
+- **Kanban retiré d'US-033** (décision 2026-09-09) : porté par **US-040** (EPIC-010,
+  sprint-011), spec de référence TailAdmin `/task-kanban` (live) — évite le doublon.
