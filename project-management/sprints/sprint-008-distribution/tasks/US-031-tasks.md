@@ -16,8 +16,8 @@
 | T-031-02 | [DOC] | Créer `LICENSE` (MIT) + aligner `package.json` racine | 1h | T-031-01 | ✅ |
 | T-031-03 | [OPS] | `composer validate --strict` en CI + vérif `.gitattributes` | 1h | T-031-01 | ✅ |
 | T-031-04 | [DOC] | Badges README (Packagist, licence, CI, PHP) | 1h | T-031-01 | ✅ |
-| T-031-05 | [OPS] | Soumission Packagist + webhook + tag | 1.5h | US-030, T-031-03, T-031-04 | ⚠️ manuel |
-| T-031-06 | [REV] | Vérif `composer require` app vierge + review | 0.5h | T-031-05 | 🔲 |
+| T-031-05 | [OPS] | Soumission Packagist + webhook + tag | 1.5h | US-030, T-031-03, T-031-04 | ✅ |
+| T-031-06 | [REV] | Vérif `composer require` app vierge + review | 0.5h | T-031-05 | ✅ |
 
 **Total : 7h — partie autonome livrée (T-031-01→04, 2026-09-08)**
 
@@ -33,9 +33,16 @@
 > **T-031-04** : 5 badges (Packagist version/downloads, PHP, CI, licence) + URL
 > de clone corrigée dans le README.
 >
-> **T-031-05/06 (non faits — action sortante)** : soumission Packagist, webhook
-> GitHub et **tag de release** relèvent du mainteneur ; à exécuter après le 1er
-> run CI vert (US-030). Non réalisables en autonomie sans autorisation explicite.
+> **T-031-05 ✅ (2026-09-09)** : dépôt rendu **public**, tag **v1.1.0** poussé,
+> package **publié sur Packagist** (`tailsfadmin/tailsfadmin-bundle`, versions
+> v1.1.0 / v1.0.0 / dev-main). GitHub Release v1.1.0 créée. Auto-update (webhook /
+> GitHub App Packagist) : configuration finale côté mainteneur.
+> **T-031-06 ✅** : le `require` publié sur Packagist expose les bonnes contraintes
+> (symfony/asset, form, stimulus `^2.20 || ^3.0`, asset-mapper, translation,
+> ux-twig-component, php ≥8.5) — un consommateur reçoit exactement ce qu'il faut.
+> La consommabilité runtime est prouvée par le test d'intégration (archive dist =
+> contenu publié). `composer require tailsfadmin/tailsfadmin-bundle` fonctionne
+> sans dépôt VCS déclaré.
 
 ---
 
