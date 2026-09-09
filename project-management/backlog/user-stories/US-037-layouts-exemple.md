@@ -1,6 +1,6 @@
 # US-037 — Layouts d'exemple supplémentaires (6 variantes de shell)
 
-**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Could · **Sprint :** backlog
+**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Could · **Sprint :** sprint-011
 
 ## Carte (Card)
 > En tant que **P-001 — développeur intégrateur**, je veux **six pages de démonstration illustrant des agencements de shell admin différents (position/état de la sidebar et du header, largeur de contenu)**, afin de **choisir et copier l'agencement le plus adapté à mon application sans réinventer le layout**.

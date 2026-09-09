@@ -1,6 +1,6 @@
 # US-039 — Page « Integrations / API keys » (gestion des clés d'API)
 
-**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 5 · **Priorité :** Could · **Sprint :** backlog
+**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 5 · **Priorité :** Could · **Sprint :** sprint-011
 
 ## Carte (Card)
 > En tant que **P-004 — utilisateur final de l'admin** (via l'intégration faite par **P-001**), je veux **une page de gestion des clés d'API : lister mes clés (masquées), en générer/révoquer, et copier une clé en un clic**, afin de **configurer mes intégrations en toute sécurité depuis le back-office**.

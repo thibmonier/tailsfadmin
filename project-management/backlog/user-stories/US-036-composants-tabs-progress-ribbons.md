@@ -1,6 +1,6 @@
 # US-036 — Composants d'affichage : Tabs, Progress bars, Ribbons
 
-**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Could · **Sprint :** backlog
+**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Could · **Sprint :** sprint-011
 
 ## Carte (Card)
 > En tant que **P-001 — développeur intégrateur**, je veux **trois nouveaux composants Twig du bundle — `tsf:Ui:Tabs` (onglets), `tsf:Ui:ProgressBar` (jauge de progression) et `tsf:Ui:Ribbon` (ruban)** — fidèles à TailAdmin, clair/dark et accessibles, afin de **couvrir des motifs d'UI courants sans réécrire de HTML/CSS custom dans chaque application hôte**.

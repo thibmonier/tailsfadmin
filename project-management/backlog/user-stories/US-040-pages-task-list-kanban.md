@@ -1,6 +1,6 @@
 # US-040 — Pages Task list : format liste + format Kanban
 
-**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Could · **Sprint :** backlog
+**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Could · **Sprint :** sprint-011
 
 ## Carte (Card)
 > En tant que **P-004 — utilisateur final de l'admin** (via l'intégration de **P-001**), je veux **deux vues de gestion de tâches — une liste filtrable et un tableau Kanban où je déplace les cartes entre colonnes**, afin de **suivre et organiser mon travail directement dans le back-office**.
