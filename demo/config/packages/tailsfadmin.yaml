@@ -51,6 +51,11 @@ tailsfadmin:
                     - label: menu.tasks_kanban
                       path: /tasks/kanban
 
+              - label: menu.layouts
+                path: /layouts
+                icon: ui-elements
+                children: []
+
               - label: menu.pages
                 path: /pages
                 icon: pages

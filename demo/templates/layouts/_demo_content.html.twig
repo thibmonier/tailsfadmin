@@ -1,0 +1,36 @@
+{#
+    US-037 — Contenu de démonstration partagé par les 6 variantes de layout.
+    Attend : current (slug), meta {label, desc}, variants (map slug → {label, desc}).
+#}
+<div data-testid="layout-demo" data-variant="{{ current }}" class="space-y-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03]">
+        <h2 class="text-lg font-semibold text-gray-800 dark:text-white/90">{{ meta.label }}</h2>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ meta.desc }}</p>
+        <a href="{{ path('layouts') }}" class="mt-3 inline-flex text-sm font-medium text-brand-500 hover:text-brand-600">← Toutes les variantes</a>
+    </div>
+
+    {# Sélecteur de variantes #}
+    <nav aria-label="Variantes de layout" class="flex flex-wrap gap-2">
+        {% for slug, variant in variants %}
+            <a
+                href="{{ path('layouts_show', {variant: slug}) }}"
+                data-testid="variant-link"
+                class="rounded-lg border px-3 py-1.5 text-sm font-medium transition {{ slug == current
+                    ? 'border-brand-500 bg-brand-50 text-brand-600 dark:bg-brand-500/10'
+                    : 'border-gray-300 text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03]' }}"
+                {{ slug == current ? 'aria-current="page"' : '' }}
+            >{{ variant.label }}</a>
+        {% endfor %}
+    </nav>
+
+    {# Contenu factice pour visualiser l'agencement #}
+    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {% for i in 1..6 %}
+            <twig:tsf:Ui:Card title="Bloc {{ i }}" :padding="'md'">
+                <twig:block name="body">
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Contenu d'exemple pour visualiser l'agencement de cette variante.</p>
+                </twig:block>
+            </twig:tsf:Ui:Card>
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,12 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Layout — {{ meta.label }} — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Layout : {{ meta.label }}" />
+{% endblock %}
+
+{# Variante 4 — contenu boxed : largeur maximale réduite et centrée. #}
+{% block main_class %}mx-auto w-full max-w-5xl p-4 md:p-6 2xl:p-10{% endblock %}
+
+{% block content %}{% include 'layouts/_demo_content.html.twig' %}{% endblock %}

@@ -1,0 +1,13 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Layout — {{ meta.label }} — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Layout : {{ meta.label }}" />
+{% endblock %}
+
+{# Variante 5 — sidebar à droite : on inverse l'ordre du flex principal.
+   La sidebar (premier enfant DOM) passe à droite (adapté au RTL). #}
+{% block layout_shell_class %}flex h-screen overflow-hidden flex-row-reverse{% endblock %}
+
+{% block content %}{% include 'layouts/_demo_content.html.twig' %}{% endblock %}

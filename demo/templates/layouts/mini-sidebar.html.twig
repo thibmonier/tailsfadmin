@@ -1,0 +1,14 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Layout — {{ meta.label }} — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Layout : {{ meta.label }}" />
+{% endblock %}
+
+{# Variante 2 — mini-sidebar : la sidebar est rendue en mode icônes. #}
+{% block sidebar %}
+    <twig:tsf:Layout:Sidebar :mini="true" />
+{% endblock %}
+
+{% block content %}{% include 'layouts/_demo_content.html.twig' %}{% endblock %}

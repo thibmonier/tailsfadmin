@@ -1,0 +1,11 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Layout — {{ meta.label }} — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Layout : {{ meta.label }}" />
+{% endblock %}
+
+{# Variante 1 — agencement par défaut (aucun bloc surchargé). #}
+
+{% block content %}{% include 'layouts/_demo_content.html.twig' %}{% endblock %}

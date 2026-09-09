@@ -484,6 +484,25 @@
   display: flex;
 }
 
+/* ── Mini-sidebar (US-037) : icônes seules, labels accessibles ───────────
+   Les libellés restent dans le DOM (sr-only) pour les lecteurs d'écran ;
+   seul le rendu visuel est masqué. Le logo texte est réduit lui aussi. */
+.sidebar-mini .menu-item-text,
+.sidebar-mini nav h3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+.sidebar-mini .sidebar-header a span {
+  display: none;
+}
+
 /* ── Composants formulaires ──────────────────────────── */
 .tableCheckbox:checked ~ span span {
   @apply opacity-100;

@@ -1,0 +1,25 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Layout — {{ meta.label }} — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Layout : {{ meta.label }}" />
+{% endblock %}
+
+{# Variante 6 — en-tête double niveau : header standard + sous-barre d'actions. #}
+{% block header %}
+    <twig:tsf:Layout:Header />
+    <div data-testid="secondary-bar" class="flex items-center justify-between gap-3 border-b border-gray-200 bg-gray-50 px-4 py-2.5 lg:px-6 dark:border-gray-800 dark:bg-white/[0.02]">
+        <div class="flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400">
+            <span class="font-medium text-gray-700 dark:text-gray-300">Projet Démo</span>
+            <span aria-hidden="true">/</span>
+            <span>Vue d'ensemble</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <button type="button" class="inline-flex items-center gap-2 rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]">Exporter</button>
+            <button type="button" class="inline-flex items-center gap-2 rounded-lg bg-brand-500 px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-600">Nouveau</button>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}{% include 'layouts/_demo_content.html.twig' %}{% endblock %}
