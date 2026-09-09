@@ -1,0 +1,46 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Paramètres — tailsfadmin{% endblock %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Paramètres" />{% endblock %}
+
+{% set input = 'h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90' %}
+{% set label = 'mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400' %}
+
+{% block content %}
+    <div class="mx-auto max-w-3xl" data-testid="settings-tabs">
+        <twig:tsf:Ui:Tabs variant="segmented" :items="[{id:'profile',label:'Profil'},{id:'account',label:'Compte'},{id:'notifications',label:'Notifications'},{id:'security',label:'Sécurité'}]">
+            <twig:block name="profile">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div><label class="{{ label }}" for="s-first">Prénom</label><input id="s-first" class="{{ input }}" value="Jean"></div>
+                    <div><label class="{{ label }}" for="s-last">Nom</label><input id="s-last" class="{{ input }}" value="Dupont"></div>
+                    <div class="sm:col-span-2"><label class="{{ label }}" for="s-bio">Biographie</label><input id="s-bio" class="{{ input }}" value="Product designer"></div>
+                </div>
+            </twig:block>
+            <twig:block name="account">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div><label class="{{ label }}" for="s-email">E-mail</label><input id="s-email" type="email" class="{{ input }}" value="jean@exemple.fr"></div>
+                    <div><label class="{{ label }}" for="s-lang">Langue</label>
+                        <select id="s-lang" class="{{ input }} appearance-none"><option>Français</option><option>English</option></select>
+                    </div>
+                </div>
+            </twig:block>
+            <twig:block name="notifications">
+                <div class="space-y-3">
+                    <label class="flex items-center justify-between rounded-lg border border-gray-200 p-3 dark:border-gray-800"><span class="text-sm text-gray-700 dark:text-gray-300">Notifications par e-mail</span><input type="checkbox" checked></label>
+                    <label class="flex items-center justify-between rounded-lg border border-gray-200 p-3 dark:border-gray-800"><span class="text-sm text-gray-700 dark:text-gray-300">Résumé hebdomadaire</span><input type="checkbox"></label>
+                </div>
+            </twig:block>
+            <twig:block name="security">
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div><label class="{{ label }}" for="s-pwd">Nouveau mot de passe</label><input id="s-pwd" type="password" class="{{ input }}"></div>
+                    <div><label class="{{ label }}" for="s-pwd2">Confirmation</label><input id="s-pwd2" type="password" class="{{ input }}"></div>
+                </div>
+            </twig:block>
+        </twig:tsf:Ui:Tabs>
+
+        <div class="mt-6 flex justify-end gap-3">
+            <button type="button" class="inline-flex h-11 items-center rounded-lg border border-gray-300 px-5 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-white/[0.03]">Annuler</button>
+            <button type="button" class="inline-flex h-11 items-center rounded-lg bg-brand-500 px-5 text-sm font-medium text-white hover:bg-brand-600">Enregistrer</button>
+        </div>
+    </div>
+{% endblock %}
