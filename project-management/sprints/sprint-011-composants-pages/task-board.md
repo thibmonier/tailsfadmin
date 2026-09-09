@@ -58,7 +58,7 @@
 | T-040-03 | [FE-WEB] | Contrôleur `kanban` (DnD HTML5 natif) + synchro package.json | 4h |
 | T-040-04 | [FE-WEB] | Alternative clavier + `aria-live` | 2h |
 | T-040-05 | [TEST] | E2E déplacement + rendu liste | 3h |
-| T-040-06 | [REV] | Doc + review (arbitrage US-033) | 1.5h |
+| T-040-06 | [REV] | Doc + review (Kanban : réf. TailAdmin `/task-kanban`) | 1.5h |
 
 ### Transverses
 | ID | Type | Tâche | Est. |

@@ -30,9 +30,9 @@ graph TD
 - **US-036 est l'enabler** : les pages réutilisent Tabs (réglages), Progress/Ribbons (dashboards, cartes). À livrer en premier.
 - Les pages US-037→040 sont **indépendantes entre elles** → parallélisables une fois US-036 disponible.
 
-## Chevauchements à arbitrer (affinage)
+## Chevauchements
 
-- **Kanban** : US-040 recoupe l'item Kanban d'US-033 (EPIC-009). Décider où il vit avant de coder pour éviter le doublon.
+- **Kanban** : ✅ **tranché (2026-09-09)** — porté par **US-040** (réf. TailAdmin `/task-kanban`, live) ; **retiré d'US-033** (EPIC-009). Plus de doublon.
 - **Form Layout** : US-038 recoupe EPIC-004 — ici page-gabarit d'assemblage, pas de nouveaux widgets.
 
 ## Risques
