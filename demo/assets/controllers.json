@@ -33,6 +33,10 @@
                 "enabled": true,
                 "fetch": "eager"
             },
+            "clipboard": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "datepicker": {
                 "enabled": true,
                 "fetch": "eager"

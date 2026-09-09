@@ -19,6 +19,11 @@ tailsfadmin:
                 icon: user-profile
                 children: []
 
+              - label: menu.integrations
+                path: /integrations
+                icon: ui-elements
+                children: []
+
               - label: menu.forms
                 path: /forms
                 icon: forms

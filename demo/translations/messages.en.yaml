@@ -6,6 +6,7 @@ menu:
     dashboard: 'Dashboard'
     calendar: 'Calendar'
     profile: 'Profile'
+    integrations: 'Integrations'
     forms: 'Forms'
     forms_layout: 'Form layout'
     forms_elements: 'Form elements'

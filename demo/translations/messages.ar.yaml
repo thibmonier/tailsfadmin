@@ -6,6 +6,7 @@ menu:
     dashboard: 'لوحة التحكم'
     calendar: 'التقويم'
     profile: 'الملف الشخصي'
+    integrations: 'التكاملات'
     forms: 'النماذج'
     forms_layout: 'تخطيط النموذج'
     forms_elements: 'عناصر النموذج'

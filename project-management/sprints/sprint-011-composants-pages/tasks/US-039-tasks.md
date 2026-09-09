@@ -12,12 +12,12 @@ depuis le back-office.
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-039-01 | [FE-WEB] | Route + contrôleur démo `api-keys` (données factices) | 1.5h | — | 🔲 |
-| T-039-02 | [FE-WEB] | Template : table clés masquées + statut (badge) + actions | 3h | T-039-01 | 🔲 |
-| T-039-03 | [FE-WEB] | Contrôleur Stimulus `clipboard` (copie + retour visuel + dégradation) + synchro package.json | 2.5h | T-039-02 | 🔲 |
-| T-039-04 | [FE-WEB] | Révéler/masquer + génération/révocation via `tsf:Ui:Modal` | 2h | T-039-02 | 🔲 |
-| T-039-05 | [TEST] | E2E Panther (copie, révéler/masquer, génération) | 2.5h | T-039-03, T-039-04 | 🔲 |
-| T-039-06 | [REV] | Doc + review + revue visuelle | 1.5h | T-039-05 | 🔲 |
+| T-039-01 | [FE-WEB] | Route + contrôleur démo `integrations` (données factices, session) | 1.5h | — | ✅ |
+| T-039-02 | [FE-WEB] | Template : table clés masquées + statut (badge) + actions + onglets | 3h | T-039-01 | ✅ |
+| T-039-03 | [FE-WEB] | Contrôleur Stimulus `clipboard` (copie + retour visuel + dégradation) + synchro 2×package.json + controllers.json | 2.5h | T-039-02 | ✅ |
+| T-039-04 | [FE-WEB] | Révéler/masquer (CSS peer) + génération/révocation via `tsf:Ui:Modal` | 2h | T-039-02 | ✅ |
+| T-039-05 | [TEST] | Functional (WebTestCase) + E2E Panther (copie, révéler, génération) | 2.5h | T-039-03, T-039-04 | ✅ |
+| T-039-06 | [REV] | Doc (CHANGELOG) + review ; revue visuelle clair/dark → job CI `e2e` | 1.5h | T-039-05 | ✅ |
 
 **Total : 13h**
 
