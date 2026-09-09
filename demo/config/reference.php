@@ -741,10 +741,12 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *             label?: scalar|Param|null,
  *             path?: scalar|Param|null, // Default: "#"
  *             icon?: scalar|Param|null, // Default: ""
+ *             permission?: scalar|Param|null, // Default: null
  *             children?: list<array{ // Default: []
  *                 label?: scalar|Param|null,
  *                 path?: scalar|Param|null, // Default: "#"
  *                 icon?: scalar|Param|null, // Default: ""
+ *                 permission?: scalar|Param|null, // Default: null
  *             }>,
  *         }>,
  *     }>,

@@ -176,6 +176,23 @@ tailsfadmin:
                     - { label: menu.tables_basic, path: /tables/basic }
 ```
 
+**Filtrage par permission (optionnel).** Chaque item (et sous-item) accepte une clé
+`permission`. Si un composant de sécurité Symfony est installé, les items dont
+l'utilisateur courant n'a pas l'autorisation sont masqués (`is_granted`), et un
+groupe entièrement filtré n'est pas rendu. Sans sécurité, tout reste visible.
+
+```yaml
+tailsfadmin:
+    menu:
+        - group: menu.groups.admin
+          items:
+              - { label: menu.users, path: /admin/users, icon: user-profile, permission: ROLE_ADMIN }
+              - { label: menu.reports, path: /reports, icon: charts, permission: 'view:reports' }
+```
+
+Le `MenuBuilder` reçoit `@?security.authorization_checker` (injection optionnelle,
+aucune dépendance dure). Pour l'activer, installez `symfony/security-bundle`.
+
 ### 4. Layout d'une page
 
 ```twig
@@ -190,6 +207,29 @@ tailsfadmin:
 
 > Le layout attend une route nommée **`home`** (logo de la sidebar) et
 > **`locale_switch`** si vous utilisez le sélecteur de langue.
+
+**Personnaliser le header.** Le composant `tsf:Layout:Header` expose des blocs
+surchargeables — `language`, `notifications`, `user_menu` — pour brancher un vrai
+menu utilisateur (déconnexion + CSRF), un flux de notifications réel, ou retirer le
+sélecteur de langue si l'application ne définit pas de route `locale_switch`.
+Surchargez `{% block header %}` du layout avec le composant et vos slots :
+
+```twig
+{% block header %}
+    <twig:tsf:Layout:Header>
+        {# Retirer le sélecteur de langue (pas de route locale_switch) #}
+        <twig:block name="language"></twig:block>
+        {# Vrai menu utilisateur #}
+        <twig:block name="user_menu">
+            <a href="{{ path('account') }}">{{ app.user.userIdentifier }}</a>
+            <form method="post" action="{{ path('app_logout') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+                <button type="submit">{{ 'Déconnexion'|trans }}</button>
+            </form>
+        </twig:block>
+    </twig:tsf:Layout:Header>
+{% endblock %}
+```
 
 ### 5. Internationalisation (optionnel)
 

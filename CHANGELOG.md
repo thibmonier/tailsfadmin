@@ -7,6 +7,27 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.2.0] — 2026-09-09
+
+### Added
+
+- **Menu filtrable par permission** : clé optionnelle `permission` sur les items
+  et sous-items du menu (`tailsfadmin.yaml`). Quand un composant de sécurité est
+  disponible, le `MenuBuilder` masque les items dont l'utilisateur courant n'a pas
+  l'autorisation (`is_granted`) ; le checker est injecté de façon optionnelle
+  (`@?security.authorization_checker`) — **aucune dépendance dure**, tout reste
+  visible sans sécurité (rétro-compatible).
+- **Header — slots surchargeables** : le composant `tsf:Layout:Header` expose des
+  blocs nommés `language`, `notifications` et `user_menu`, surchargeables via
+  `<twig:block name="…">` — pour brancher un vrai menu utilisateur (déconnexion +
+  CSRF), un flux de notifications réel, ou retirer le sélecteur de langue lorsque
+  l'application ne définit pas de route `locale_switch`.
+
+### Changed
+
+- **Menu** : un groupe dont tous les items sont filtrés par permission n'est plus
+  rendu (auparavant l'en-tête de groupe vide subsistait).
+
 ## [1.0.0] — 2026-09-08
 
 Première version stable : thème d'administration Symfony inspiré de TailAdmin,
@@ -59,5 +80,6 @@ livré comme **bundle réutilisable** + **application de démonstration**.
 - Bascule de langue : redirection restreinte au même hôte (anti open-redirect).
 - Pages 404 en production sans exposition de stack trace.
 
-[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.2.0...HEAD
+[1.2.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.1.0...v1.2.0
 [1.0.0]: https://github.com/thibmonier/tailsfadmin/releases/tag/v1.0.0
