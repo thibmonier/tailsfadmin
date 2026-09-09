@@ -129,3 +129,15 @@ tailsfadmin:
                       path: /auth/login
                     - label: menu.auth_register
                       path: /auth/register
+                    - label: menu.auth_reset
+                      path: /auth/reset-password
+                    - label: menu.auth_otp
+                      path: /auth/otp
+                    - label: menu.auth_success
+                      path: /auth/success
+                    - label: menu.auth_maintenance
+                      path: /auth/maintenance
+                    - label: menu.auth_coming_soon
+                      path: /auth/coming-soon
+                    - label: menu.auth_500
+                      path: /auth/500

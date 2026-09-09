@@ -41,6 +41,10 @@
                 "enabled": true,
                 "fetch": "eager"
             },
+            "otp": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "datepicker": {
                 "enabled": true,
                 "fetch": "eager"

@@ -1,0 +1,19 @@
+{% extends '@Tailsfadmin/layout/auth.html.twig' %}
+
+{% block title %}Opération réussie — tailsfadmin{% endblock %}
+{% block aside %}{% endblock %}
+
+{# US-034 — Écran de confirmation générique. #}
+
+{% block content %}
+    <div class="mx-auto max-w-md text-center">
+        <span class="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-success-50 text-success-500 dark:bg-success-500/15">
+            <svg class="size-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm5 7.7-6 6a1 1 0 0 1-1.4 0l-3-3a1 1 0 1 1 1.4-1.4l2.3 2.3 5.3-5.3a1 1 0 1 1 1.4 1.4Z" clip-rule="evenodd"/></svg>
+        </span>
+        <h1 class="mb-2 text-title-sm font-semibold text-gray-800 dark:text-white/90 sm:text-title-md">Tout est prêt !</h1>
+        <p class="mb-8 text-theme-sm text-gray-500 dark:text-gray-400">
+            Votre demande a bien été prise en compte. Vous pouvez continuer.
+        </p>
+        <twig:tsf:Ui:Button variant="primary" size="lg" href="{{ path('home') }}">Aller au tableau de bord</twig:tsf:Ui:Button>
+    </div>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends '@Tailsfadmin/layout/auth.html.twig' %}
+
+{% block title %}Vérification en deux étapes — tailsfadmin{% endblock %}
+
+{# US-034 — Saisie OTP segmentée, pilotée par le contrôleur tailsfadmin--otp. #}
+
+{% set digit = 'h-14 w-12 rounded-lg border border-gray-300 bg-transparent text-center text-xl font-semibold text-gray-800 shadow-theme-xs focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90' %}
+
+{% block content %}
+    <div class="mb-5 sm:mb-8">
+        <h1 class="mb-2 text-title-sm font-semibold text-gray-800 dark:text-white/90 sm:text-title-md">Vérification en deux étapes</h1>
+        <p class="text-theme-sm text-gray-500 dark:text-gray-400">
+            Saisissez le code à 6 chiffres envoyé sur votre téléphone.
+        </p>
+    </div>
+
+    <form method="post" action="{{ path('auth_otp') }}" class="space-y-6">
+        <div class="flex gap-2 sm:gap-3" data-controller="tailsfadmin--otp" role="group" aria-label="Code de vérification">
+            {% for i in 1..6 %}
+                <input
+                    type="text"
+                    inputmode="numeric"
+                    autocomplete="one-time-code"
+                    maxlength="1"
+                    aria-label="Chiffre {{ i }}"
+                    class="{{ digit }}"
+                    data-tailsfadmin--otp-target="digit"
+                    data-action="input->tailsfadmin--otp#onInput keydown->tailsfadmin--otp#onKeydown paste->tailsfadmin--otp#onPaste"
+                >
+            {% endfor %}
+        </div>
+
+        <twig:tsf:Ui:Button variant="primary" size="lg" type="submit" :block="true">Vérifier</twig:tsf:Ui:Button>
+    </form>
+
+    <p class="mt-5 text-center text-theme-sm text-gray-500 dark:text-gray-400">
+        Vous n'avez rien reçu ?
+        <a href="{{ path('auth_otp') }}" class="font-medium text-brand-500 hover:text-brand-600">Renvoyer le code</a>
+    </p>
+{% endblock %}

@@ -61,6 +61,12 @@
                 "fetch": "eager",
                 "enabled": true
             },
+            "otp": {
+                "name": "tailsfadmin--otp",
+                "main": "controllers/otp_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
             "datepicker": {
                 "name": "tailsfadmin--datepicker",
                 "main": "controllers/datepicker_controller.js",

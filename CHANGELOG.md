@@ -9,6 +9,11 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Écrans auth & utilitaires étendus** (`/auth/reset-password`, `/auth/new-password`,
+  `/auth/otp`, `/auth/success`, `/auth/maintenance`, `/auth/coming-soon`, `/auth/500`) :
+  extension d'US-023 réutilisant le layout auth centré. Nouveau contrôleur Stimulus
+  **`tailsfadmin--otp`** (saisie de code segmentée : auto-focus, Backspace, collage).
+  Page d'erreur **500** métier (override TwigBundle, sans stack trace en prod) (US-034).
 - **Pages type applicatives de démo** (`/app/{settings,pricing,invoice,chat,files,inbox}`) :
   Settings (onglets segmentés + formulaires), Pricing (grille de plans + Ribbon),
   Invoice (facture imprimable), Chat (liste + fil), File manager (Dropzone + grille),

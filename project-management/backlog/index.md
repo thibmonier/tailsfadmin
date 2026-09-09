@@ -68,7 +68,7 @@ US-019 (carte jsvectormap) livrée en Sprint 6 ; US-025/026 en Sprint 7.
 |----|-------|--------|----------|--------|--------|
 | US-032 | Dashboards supplémentaires (Analytics, Marketing, CRM, SaaS) | 8 | Should | 9 | 🟢 |
 | US-033 | Pages type (Settings, Pricing, Invoice, Chat, Files, Inbox) | 8 | Should | 9 | 🟢 |
-| US-034 | Auth & utilitaires étendus (reset, 2FA, 500, maintenance…) | 5 | Could | 10 | 🔴 |
+| US-034 | Auth & utilitaires étendus (reset, 2FA, 500, maintenance…) | 5 | Could | 10 | 🟢 |
 | US-035 | Scaffolding `make:tailsfadmin-page` | 5 | Could | 10 | 🔴 |
 
 ### EPIC-010 — Composants d'affichage & pages d'exemple avancées (Sprint 11) — 🟢 livré (v1.3.0)
