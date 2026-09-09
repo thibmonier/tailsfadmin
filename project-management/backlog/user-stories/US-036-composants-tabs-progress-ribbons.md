@@ -45,17 +45,19 @@ Feature: Onglets interactifs
     Then le ruban "Nouveau" est positionné dans le coin supérieur droit de la carte
     And le rendu reste correct en dark mode (contraste ≥ 4,5:1)
 ```
-### Scénarios d'erreur
+### Scénarios d'erreur (dégradation gracieuse — décision 2026-09-09)
+> Cohérence avec `Badge`/`Button` : une valeur invalide n'interrompt pas le rendu,
+> elle est corrigée silencieusement (pas de `LogicException`).
 ```gherkin
   Scenario: Valeur de progression hors bornes
     Given le développeur passe :value="140" à tsf:Ui:ProgressBar
-    When le composant est rendu en mode debug Symfony
-    Then une exception LogicException est levée : "La valeur d'une ProgressBar doit être comprise entre 0 et 100."
+    When le composant est rendu
+    Then la barre est affichée à 100% (valeur bornée à [0,100], aria-valuenow="100")
 
   Scenario: Onglet actif inexistant
     Given le développeur passe active="z" à tsf:Ui:Tabs alors qu'aucun item n'a l'id "z"
-    When le composant est rendu en mode debug
-    Then une exception LogicException est levée : "L'onglet actif « z » ne correspond à aucun item."
+    When le composant est rendu
+    Then le premier onglet est actif par défaut (retombée gracieuse, aucune exception)
 ```
 
 ## INVEST
