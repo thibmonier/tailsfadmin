@@ -9,6 +9,13 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Variantes d'agencement du layout (6)** : le layout admin expose de nouveaux
+  blocs surchargeables (`layout_shell_class`, `layout_shell_attributes`, `main_class`)
+  permettant de dériver des agencements sans dupliquer le shell. Le composant
+  `tsf:Layout:Sidebar` accepte une prop **`mini`** (sidebar icônes, libellés
+  accessibles en sr-only). Galerie de démo `/layouts` : sidebar extensible,
+  mini-sidebar, navigation horizontale, contenu boxed, sidebar à droite, en-tête
+  double niveau. Menu + i18n fr/en/ar (US-037).
 - **Contrôleur Stimulus `tailsfadmin--kanban`** : tableau Kanban avec glisser-déposer
   **HTML5 natif** (aucune lib / CDN), compteurs par colonne mis à jour au déplacement,
   **alternative clavier** (« Déplacer vers … ») et annonces **`aria-live`**. Déclaré

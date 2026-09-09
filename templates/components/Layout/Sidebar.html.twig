@@ -7,7 +7,7 @@
 #}
 <aside
     data-tailsfadmin--sidebar-target="sidebar"
-    class="sidebar fixed left-0 top-0 z-9999 flex h-screen w-[290px] flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-black ltr:left-0 rtl:right-0 lg:static lg:translate-x-0 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
+    class="sidebar fixed left-0 top-0 z-9999 flex h-screen {{ mini ? 'sidebar-mini w-[90px]' : 'w-[290px]' }} flex-col overflow-y-hidden border-r border-gray-200 bg-white px-5 dark:border-gray-800 dark:bg-black ltr:left-0 rtl:right-0 lg:static lg:translate-x-0 -translate-x-full lg:translate-x-0 transition-transform duration-300 ease-in-out"
 >
     {# En-tête sidebar : logo + bouton collapse desktop #}
     <div class="flex items-center justify-between gap-2 pt-8 pb-7 sidebar-header">

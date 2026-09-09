@@ -12,13 +12,13 @@ réinventer le layout.
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-037-01 | [FE-WEB] | Options de layout réutilisables (blocs surchargeables / paramètre) | 3h | — | 🔲 |
-| T-037-02 | [FE-WEB] | Variantes 1-2 : sidebar extensible (défaut), mini-sidebar (icônes) | 3h | T-037-01 | 🔲 |
-| T-037-03 | [FE-WEB] | Variantes 3-4 : navigation horizontale, contenu boxed | 3h | T-037-01 | 🔲 |
-| T-037-04 | [FE-WEB] | Variantes 5-6 : sidebar à droite, en-tête double niveau | 3h | T-037-01 | 🔲 |
-| T-037-05 | [FE-WEB] | Page index « Layouts » + routes démo | 2h | T-037-02, T-037-03, T-037-04 | 🔲 |
-| T-037-06 | [TEST] | Tests fonctionnels rendu des 6 variantes (200 + structure + dark) | 3h | T-037-05 | 🔲 |
-| T-037-07 | [REV] | Doc layouts + review + revue visuelle | 1.5h | T-037-06 | 🔲 |
+| T-037-01 | [FE-WEB] | Blocs surchargeables `layout_shell_class`/`layout_shell_attributes`/`main_class` + prop `mini` Sidebar | 3h | — | ✅ |
+| T-037-02 | [FE-WEB] | Variantes 1-2 : sidebar extensible (défaut), mini-sidebar (icônes) | 3h | T-037-01 | ✅ |
+| T-037-03 | [FE-WEB] | Variantes 3-4 : navigation horizontale, contenu boxed | 3h | T-037-01 | ✅ |
+| T-037-04 | [FE-WEB] | Variantes 5-6 : sidebar à droite, en-tête double niveau | 3h | T-037-01 | ✅ |
+| T-037-05 | [FE-WEB] | Page index « Layouts » + routes démo (404 sur variante inconnue) | 2h | T-037-02, T-037-03, T-037-04 | ✅ |
+| T-037-06 | [TEST] | Tests fonctionnels rendu des 6 variantes (200 + structure) | 3h | T-037-05 | ✅ |
+| T-037-07 | [REV] | Doc (CHANGELOG) + review ; revue visuelle clair/dark → job CI `e2e` | 1.5h | T-037-06 | ✅ |
 
 **Total : 18.5h** *(léger dépassement du plan ~16,5h — arrondi ; scinder 3+3 si besoin)*
 

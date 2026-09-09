@@ -16,6 +16,7 @@ menu:
     tasks: 'المهام'
     tasks_list: 'قائمة'
     tasks_kanban: 'كانبان'
+    layouts: 'التخطيطات'
     pages: 'الصفحات'
     pages_settings: 'الإعدادات'
     pages_blank: 'صفحة فارغة'

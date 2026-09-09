@@ -48,10 +48,13 @@
         <twig:tsf:Ui:Preloader />
     {% endblock %}
 
-    {# Contrôleur Stimulus sidebar sur le wrapper principal (US-006) #}
+    {# Contrôleur Stimulus sidebar sur le wrapper principal (US-006).
+       Blocs de variante (US-037) : layout_shell_class pilote la disposition
+       (ex. flex-row-reverse pour une sidebar à droite) ; layout_shell_attributes
+       les attributs du wrapper. Défauts inchangés → aucune régression. #}
     <div
-        class="flex h-screen overflow-hidden"
-        data-controller="tailsfadmin--sidebar"
+        class="{% block layout_shell_class %}flex h-screen overflow-hidden{% endblock %}"
+        {% block layout_shell_attributes %}data-controller="tailsfadmin--sidebar"{% endblock %}
     >
         {# ─── Sidebar ─── #}
         {% block sidebar %}
@@ -75,7 +78,7 @@
             {% endblock %}
 
             {# ─── Contenu ─── #}
-            <main id="main-content" class="mx-auto w-full max-w-screen-2xl p-4 md:p-6 2xl:p-10">
+            <main id="main-content" class="{% block main_class %}mx-auto w-full max-w-screen-2xl p-4 md:p-6 2xl:p-10{% endblock %}">
 
                 {# Breadcrumb #}
                 {% block breadcrumb %}{% endblock %}

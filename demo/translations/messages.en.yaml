@@ -16,6 +16,7 @@ menu:
     tasks: 'Tasks'
     tasks_list: 'List'
     tasks_kanban: 'Kanban'
+    layouts: 'Layouts'
     pages: 'Pages'
     pages_settings: 'Settings'
     pages_blank: 'Blank page'
