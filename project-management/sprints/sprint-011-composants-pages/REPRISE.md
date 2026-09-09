@@ -10,6 +10,8 @@
 - **Sprint 011 en cours** (EPIC-010 « Composants d'affichage & pages d'exemple »),
   **cible v1.3.0**, **32 pts engagés**.
 - **US-036 (enabler composants) ✅ TERMINÉE** — livrée en 2 incréments, E2E Chrome vert.
+- **US-038 (page Form Layout) ✅ TERMINÉE** — PR #15 mergée, CI 6/6 verte (E2E + axe-core).
+  Route `/forms/layout` ; correctif a11y du thème de formulaire (`help` → `aria-describedby`).
 
 ## Avancement du sprint
 
@@ -17,11 +19,11 @@
 |----|-----|------|
 | **US-036** Tabs / ProgressBar / Ribbon | 8 | ✅ **terminée** |
 | US-037 6 layouts d'exemple | 8 | 🔲 à faire |
-| US-038 Page Form Layout | 3 | 🔲 à faire (rapide, autonome) |
+| **US-038** Page Form Layout | 3 | ✅ **terminée** |
 | US-039 Page Integrations / API keys | 5 | 🔲 à faire (réutilise les **Tabs**) |
 | US-040 Task list + Kanban | 8 | 🔲 à faire |
 
-**8 / 32 pts livrés.** Ordre : US-036 (fait) → US-037/038/039/040 **parallélisables**.
+**11 / 32 pts livrés.** Ordre : US-036 + US-038 (faits) → US-037/039/040 **parallélisables**.
 
 ## Ce qui est désormais disponible (livré par US-036)
 
@@ -57,10 +59,10 @@
 
 ## Prochaine étape recommandée
 
-- **US-038** (Form Layout, 3 pts) — rapide et autonome, ou
-- **US-039** (API keys, 5 pts) — met en valeur les Tabs livrées (+ contrôleur `clipboard` à créer).
+- **US-039** (API keys, 5 pts) — met en valeur les Tabs livrées (+ contrôleur `clipboard` à créer), ou
+- **US-040** (Task list + Kanban, 8 pts), ou **US-037** (6 layouts, 8 pts — variable d'ajustement).
 
-Lancer p. ex. : `/sprint:dev US-038` (ou implémenter directement selon `tasks/US-038-tasks.md`).
+Lancer p. ex. : `/sprint:dev US-039` (ou implémenter directement selon `tasks/US-039-tasks.md`).
 
 ## En attente (externe — à surveiller, pas bloquant)
 
