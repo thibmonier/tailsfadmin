@@ -108,6 +108,9 @@
             </button>
 
             {# ─── Sélecteur de langue (US-024) — réutilise tsf:Ui:Dropdown ─── #}
+            {# Slot surchargeable : <twig:block name="language">…</twig:block>
+               (ex. vider si l'app ne définit pas de route locale_switch). #}
+            {% block language %}
             <twig:tsf:Ui:Dropdown align="right">
                 <twig:block name="trigger">
                     <button
@@ -135,8 +138,12 @@
                     {% endfor %}
                 </twig:block>
             </twig:tsf:Ui:Dropdown>
+            {% endblock %}
 
             {# ─── Dropdown notifications (US-007) ─────────────────────────── #}
+            {# Slot surchargeable : <twig:block name="notifications">…</twig:block>
+               (ex. brancher un vrai flux, ou vider). #}
+            {% block notifications %}
             <div
                 class="relative"
                 data-controller="tailsfadmin--dropdown"
@@ -211,8 +218,12 @@
                     </div>
                 </div>
             </div>
+            {% endblock %}
 
             {# ─── Dropdown user-menu (US-007) ─────────────────────────────── #}
+            {# Slot surchargeable : <twig:block name="user_menu">…</twig:block>
+               (ex. vrai user-menu : app.user, lien compte, logout + CSRF). #}
+            {% block user_menu %}
             <div
                 class="relative"
                 data-controller="tailsfadmin--dropdown"
@@ -279,6 +290,7 @@
                     </div>
                 </div>
             </div>
+            {% endblock %}
 
         </div>{# /actions droite #}
     </div>

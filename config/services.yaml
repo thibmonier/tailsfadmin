@@ -7,10 +7,13 @@ services:
         alias: Tailsfadmin\Info\BundleInfo
         public: true
 
-    # Service MenuBuilder — construit la structure de menu depuis la configuration
+    # Service MenuBuilder — construit la structure de menu depuis la configuration.
+    # Le checker de sécurité est injecté s'il existe (security-bundle installé) :
+    # sinon null → aucun filtrage par permission (rétro-compatible).
     Tailsfadmin\Menu\MenuBuilder:
         arguments:
             - '%tailsfadmin.menu%'
+            - '@?security.authorization_checker'
         public: true
 
     tailsfadmin.menu_builder:
