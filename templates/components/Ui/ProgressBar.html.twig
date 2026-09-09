@@ -1,0 +1,50 @@
+{#
+  Composant ProgressBar — tsf:Ui:ProgressBar
+  US-036 : jauge accessible (role="progressbar"), bornée à [0,100] par this.percent().
+
+  Utilisation :
+    <twig:tsf:Ui:ProgressBar :value="72" />
+    <twig:tsf:Ui:ProgressBar :value="40" variant="success" showValue label="Upload" />
+#}
+
+{%- set pct = this.percent() -%}
+
+{%- set variantConfig = {
+    brand:   'bg-brand-500',
+    success: 'bg-success-500',
+    warning: 'bg-warning-500',
+    error:   'bg-error-500'
+} -%}
+
+{%- set sizeConfig = {
+    sm: 'h-1.5',
+    md: 'h-2.5',
+    lg: 'h-4'
+} -%}
+
+{%- set barColor = variantConfig[variant] ?? variantConfig['brand'] -%}
+{%- set barSize  = sizeConfig[size]       ?? sizeConfig['md']       -%}
+
+<div>
+    {% if label is not null or showValue %}
+        <div class="mb-1.5 flex items-center justify-between">
+            {% if label is not null %}
+                <span class="text-theme-sm font-medium text-gray-700 dark:text-gray-300">{{ label }}</span>
+            {% endif %}
+            {% if showValue %}
+                <span class="text-theme-sm font-medium text-gray-700 dark:text-gray-300">{{ pct }}%</span>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div
+        class="w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-800 {{ barSize }}"
+        role="progressbar"
+        aria-valuenow="{{ pct }}"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        {% if label is not null %}aria-label="{{ label }}"{% endif %}
+    >
+        <div class="h-full rounded-full {{ barColor }} transition-[width] duration-300" style="width: {{ pct }}%"></div>
+    </div>
+</div>

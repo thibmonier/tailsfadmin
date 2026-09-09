@@ -1,0 +1,35 @@
+{#
+  Composant Ribbon — tsf:Ui:Ribbon
+  US-036 : ruban d'angle (corner) ou étiquette (rounded), dans un conteneur
+  `relative overflow-hidden`. Purement présentationnel.
+
+  Utilisation :
+    <div class="relative overflow-hidden rounded-2xl border …">
+      <twig:tsf:Ui:Ribbon text="Nouveau" variant="brand" position="top-right" />
+      …
+    </div>
+#}
+
+{%- set variantConfig = {
+    brand:   'bg-brand-500 text-white',
+    success: 'bg-success-500 text-white',
+    warning: 'bg-warning-500 text-white',
+    error:   'bg-error-500 text-white'
+} -%}
+{%- set colors = variantConfig[variant] ?? variantConfig['brand'] -%}
+
+{% if shape == 'rounded' %}
+    {%- set posConfig = { 'top-left': 'left-3', 'top-right': 'right-3' } -%}
+    <span class="absolute top-3 {{ posConfig[position] ?? posConfig['top-right'] }} z-10 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium shadow-theme-xs {{ colors }}">
+        {{ text }}
+    </span>
+{% else %}
+    {# corner : bandeau diagonal ancré dans l'angle #}
+    {%- set posConfig = {
+        'top-left':  '-left-12 top-4 -rotate-45',
+        'top-right': '-right-12 top-4 rotate-45'
+    } -%}
+    <span class="absolute {{ posConfig[position] ?? posConfig['top-right'] }} z-10 w-40 py-1 text-center text-xs font-medium shadow-theme-xs {{ colors }}">
+        {{ text }}
+    </span>
+{% endif %}
