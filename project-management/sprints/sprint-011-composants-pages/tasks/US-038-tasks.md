@@ -11,10 +11,10 @@ mise en page de formulaire, **afin de** copier une structure cohérente et acces
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-038-01 | [FE-WEB] | Route + contrôleur démo `form-layout` | 1h | — | 🔲 |
-| T-038-02 | [FE-WEB] | Template : gabarits 1 col / 2 cols / sectionné / barre d'actions | 3h | T-038-01 | 🔲 |
-| T-038-03 | [TEST] | Test fonctionnel (200 + labels liés + responsive) | 1.5h | T-038-02 | 🔲 |
-| T-038-04 | [REV] | Doc + review + revue visuelle | 1.5h | T-038-03 | 🔲 |
+| T-038-01 | [FE-WEB] | Route + contrôleur démo `forms_layout` (`/forms/layout`) | 1h | — | ✅ |
+| T-038-02 | [FE-WEB] | Template : gabarits 1 col / 2 cols / sectionné / barre d'actions | 3h | T-038-01 | ✅ |
+| T-038-03 | [TEST] | Test fonctionnel (200 + labels liés + aria-describedby + grid responsive + erreur) | 1.5h | T-038-02 | ✅ |
+| T-038-04 | [REV] | Doc (CHANGELOG) + review ; revue visuelle clair/dark → job CI `e2e` | 1.5h | T-038-03 | ✅ |
 
 **Total : 7h**
 

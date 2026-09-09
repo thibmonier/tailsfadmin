@@ -1,0 +1,103 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Mise en page de formulaire — tailsfadmin{% endblock %}
+
+{% block breadcrumb %}
+    <twig:tsf:Layout:Breadcrumb pageName="Mise en page de formulaire" />
+{% endblock %}
+
+{#
+    US-038 — Gabarits de mise en page de formulaire. Réutilise le form theme
+    (@Tailsfadmin/form/theme.html.twig) et tsf:Ui:Card, sans nouveau widget :
+      - gabarit une colonne (formulaire de contact) ;
+      - gabarit sectionné en grille deux colonnes responsive + barre d'actions,
+        avec aides reliées via aria-describedby (option `help`) et état d'erreur.
+#}
+
+{% set primary_btn = 'inline-flex items-center justify-center gap-2 rounded-lg bg-brand-500 px-5 py-3 text-sm font-medium text-white shadow-theme-xs transition hover:bg-brand-600 focus:outline-hidden focus:ring-3 focus:ring-brand-500/20 disabled:cursor-not-allowed disabled:opacity-50' %}
+{% set secondary_btn = 'inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-5 py-3 text-sm font-medium text-gray-700 shadow-theme-xs transition hover:bg-gray-50 focus:outline-hidden focus:ring-3 focus:ring-gray-500/10 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03]' %}
+
+{% block content %}
+    <div class="mx-auto max-w-4xl space-y-6">
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+            Deux gabarits prêts à copier : un formulaire compact sur une colonne et un
+            formulaire riche organisé en sections, en grille deux colonnes qui se replie
+            sur mobile. Tous deux héritent automatiquement du thème de formulaire tailsfadmin.
+        </p>
+
+        {# ─── Gabarit 1 : une colonne ────────────────────────────────────────── #}
+        <twig:tsf:Ui:Card
+            title="Gabarit une colonne"
+            subtitle="Idéal pour un formulaire court (contact, connexion, retour)."
+            data-testid="form-layout-single"
+        >
+            <twig:block name="body">
+                {{ form_start(contactForm) }}
+                    {{ form_row(contactForm.name) }}
+                    {{ form_row(contactForm.email) }}
+                    {{ form_row(contactForm.message) }}
+                    {{ form_row(contactForm.role) }}
+                    {{ form_row(contactForm.newsletter) }}
+
+                    <div class="mt-2 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+                        <button type="submit" class="{{ primary_btn }}">Envoyer le message</button>
+                    </div>
+                {{ form_end(contactForm) }}
+            </twig:block>
+        </twig:tsf:Ui:Card>
+
+        {# ─── Gabarit 2 : sectionné, deux colonnes, barre d'actions ──────────── #}
+        <twig:tsf:Ui:Card
+            title="Gabarit sectionné (deux colonnes)"
+            subtitle="Pour un formulaire riche : sections, grille responsive et barre d'actions."
+            data-testid="form-layout-account"
+        >
+            <twig:block name="body">
+                {{ form_start(accountForm) }}
+                    <div class="space-y-8">
+                        {# Section : informations personnelles #}
+                        <fieldset>
+                            <legend class="mb-1 text-base font-semibold text-gray-800 dark:text-white/90">
+                                Informations personnelles
+                            </legend>
+                            <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                                Ces informations apparaissent sur votre profil.
+                            </p>
+                            <div data-testid="grid-personal" class="grid grid-cols-1 gap-x-6 md:grid-cols-2">
+                                {{ form_row(accountForm.first_name) }}
+                                {{ form_row(accountForm.last_name) }}
+                                {{ form_row(accountForm.email) }}
+                                {{ form_row(accountForm.phone) }}
+                            </div>
+                        </fieldset>
+
+                        {# Section : préférences #}
+                        <fieldset>
+                            <legend class="mb-1 text-base font-semibold text-gray-800 dark:text-white/90">
+                                Préférences
+                            </legend>
+                            <p class="mb-4 text-sm text-gray-500 dark:text-gray-400">
+                                Personnalisez l'affichage et les notifications.
+                            </p>
+                            <div data-testid="grid-preferences" class="grid grid-cols-1 gap-x-6 md:grid-cols-2">
+                                {{ form_row(accountForm.role) }}
+                                {{ form_row(accountForm.timezone) }}
+                            </div>
+                            {{ form_row(accountForm.bio) }}
+                            {{ form_row(accountForm.notifications) }}
+                        </fieldset>
+                    </div>
+
+                    {# Barre d'actions cohérente #}
+                    <div
+                        data-testid="form-actions"
+                        class="mt-8 flex flex-col-reverse gap-3 border-t border-gray-200 pt-5 sm:flex-row sm:justify-end dark:border-gray-800"
+                    >
+                        <a href="{{ path('home') }}" class="{{ secondary_btn }}">Annuler</a>
+                        <button type="submit" class="{{ primary_btn }}">Enregistrer</button>
+                    </div>
+                {{ form_end(accountForm) }}
+            </twig:block>
+        </twig:tsf:Ui:Card>
+    </div>
+{% endblock %}
