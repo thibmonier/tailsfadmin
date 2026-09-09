@@ -1,6 +1,6 @@
 # US-038 — Page « Form Layout » (gabarit de mise en page de formulaire)
 
-**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 3 · **Priorité :** Could · **Sprint :** backlog
+**EPIC :** EPIC-010-composants-affichage-pages · **Statut :** 🔴 To Do · **Points :** 3 · **Priorité :** Could · **Sprint :** sprint-011
 
 ## Carte (Card)
 > En tant que **P-001 — développeur intégrateur**, je veux **une page de démonstration présentant des gabarits de mise en page de formulaire (une/deux colonnes, sections, actions)**, afin de **copier une structure de formulaire cohérente et accessible sans repartir de zéro**.
