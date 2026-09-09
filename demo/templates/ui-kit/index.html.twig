@@ -771,13 +771,39 @@
                 </div>
             </div>
 
-            {# ── Tabs ── #}
-            <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="tabs-demo">
-                <twig:tsf:Ui:Tabs :items="[{id: 'profil', label: 'Profil'}, {id: 'secu', label: 'Sécurité'}, {id: 'notif', label: 'Notifications'}]">
-                    <twig:block name="profil"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-profil">Contenu du profil.</p></twig:block>
-                    <twig:block name="secu"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-secu">Réglages de sécurité.</p></twig:block>
-                    <twig:block name="notif"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-notif">Préférences de notifications.</p></twig:block>
-                </twig:tsf:Ui:Tabs>
+            {# ── Tabs — 3 variantes (défaut segmenté, underline, underline + icônes) ── #}
+            <div class="space-y-6">
+                {# Variante « Default » : segmentée (conteneur gris + pastille blanche active) #}
+                <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="tabs-segmented-demo">
+                    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">Onglets segmentés (défaut TailAdmin)</h3>
+                    <twig:tsf:Ui:Tabs variant="segmented" :items="[{id: 'overview', label: 'Overview'}, {id: 'notification', label: 'Notification'}, {id: 'analytics', label: 'Analytics'}, {id: 'customers', label: 'Customers'}]">
+                        <twig:block name="overview"><p class="text-gray-700 dark:text-gray-300" data-testid="seg-panel-overview">Vue d'ensemble.</p></twig:block>
+                        <twig:block name="notification"><p class="text-gray-700 dark:text-gray-300">Notifications.</p></twig:block>
+                        <twig:block name="analytics"><p class="text-gray-700 dark:text-gray-300">Analytique.</p></twig:block>
+                        <twig:block name="customers"><p class="text-gray-700 dark:text-gray-300">Clients.</p></twig:block>
+                    </twig:tsf:Ui:Tabs>
+                </div>
+
+                {# Variante underline #}
+                <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="tabs-demo">
+                    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">Onglets soulignés (underline)</h3>
+                    <twig:tsf:Ui:Tabs :items="[{id: 'profil', label: 'Profil'}, {id: 'secu', label: 'Sécurité'}, {id: 'notif', label: 'Notifications'}]">
+                        <twig:block name="profil"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-profil">Contenu du profil.</p></twig:block>
+                        <twig:block name="secu"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-secu">Réglages de sécurité.</p></twig:block>
+                        <twig:block name="notif"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-notif">Préférences de notifications.</p></twig:block>
+                    </twig:tsf:Ui:Tabs>
+                </div>
+
+                {# Variante underline + icônes #}
+                <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="tabs-icon-demo">
+                    <h3 class="mb-4 text-sm font-medium text-gray-500 dark:text-gray-400">Onglets soulignés avec icônes</h3>
+                    <twig:tsf:Ui:Tabs :items="[{id: 'ov', label: 'Overview', icon: 'ui-elements'}, {id: 'ntf', label: 'Notification', icon: 'calendar'}, {id: 'ana', label: 'Analytics', icon: 'charts'}, {id: 'cst', label: 'Customers', icon: 'user-profile'}]">
+                        <twig:block name="ov"><p class="text-gray-700 dark:text-gray-300">Vue d'ensemble.</p></twig:block>
+                        <twig:block name="ntf"><p class="text-gray-700 dark:text-gray-300">Notifications.</p></twig:block>
+                        <twig:block name="ana"><p class="text-gray-700 dark:text-gray-300">Analytique.</p></twig:block>
+                        <twig:block name="cst"><p class="text-gray-700 dark:text-gray-300">Clients.</p></twig:block>
+                    </twig:tsf:Ui:Tabs>
+                </div>
             </div>
         </section>
 

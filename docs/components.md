@@ -92,13 +92,29 @@ Props : `text`, `variant` (`brand|success|warning|error`), `position`
 
 ### `tsf:Ui:Tabs`
 Prop : `items` (`[{id,label,icon?}]`), `active` (id, défaut = 1er ; retombe sur le
-1er si invalide), `variant` (`underline|pill|boxed`). Panneaux = **blocs nommés par
-id**. Câblé au contrôleur `tailsfadmin--tabs` (pattern ARIA : clic + flèches/Home/End,
-roving tabindex).
+1er si invalide), `variant` (`underline|segmented|pill|boxed`). Panneaux = **blocs
+nommés par id**. Câblé au contrôleur `tailsfadmin--tabs` (pattern ARIA : clic +
+flèches/Home/End, roving tabindex).
+
+Variantes visuelles :
+- `underline` (défaut) — soulignement de l'onglet actif ;
+- `segmented` — conteneur gris pleine largeur + pastille blanche active (style « Default » TailAdmin) ;
+- `pill` — version compacte (inline) du segmenté ;
+- `boxed` — onglets en boîtes.
+
+Icônes : renseigner `icon` sur un item (nom du registre `tsf_icon`) affiche l'icône
+avant le libellé (ex. underline + icônes).
 ```twig
-<twig:tsf:Ui:Tabs :items="[{id:'profil',label:'Profil'},{id:'secu',label:'Sécurité'}]">
-    <twig:block name="profil">Contenu profil</twig:block>
-    <twig:block name="secu">Contenu sécurité</twig:block>
+{# Onglets segmentés (Default) #}
+<twig:tsf:Ui:Tabs variant="segmented" :items="[{id:'overview',label:'Overview'},{id:'analytics',label:'Analytics'}]">
+    <twig:block name="overview">Vue d'ensemble</twig:block>
+    <twig:block name="analytics">Analytique</twig:block>
+</twig:tsf:Ui:Tabs>
+
+{# Onglets soulignés avec icônes #}
+<twig:tsf:Ui:Tabs :items="[{id:'ui',label:'Overview',icon:'ui-elements'},{id:'ch',label:'Analytics',icon:'charts'}]">
+    <twig:block name="ui">Vue d'ensemble</twig:block>
+    <twig:block name="ch">Analytique</twig:block>
 </twig:tsf:Ui:Tabs>
 ```
 
