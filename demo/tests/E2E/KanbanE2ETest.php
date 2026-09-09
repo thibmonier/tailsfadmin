@@ -21,8 +21,8 @@ final class KanbanE2ETest extends PantherTestCase
         $client = static::createPantherClient(['browser' => static::CHROME]);
         $client->request('GET', '/tasks/kanban');
 
-        self::assertSame('3', $this->count($client, 'todo'));
-        self::assertSame('2', $this->count($client, 'done'));
+        self::assertSame('3', $this->columnCount($client, 'todo'));
+        self::assertSame('2', $this->columnCount($client, 'done'));
 
         $client->executeScript(<<<'JS'
             const card = document.querySelector('[data-tailsfadmin--kanban-target="list"][data-status="todo"] [data-card-id]');
@@ -36,8 +36,8 @@ final class KanbanE2ETest extends PantherTestCase
 
         $client->waitForElementToContain('[data-testid="kanban-count"][data-status="done"]', '3');
 
-        self::assertSame('2', $this->count($client, 'todo'), 'La colonne « À faire » perd une carte');
-        self::assertSame('3', $this->count($client, 'done'), 'La colonne « Terminé » gagne une carte');
+        self::assertSame('2', $this->columnCount($client, 'todo'), 'La colonne « À faire » perd une carte');
+        self::assertSame('3', $this->columnCount($client, 'done'), 'La colonne « Terminé » gagne une carte');
     }
 
     public function testKeyboardMoveUpdatesCountsAndAnnounces(): void
@@ -52,7 +52,7 @@ final class KanbanE2ETest extends PantherTestCase
             JS);
 
         $client->waitForElementToContain('[data-testid="kanban-count"][data-status="done"]', '3');
-        self::assertSame('2', $this->count($client, 'todo'));
+        self::assertSame('2', $this->columnCount($client, 'todo'));
 
         $announce = $client->executeScript(
             "return document.querySelector('[data-tailsfadmin--kanban-target=\"announcer\"]').textContent;"
@@ -60,7 +60,7 @@ final class KanbanE2ETest extends PantherTestCase
         self::assertStringContainsString('déplacée vers', (string) $announce, 'Le déplacement doit être annoncé (aria-live)');
     }
 
-    private function count(object $client, string $status): string
+    private function columnCount(object $client, string $status): string
     {
         return trim((string) $client->executeScript(
             "return document.querySelector('[data-testid=\"kanban-count\"][data-status=\"{$status}\"]').textContent;"
