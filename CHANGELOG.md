@@ -7,8 +7,14 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.3.0] — 2026-09-09
+
 ### Added
 
+- **Composants d'affichage** : `tsf:Ui:Tabs` (pattern ARIA « Tabs » + contrôleur
+  Stimulus `tailsfadmin--tabs`, navigation clavier), `tsf:Ui:ProgressBar`
+  (clamp [0,100], `role="progressbar"`) et `tsf:Ui:Ribbon` (coin / arrondi).
+  Dégradation gracieuse (clamp / fallback, sans exception) (US-036).
 - **Variantes d'agencement du layout (6)** : le layout admin expose de nouveaux
   blocs surchargeables (`layout_shell_class`, `layout_shell_attributes`, `main_class`)
   permettant de dériver des agencements sans dupliquer le shell. Le composant
@@ -116,6 +122,7 @@ livré comme **bundle réutilisable** + **application de démonstration**.
 - Bascule de langue : redirection restreinte au même hôte (anti open-redirect).
 - Pages 404 en production sans exposition de stack trace.
 
-[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.1.0...v1.2.0
 [1.0.0]: https://github.com/thibmonier/tailsfadmin/releases/tag/v1.0.0
