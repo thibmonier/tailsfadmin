@@ -3,16 +3,19 @@
 > Point de reprise du **2026-09-09**. Reprendre EPIC-009 (bibliothèque de pages)
 > sans reconstituer le contexte.
 
-## ✅ Sprint 9 CLÔTURÉ (16/16 pts)
+## ✅ EPIC-009 CLÔTURÉ (Sprints 9 + 10, 26/26 pts)
 
-- **US-032 (dashboards) ✅** — PR #27 mergée : `/dashboards` + Analytics/Marketing/CRM/SaaS.
-- **US-033 (pages type) ✅** — PR #28 mergée : `/app/{settings,pricing,invoice,chat,files,inbox}`.
+**Sprint 9 (16 pts)**
+- **US-032 (dashboards) ✅** — PR #27 : `/dashboards` + Analytics/Marketing/CRM/SaaS.
+- **US-033 (pages type) ✅** — PR #28 : `/app/{settings,pricing,invoice,chat,files,inbox}`.
 
-**Prochaine étape = Sprint 10** (reste d'EPIC-009, « Could », 10 pts) :
-- **US-034** — Auth & utilitaires étendus (reset pwd, 2FA/OTP, 500, maintenance, coming-soon, success).
-- **US-035** — Scaffolding `make:tailsfadmin-page` (commande maker + gabarits, s'appuie sur US-032/033).
+**Sprint 10 (10 pts)**
+- **US-034 (auth/utilitaires étendus) ✅** — PR #30 : `/auth/{reset-password,new-password,otp,success,maintenance,coming-soon,500}` + contrôleur `tailsfadmin--otp` + page 500 métier.
+- **US-035 (scaffolding) ✅** — PR #31 : commande `make:tailsfadmin-page` (blank/dashboard/table/form).
 
-Bonus livré hors sprint pendant ce lot : `tsf:Ui:Tabs` variante `segmented` + icônes (PR #26).
+Bonus livré pendant ce lot : `tsf:Ui:Tabs` variante `segmented` + icônes (PR #26).
+
+**Tous les EPICs (001→010) sont terminés.** Prochaine étape : **release v1.4.0** (basculer `[Unreleased]`→`[1.4.0]` dans CHANGELOG via PR, puis `git tag -a v1.4.0` sur le HEAD vert de `main` et push → auto-update Packagist).
 
 ## Contexte
 
