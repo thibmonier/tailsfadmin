@@ -4,7 +4,7 @@
 
 | US | Titre | Points | Tâches | Heures | Statut |
 |----|-------|--------|--------|--------|--------|
-| US-036 | Composants : Tabs, Progress bars, Ribbons | 8 | 12 | 23.5h | 🔲 To Do |
+| US-036 | Composants : Tabs, Progress bars, Ribbons | 8 | 12 | 23.5h | ✅ Done |
 | US-037 | 6 layouts d'exemple (variantes de shell) | 8 | 7 | 18.5h | 🔲 To Do |
 | US-038 | Page Form Layout | 3 | 4 | 7h | 🔲 To Do |
 | US-039 | Page Integrations / API keys | 5 | 6 | 13h | 🔲 To Do |

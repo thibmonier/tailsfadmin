@@ -5,21 +5,7 @@
 
 ## 🔲 À Faire
 
-### US-036 — Composants Tabs / Progress bars / Ribbons (enabler)
-| ID | Type | Tâche | Est. |
-|----|------|-------|------|
-| T-036-01 | [BE] | Composant `tsf:Ui:ProgressBar` | 2h |
-| T-036-02 | [FE-WEB] | Template ProgressBar | 1.5h |
-| T-036-03 | [BE] | Composant `tsf:Ui:Ribbon` | 2h |
-| T-036-04 | [FE-WEB] | Template Ribbon | 1.5h |
-| T-036-05 | [BE] | Composant `tsf:Ui:Tabs` | 2h |
-| T-036-06 | [FE-WEB] | Template Tabs (ARIA) | 2h |
-| T-036-07 | [FE-WEB] | Contrôleur Stimulus `tabs` + synchro package.json | 3h |
-| T-036-08 | [FE-WEB] | Pages démo `/ui-kit` | 2h |
-| T-036-09 | [TEST] | Tests fonctionnels 3 composants + erreurs | 3h |
-| T-036-10 | [TEST] | E2E Panther montage Tabs | 2h |
-| T-036-11 | [DOC] | `docs/components.md` | 1h |
-| T-036-12 | [REV] | Review + revue visuelle | 1.5h |
+> **US-036 (12 tâches, enabler) : ✅ terminée** — voir section « ✅ Terminé ».
 
 ### US-037 — 6 layouts d'exemple
 | ID | Type | Tâche | Est. |
@@ -79,7 +65,7 @@
 ## ✅ Terminé
 | ID | US | Tâche | Terminé |
 |----|-----|-------|---------|
-| — | — | — | — |
+| T-036-01→12 | US-036 | Composants Tabs/ProgressBar/Ribbon (classes, templates, contrôleur `tabs`, tests unit/fonctionnels/E2E, démo `/ui-kit`, doc) | 2026-09-09 (PR #12 + #13) |
 
 ## 🚫 Bloqué
 | ID | US | Raison | Action |
@@ -87,6 +73,6 @@
 | — | — | — | — |
 
 ## Métriques
-- **Tâches** : 37 total · 0 terminées (0 %)
-- **Heures** : 79.5h estimées · 0h consommées · 79.5h restantes
-- **Points** : 32 engagés
+- **Tâches** : 37 total · 12 terminées (32 %)
+- **Heures** : 79.5h estimées · US-036 (23.5h) livrée · ~56h restantes
+- **Points** : 32 engagés · **8 livrés** (US-036)
