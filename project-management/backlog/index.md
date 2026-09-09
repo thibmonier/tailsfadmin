@@ -1,6 +1,6 @@
 # Backlog Index — tailsfadmin
 
-> Dernière mise à jour : 2026-09-09 · **v1.0.0** (EPIC-001..007) + **v1.1.0 / Sprint 8** (EPIC-008) + **v1.2.0** (menu par permission, slots header — hors sprint tracké) + **v1.3.0 / Sprint 11** (EPIC-010) livrés · **reste** EPIC-009 (US-032→035, 26 pts — sprints 9-10)
+> Dernière mise à jour : 2026-09-09 · **v1.0.0** (EPIC-001..007) + **v1.1.0 / Sprint 8** (EPIC-008) + **v1.2.0** (menu/header) + **v1.3.0 / Sprint 11** (EPIC-010) publiés · **EPIC-009** (US-032→035, sprints 9-10) livré, en attente de release **v1.4.0**. **Tous les EPICs terminés.**
 
 ---
 
@@ -8,10 +8,10 @@
 
 | Type | 🔴 To Do | 🟢 Done | Total |
 |------|----------|---------|-------|
-| EPICs | 1 | 9 | 10 |
-| User Stories | 4 (EPIC-009) | 35 | 39 |
+| EPICs | 0 | 10 | 10 |
+| User Stories | 0 | 39 | 39 |
 
-**Livré :** ~197 pts (EPIC-001→008 + EPIC-010) · dernière version publiée sur Packagist : **v1.3.0** (Sprint 11 / EPIC-010) · **reste :** EPIC-009 — 26 pts (US-032→035, sprints 9-10)
+**Livré :** ~223 pts — **tous les EPICs (001→010) terminés**. Dernière version publiée sur Packagist : **v1.3.0** (EPIC-010). EPIC-009 (sprints 9-10, 26 pts) livré → **prochaine release v1.4.0**.
 
 ---
 
@@ -27,7 +27,7 @@
 | EPIC-006 | Pages applicatives & i18n | 🟢 Done | Should | 4 | 23 |
 | EPIC-007 | Qualité, accessibilité & doc | 🟢 Done | Must | 2 | 13 |
 | EPIC-008 | Distribution & consommabilité | 🟢 Done | Must | 5 | 26 |
-| **EPIC-009** | **Bibliothèque de pages d'exemples** | 🟡 In Progress | Should | 4 | 26 |
+| EPIC-009 | Bibliothèque de pages d'exemples | 🟢 Done | Should | 4 | 26 |
 | EPIC-010 | Composants d'affichage & pages d'exemple avancées | 🟢 Done | Could | 5 | 32 |
 
 ---
@@ -69,7 +69,7 @@ US-019 (carte jsvectormap) livrée en Sprint 6 ; US-025/026 en Sprint 7.
 | US-032 | Dashboards supplémentaires (Analytics, Marketing, CRM, SaaS) | 8 | Should | 9 | 🟢 |
 | US-033 | Pages type (Settings, Pricing, Invoice, Chat, Files, Inbox) | 8 | Should | 9 | 🟢 |
 | US-034 | Auth & utilitaires étendus (reset, 2FA, 500, maintenance…) | 5 | Could | 10 | 🟢 |
-| US-035 | Scaffolding `make:tailsfadmin-page` | 5 | Could | 10 | 🔴 |
+| US-035 | Scaffolding `make:tailsfadmin-page` | 5 | Could | 10 | 🟢 |
 
 ### EPIC-010 — Composants d'affichage & pages d'exemple avancées (Sprint 11) — 🟢 livré (v1.3.0)
 | ID | Titre | Points | Priorité | Sprint | Statut |
