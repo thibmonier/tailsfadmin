@@ -19,15 +19,18 @@ d'UI courants sans réécrire de HTML/CSS custom.
 | T-036-05 | [BE] | Composant `tsf:Ui:Tabs` (classe + active/items) | 2h | — | ✅ |
 | T-036-06 | [FE-WEB] | Template Tabs (`role=tablist/tab/tabpanel`, slots panneaux) | 2h | T-036-05 | ✅ |
 | T-036-07 | [FE-WEB] | Contrôleur Stimulus `tabs` (bascule + clavier ARIA) + synchro package.json | 3h | T-036-06 | ✅ |
-| T-036-08 | [FE-WEB] | Pages démo `/ui-kit` (tabs, progress, ribbons) | 2h | T-036-02, T-036-04, T-036-07 | 🔲 |
-| T-036-09 | [TEST] | Tests unitaires logique (ProgressBar/Tabs) + fonctionnels rendu | 3h | T-036-02, T-036-04, T-036-06 | 🟡 |
-| T-036-10 | [TEST] | E2E Panther montage Tabs (clic + navigation clavier) | 2h | T-036-08 | 🔲 |
+| T-036-08 | [FE-WEB] | Section démo `/ui-kit#section-display` (tabs, progress, ribbons) | 2h | T-036-02, T-036-04, T-036-07 | ✅ |
+| T-036-09 | [TEST] | Tests unitaires (ProgressBar/Tabs) + fonctionnels rendu (5) | 3h | T-036-02, T-036-04, T-036-06 | ✅ |
+| T-036-10 | [TEST] | E2E Panther montage Tabs (clic + navigation clavier) | 2h | T-036-08 | ✅ |
 | T-036-11 | [DOC] | `docs/components.md` : Tabs, ProgressBar, Ribbon | 1h | T-036-09 | ✅ |
-| T-036-12 | [REV] | Review + revue visuelle clair/dark | 1.5h | T-036-11, T-036-10 | 🔲 |
+| T-036-12 | [REV] | Review + revue visuelle clair/dark | 1.5h | T-036-11, T-036-10 | 👀 |
 
-**Total : 23.5h** — incrément 1 (bundle) livré : classes + templates + contrôleur + tests
-unitaires + doc (T-01→07, 11 ✅). Reste : démo/showcase (T-08), tests fonctionnels de
-rendu + E2E (T-09 🟡 partiel/T-10), review (T-12).
+**Total : 23.5h** — **US-036 quasi terminée** : classes + templates + contrôleur + tests
+unitaires/fonctionnels/E2E + démo + doc (T-01→11 ✅). Reste review/DoD (T-12, via la PR).
+
+> **Décision d'implémentation (validée 2026-09-09)** : dégradation gracieuse (cohérence
+> Badge/Button) — `ProgressBar` clampe [0,100], `Tabs` retombe sur le 1er onglet si
+> `active` invalide. AC de l'US ajustée en conséquence.
 
 > **Décision d'implémentation** : dégradation gracieuse retenue (cohérence codebase
 > Badge/Button) — `ProgressBar` **clampe** [0,100], `Tabs` **retombe sur le 1er onglet**

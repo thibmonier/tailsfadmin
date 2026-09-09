@@ -33,6 +33,7 @@
                 <a href="#section-upload"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Upload</a>
                 <a href="#section-charts"    class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Graphiques</a>
                 <a href="#section-calendar"  class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Calendrier</a>
+                <a href="#section-display"   class="rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-sm text-gray-600 hover:border-brand-300 hover:text-brand-600 dark:border-gray-700 dark:bg-white/[0.03] dark:text-gray-400 dark:hover:border-brand-600 dark:hover:text-brand-400">Affichage</a>
             </nav>
         </header>
 
@@ -742,6 +743,41 @@
                     :events="calEvents"
                     initialView="dayGridMonth"
                 />
+            </div>
+        </section>
+
+        {# ─── US-036 : Tabs, ProgressBar, Ribbon ─────────────────────────────── #}
+        <section id="section-display" data-testid="section-display">
+            <h2 class="mb-6 text-xl font-semibold text-gray-800 dark:text-white">Affichage — Tabs · ProgressBar · Ribbon (US-036)</h2>
+
+            {# ── ProgressBar ── #}
+            <div class="mb-8 space-y-4 rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="progressbar-demo">
+                <twig:tsf:Ui:ProgressBar :value="72" showValue label="Upload" />
+                <twig:tsf:Ui:ProgressBar :value="40" variant="success" size="sm" />
+                <twig:tsf:Ui:ProgressBar :value="90" variant="warning" />
+                {# clamp : 140 doit s'afficher à 100 % (dégradation gracieuse) #}
+                <twig:tsf:Ui:ProgressBar :value="140" variant="error" showValue label="Clamp" />
+            </div>
+
+            {# ── Ribbon ── #}
+            <div class="mb-8 grid gap-6 sm:grid-cols-2" data-testid="ribbon-demo">
+                <div class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
+                    <twig:tsf:Ui:Ribbon text="Nouveau" position="top-right" />
+                    <p class="text-gray-700 dark:text-gray-300">Ruban d'angle (corner).</p>
+                </div>
+                <div class="relative overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]">
+                    <twig:tsf:Ui:Ribbon text="Promo" variant="success" position="top-left" shape="rounded" />
+                    <p class="text-gray-700 dark:text-gray-300">Étiquette (rounded).</p>
+                </div>
+            </div>
+
+            {# ── Tabs ── #}
+            <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-gray-800 dark:bg-white/[0.03]" data-testid="tabs-demo">
+                <twig:tsf:Ui:Tabs :items="[{id: 'profil', label: 'Profil'}, {id: 'secu', label: 'Sécurité'}, {id: 'notif', label: 'Notifications'}]">
+                    <twig:block name="profil"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-profil">Contenu du profil.</p></twig:block>
+                    <twig:block name="secu"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-secu">Réglages de sécurité.</p></twig:block>
+                    <twig:block name="notif"><p class="text-gray-700 dark:text-gray-300" data-testid="tab-panel-notif">Préférences de notifications.</p></twig:block>
+                </twig:tsf:Ui:Tabs>
             </div>
         </section>
 
