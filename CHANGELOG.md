@@ -7,6 +7,20 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- **Page de démo « Mise en page de formulaire »** (`/forms/layout`) : deux gabarits
+  prêts à copier — une colonne (formulaire compact) et sectionné (grille deux
+  colonnes responsive avec repli mobile + barre d'actions cohérente). Réutilise le
+  thème de formulaire et `tsf:Ui:Card`, sans nouveau widget (US-038).
+
+### Fixed
+
+- **Thème de formulaire — accessibilité** : les aides de champ (option `help`) sont
+  désormais reliées au champ via `aria-describedby` (parité avec le `form_row` natif
+  de Symfony). Le `form_row` surchargé ne transmettait que `aria-invalid` et perdait
+  ce lien ; tous les formulaires du bundle en bénéficient.
+
 ## [1.2.0] — 2026-09-09
 
 ### Added
