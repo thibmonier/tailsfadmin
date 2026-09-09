@@ -9,6 +9,11 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Commande `make:tailsfadmin-page`** : génère une page conforme au thème
+  (contrôleur + template étendant `@Tailsfadmin/layout/admin.html.twig`) depuis un
+  gabarit `blank | dashboard | table | form`. Non-interactive, `--force`, gabarit
+  inconnu rejeté avec la liste des choix. Code généré valide (PSR-12 / PHPStan).
+  Ex. `php bin/console make:tailsfadmin-page Sales --template=dashboard` (US-035).
 - **Écrans auth & utilitaires étendus** (`/auth/reset-password`, `/auth/new-password`,
   `/auth/otp`, `/auth/success`, `/auth/maintenance`, `/auth/coming-soon`, `/auth/500`) :
   extension d'US-023 réutilisant le layout auth centré. Nouveau contrôleur Stimulus

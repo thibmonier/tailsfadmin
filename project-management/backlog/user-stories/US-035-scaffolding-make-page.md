@@ -1,6 +1,6 @@
 # US-035 — Scaffolding : commande `make:tailsfadmin-page`
 
-**EPIC :** EPIC-009-pages-exemples · **Statut :** 🔴 To Do · **Points :** 5 · **Priorité :** Could · **Sprint :** Sprint 10
+**EPIC :** EPIC-009-pages-exemples · **Statut :** 🟢 Done · **Points :** 5 · **Priorité :** Could · **Sprint :** Sprint 10
 
 ## Carte (Card)
 > En tant que **P-003 — Développeur intégrant le thème**, je veux **une commande qui génère une nouvelle page conforme au thème (route + template étendant le layout admin, à partir d'un gabarit : vierge, dashboard, table, formulaire)**, afin de **démarrer une page en secondes sans copier-coller**.
