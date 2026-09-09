@@ -12,6 +12,9 @@
 - **US-036 (enabler composants) ✅ TERMINÉE** — livrée en 2 incréments, E2E Chrome vert.
 - **US-038 (page Form Layout) ✅ TERMINÉE** — PR #15 mergée, CI 6/6 verte (E2E + axe-core).
   Route `/forms/layout` ; correctif a11y du thème de formulaire (`help` → `aria-describedby`).
+- **US-039 (page Integrations / API keys) ✅ TERMINÉE** — PR #17 mergée, CI 6/6 verte (Biome + E2E + axe-core).
+  Route `/integrations` ; nouveau contrôleur Stimulus `tailsfadmin--clipboard` ; reveal en CSS peer ;
+  générer/révoquer via Modal (session, données factices) ; réutilise les **Tabs**.
 
 ## Avancement du sprint
 
@@ -20,10 +23,10 @@
 | **US-036** Tabs / ProgressBar / Ribbon | 8 | ✅ **terminée** |
 | US-037 6 layouts d'exemple | 8 | 🔲 à faire |
 | **US-038** Page Form Layout | 3 | ✅ **terminée** |
-| US-039 Page Integrations / API keys | 5 | 🔲 à faire (réutilise les **Tabs**) |
+| **US-039** Page Integrations / API keys | 5 | ✅ **terminée** |
 | US-040 Task list + Kanban | 8 | 🔲 à faire |
 
-**11 / 32 pts livrés.** Ordre : US-036 + US-038 (faits) → US-037/039/040 **parallélisables**.
+**16 / 32 pts livrés.** Faits : US-036 + US-038 + US-039 → restent US-037 / US-040 **parallélisables**.
 
 ## Ce qui est désormais disponible (livré par US-036)
 
@@ -59,10 +62,10 @@
 
 ## Prochaine étape recommandée
 
-- **US-039** (API keys, 5 pts) — met en valeur les Tabs livrées (+ contrôleur `clipboard` à créer), ou
-- **US-040** (Task list + Kanban, 8 pts), ou **US-037** (6 layouts, 8 pts — variable d'ajustement).
+- **US-040** (Task list + Kanban, 8 pts) — spec = TailAdmin `/task-kanban` (live), ou
+- **US-037** (6 layouts d'exemple, 8 pts — variable d'ajustement si retard mi-sprint).
 
-Lancer p. ex. : `/sprint:dev US-039` (ou implémenter directement selon `tasks/US-039-tasks.md`).
+Lancer p. ex. : `/sprint:dev US-040` (ou implémenter directement selon `tasks/US-040-tasks.md`).
 
 ## En attente (externe — à surveiller, pas bloquant)
 
