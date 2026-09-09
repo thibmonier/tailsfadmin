@@ -7,9 +7,7 @@
 
 | ID | US | Tâche | Est. |
 |----|-----|-------|------|
-| T-031-05 | US-031 | Soumission Packagist + webhook + tag | 1.5h | ⚠️ action sortante/manuelle (mainteneur) |
-| T-031-06 | US-031 | Vérif require app vierge + review | 0.5h | après T-031-05 |
-| T-029-04 | US-029 | Vérif live recette via app vierge | 2.5h | 🟡 partiel (gardes CI faites) — e2e après canal actif (Packagist) |
+| T-029-04 | US-029 | Vérif live recette via app vierge | 2.5h | 🟡 après merge recipes-contrib (canal Flex actif) |
 
 
 ## 🔄 En Cours
@@ -54,6 +52,8 @@
 | T-029-03 | US-029 | Idempotence (copy-from-recipe, fichier assets dédié) | `recipe/README.md` |
 | T-029-05 | US-029 | Doc recette + procédure de contribution | `recipe/README.md` |
 | T-029-06 | US-029 | Review (32 tests verts, gardes manifeste) | `RecipeManifestTest` |
+| T-031-05 | US-031 | Public + tag v1.1.0 + publication Packagist + Release | Packagist live |
+| T-031-06 | US-031 | Vérif consommation Packagist (require + métadonnées) | `require` publié OK |
 
 ## 🚫 Bloqué
 | ID | US | Raison | Action |
