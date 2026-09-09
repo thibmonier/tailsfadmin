@@ -7,6 +7,8 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.4.0] — 2026-09-09
+
 ### Added
 
 - **Commande `make:tailsfadmin-page`** : génère une page conforme au thème
@@ -147,7 +149,8 @@ livré comme **bundle réutilisable** + **application de démonstration**.
 - Bascule de langue : redirection restreinte au même hôte (anti open-redirect).
 - Pages 404 en production sans exposition de stack trace.
 
-[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.3.0...HEAD
+[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.1.0...v1.2.0
 [1.0.0]: https://github.com/thibmonier/tailsfadmin/releases/tag/v1.0.0
