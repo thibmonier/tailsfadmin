@@ -1,0 +1,57 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+{% import 'dashboards/_macros.html.twig' as dash %}
+
+{% block title %}Dashboard {{ meta.label }} — tailsfadmin{% endblock %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Dashboard {{ meta.label }}" />{% endblock %}
+
+{% set targetOptions = {
+    plotOptions: { radialBar: {
+        startAngle: -90, endAngle: 90,
+        hollow: { size: '70%' },
+        track: { background: '#E4E7EC', strokeWidth: '100%', margin: 5 },
+        dataLabels: { name: { show: false }, value: { fontSize: '32px', fontWeight: '600', offsetY: -10 } }
+    } },
+    fill: { type: 'solid', colors: ['#465FFF'] },
+    stroke: { lineCap: 'round' },
+    labels: ['Objectif']
+} %}
+
+{% block content %}
+    <div class="space-y-6">
+        {{ dash.kpi_grid(kpis) }}
+
+        <div class="grid grid-cols-12 gap-4 md:gap-6">
+            <div class="col-span-12 xl:col-span-7">
+                <twig:tsf:Ui:Card title="MRR" subtitle="Revenu mensuel récurrent (12 mois)">
+                    <twig:block name="body">
+                        <twig:tsf:Chart:Line :series="mrrSeries" :categories="months" type="area" :height="300" />
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+            </div>
+            <div class="col-span-12 xl:col-span-5">
+                <twig:tsf:Ui:Card title="Objectif MRR" subtitle="Progression vers la cible du trimestre">
+                    <twig:block name="body">
+                        <div
+                            class="mx-auto max-w-[330px]"
+                            data-controller="tailsfadmin--apexcharts"
+                            data-tailsfadmin--apexcharts-type-value="radialBar"
+                            data-tailsfadmin--apexcharts-series-value="{{ [targetPercent]|json_encode }}"
+                            data-tailsfadmin--apexcharts-options-value="{{ targetOptions|json_encode }}"
+                            data-tailsfadmin--apexcharts-height-value="330"
+                        ></div>
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+            </div>
+        </div>
+
+        <twig:tsf:Ui:Card title="Rétention par cohorte" subtitle="Part de clients toujours actifs">
+            <twig:block name="body">
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    {% for c in cohorts %}
+                        <twig:tsf:Ui:ProgressBar :value="c.value" variant="{{ c.variant }}" showValue label="{{ c.label }}" />
+                    {% endfor %}
+                </div>
+            </twig:block>
+        </twig:tsf:Ui:Card>
+    </div>
+{% endblock %}

@@ -4,7 +4,7 @@
 
 | US | Titre | Points | Tâches | Heures | Statut |
 |----|-------|--------|--------|--------|--------|
-| US-032 | Dashboards Analytics / Marketing / CRM / SaaS | 8 | 7 | 15.5h | 🔲 To Do |
+| US-032 | Dashboards Analytics / Marketing / CRM / SaaS | 8 | 7 | 15.5h | ✅ Done |
 | US-033 | Pages type (Settings, Pricing, Invoice, Chat, Files, Inbox) | 8 | 9 | 19.5h | 🔲 To Do |
 
 **Total : 16 tâches · 35h · 16 points**

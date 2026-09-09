@@ -1,0 +1,55 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+{% import 'dashboards/_macros.html.twig' as dash %}
+
+{% block title %}Dashboard {{ meta.label }} — tailsfadmin{% endblock %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Dashboard {{ meta.label }}" />{% endblock %}
+
+{% set stageMap = {
+    'won':         {color: 'success', label: 'Gagné'},
+    'negotiation': {color: 'warning', label: 'Négociation'},
+    'proposal':    {color: 'info',    label: 'Proposition'},
+    'lost':        {color: 'error',   label: 'Perdu'}
+} %}
+
+{% block content %}
+    <div class="space-y-6">
+        {{ dash.kpi_grid(kpis) }}
+
+        <div class="grid grid-cols-12 gap-4 md:gap-6">
+            <div class="col-span-12 xl:col-span-7">
+                <twig:tsf:Ui:Card title="Évolution du pipeline" subtitle="6 derniers mois">
+                    <twig:block name="body">
+                        <twig:tsf:Chart:Line :series="pipelineSeries" :categories="pipelineLabels" type="area" :height="300" />
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+            </div>
+            <div class="col-span-12 xl:col-span-5" data-testid="crm-deals">
+                <twig:tsf:Ui:Card title="Deals récents">
+                    <twig:block name="body">
+                        <div class="overflow-x-auto">
+                            <table class="min-w-full text-left text-sm">
+                                <thead>
+                                    <tr class="border-y border-gray-100 text-theme-xs text-gray-500 dark:border-gray-800 dark:text-gray-400">
+                                        <th class="py-3 font-medium">Société</th>
+                                        <th class="py-3 font-medium">Montant</th>
+                                        <th class="py-3 font-medium">Étape</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for deal in deals %}
+                                        {% set s = stageMap[deal.stage] %}
+                                        <tr class="border-b border-gray-100 last:border-0 dark:border-gray-800">
+                                            <td class="py-3 font-medium text-gray-800 dark:text-white/90">{{ deal.company }}</td>
+                                            <td class="py-3 text-gray-500 dark:text-gray-400">{{ deal.amount }}</td>
+                                            <td class="py-3"><twig:tsf:Ui:Badge color="{{ s.color }}" size="sm">{{ s.label }}</twig:tsf:Ui:Badge></td>
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </twig:block>
+                </twig:tsf:Ui:Card>
+            </div>
+        </div>
+    </div>
+{% endblock %}
