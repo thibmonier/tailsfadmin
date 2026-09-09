@@ -1,6 +1,6 @@
 # US-033 — Pages type applicatives (Settings, Pricing, Invoice, Kanban, Chat, File manager, Inbox)
 
-**EPIC :** EPIC-009-pages-exemples · **Statut :** 🔴 To Do · **Points :** 8 · **Priorité :** Should · **Sprint :** Sprint 9
+**EPIC :** EPIC-009-pages-exemples · **Statut :** 🟢 Done · **Points :** 8 · **Priorité :** Should · **Sprint :** Sprint 9
 
 ## Carte (Card)
 > En tant que **P-004 — Utilisateur admin**, je veux **des pages type courantes (paramètres, tarification, facture, tableau kanban, messagerie, gestionnaire de fichiers, boîte de réception)**, afin de **construire rapidement les écrans usuels d'un back-office**.

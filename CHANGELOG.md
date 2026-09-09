@@ -9,6 +9,11 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ### Added
 
+- **Pages type applicatives de démo** (`/app/{settings,pricing,invoice,chat,files,inbox}`) :
+  Settings (onglets segmentés + formulaires), Pricing (grille de plans + Ribbon),
+  Invoice (facture imprimable), Chat (liste + fil), File manager (Dropzone + grille),
+  Inbox (liste + volet de lecture). Assemblage de composants existants, données
+  statiques. Menu + i18n fr/en/ar (US-033).
 - **Dashboards métier de démo** (`/dashboards` + `/dashboards/{analytics,marketing,crm,saas}`) :
   quatre tableaux de bord assemblés depuis le bundle (KPI, graphiques ApexCharts,
   tables, Badge, ProgressBar). Données statiques. Menu + i18n fr/en/ar (US-032).

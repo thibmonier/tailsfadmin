@@ -1,0 +1,46 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Gestionnaire de fichiers — tailsfadmin{% endblock %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Fichiers" />{% endblock %}
+
+{% set typeIcon = {
+    'pdf':     'M6 2h8l4 4v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z',
+    'image':   'M4 5h16v14H4Zm3 3a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-3 9 5-5 3 3 4-4 4 4v2H4Z',
+    'sheet':   'M4 3h16v18H4Zm4 4v10m4-10v10m4-10v10M4 9h16M4 15h16',
+    'video':   'M4 5h11v14H4Zm13 3 4-2v10l-4-2Z',
+    'text':    'M6 2h8l4 4v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2 8h8M8 14h8M8 18h5',
+    'archive': 'M4 4h16v4H4Zm0 6h16v10H4Zm8 0v6'
+} %}
+
+{% block content %}
+    <div data-testid="file-manager" class="space-y-6">
+        <twig:tsf:Ui:Card title="Importer des fichiers" subtitle="Glissez-déposez ou parcourez">
+            <twig:block name="body">
+                <twig:tsf:Form:Upload
+                    label="Fichiers"
+                    url="/demo/upload"
+                    hint="Glissez-déposez vos fichiers ici"
+                    subHint="ou cliquez pour sélectionner"
+                />
+            </twig:block>
+        </twig:tsf:Ui:Card>
+
+        <twig:tsf:Ui:Card title="Mes fichiers">
+            <twig:block name="body">
+                <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                    {% for file in files %}
+                        <div class="flex flex-col items-start gap-3 rounded-xl border border-gray-200 p-4 transition hover:border-brand-300 dark:border-gray-800 dark:hover:border-brand-800">
+                            <span class="flex size-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800">
+                                <svg class="size-5 text-gray-600 dark:text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="{{ typeIcon[file.type] ?? typeIcon['text'] }}"/></svg>
+                            </span>
+                            <div class="min-w-0">
+                                <p class="truncate text-sm font-medium text-gray-800 dark:text-white/90">{{ file.name }}</p>
+                                <p class="text-theme-xs text-gray-500 dark:text-gray-400">{{ file.size }}</p>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </twig:block>
+        </twig:tsf:Ui:Card>
+    </div>
+{% endblock %}

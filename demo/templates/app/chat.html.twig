@@ -1,0 +1,51 @@
+{% extends '@Tailsfadmin/layout/admin.html.twig' %}
+
+{% block title %}Messagerie — tailsfadmin{% endblock %}
+{% block breadcrumb %}<twig:tsf:Layout:Breadcrumb pageName="Messagerie" />{% endblock %}
+
+{% block content %}
+    <div data-testid="chat" class="grid h-[calc(100vh-220px)] grid-cols-1 gap-4 md:grid-cols-3">
+        {# Liste des conversations #}
+        <aside class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+            <div class="border-b border-gray-100 p-4 dark:border-gray-800">
+                <h2 class="text-sm font-semibold text-gray-800 dark:text-white/90">Conversations</h2>
+            </div>
+            <ul class="flex-1 overflow-y-auto">
+                {% for c in conversations %}
+                    <li>
+                        <button type="button" data-testid="chat-conversation" class="flex w-full items-center gap-3 border-b border-gray-100 p-4 text-left transition hover:bg-gray-50 dark:border-gray-800 dark:hover:bg-white/[0.03] {{ c.active ? 'bg-gray-50 dark:bg-white/[0.05]' : '' }}">
+                            <twig:tsf:Ui:Avatar alt="{{ c.name }}" size="md" status="online" />
+                            <div class="min-w-0 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="truncate text-sm font-medium text-gray-800 dark:text-white/90">{{ c.name }}</span>
+                                    <span class="text-theme-xs text-gray-400">{{ c.time }}</span>
+                                </div>
+                                <p class="truncate text-theme-sm text-gray-500 dark:text-gray-400">{{ c.last }}</p>
+                            </div>
+                            {% if c.unread > 0 %}<twig:tsf:Ui:Badge color="brand" size="sm">{{ c.unread }}</twig:tsf:Ui:Badge>{% endif %}
+                        </button>
+                    </li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        {# Fil de discussion #}
+        <section class="flex flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white md:col-span-2 dark:border-gray-800 dark:bg-white/[0.03]">
+            <div class="flex items-center gap-3 border-b border-gray-100 p-4 dark:border-gray-800">
+                <twig:tsf:Ui:Avatar alt="Alice Dupont" size="md" status="online" />
+                <div><p class="text-sm font-medium text-gray-800 dark:text-white/90">Alice Dupont</p><p class="text-theme-xs text-success-500">En ligne</p></div>
+            </div>
+            <div class="flex-1 space-y-3 overflow-y-auto p-4">
+                {% for msg in messages %}
+                    <div class="flex {{ msg.from == 'me' ? 'justify-end' : 'justify-start' }}">
+                        <div class="max-w-xs rounded-2xl px-4 py-2 text-sm {{ msg.from == 'me' ? 'bg-brand-500 text-white' : 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-white/90' }}">{{ msg.text }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+            <form class="flex items-center gap-2 border-t border-gray-100 p-4 dark:border-gray-800" onsubmit="return false">
+                <input aria-label="Message" placeholder="Écrire un message…" class="h-11 flex-1 rounded-lg border border-gray-300 bg-transparent px-4 text-sm text-gray-800 focus:border-brand-300 focus:ring-3 focus:ring-brand-500/10 focus:outline-hidden dark:border-gray-700 dark:text-white/90">
+                <button type="submit" class="inline-flex h-11 items-center rounded-lg bg-brand-500 px-5 text-sm font-medium text-white hover:bg-brand-600">Envoyer</button>
+            </form>
+        </section>
+    </div>
+{% endblock %}

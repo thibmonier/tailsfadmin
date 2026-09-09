@@ -12,15 +12,15 @@
 
 | ID | Type | Tâche | Est. | Dépend de | Statut |
 |----|------|-------|------|-----------|--------|
-| T-033-01 | [FE-WEB] | **Settings** (onglets `tsf:Ui:Tabs` + form theme) | 2h | — | 🔲 |
-| T-033-02 | [FE-WEB] | **Pricing** (grille de plans + `tsf:Ui:Ribbon` « populaire ») | 2h | — | 🔲 |
-| T-033-03 | [FE-WEB] | **Invoice** (facture imprimable, styles print) | 2h | — | 🔲 |
-| T-033-04 | [FE-WEB] | **Chat** (liste conversations + fil de messages) | 3h | — | 🔲 |
-| T-033-05 | [FE-WEB] | **File manager** (grille/liste + Dropzone existant) | 3h | — | 🔲 |
-| T-033-06 | [FE-WEB] | **Inbox** (liste mails + volet lecture) | 2.5h | — | 🔲 |
-| T-033-07 | [FE-WEB] | Routes + entrée de menu « Pages type » + i18n fr/en/ar | 1h | T-033-01..06 | 🔲 |
-| T-033-08 | [TEST] | Tests fonctionnels (6 routes : 200 + structure) | 2.5h | T-033-07 | 🔲 |
-| T-033-09 | [REV] | Doc + review + revue visuelle clair/dark | 1.5h | T-033-08 | 🔲 |
+| T-033-01 | [FE-WEB] | **Settings** (onglets `tsf:Ui:Tabs` + form theme) | 2h | — | ✅ |
+| T-033-02 | [FE-WEB] | **Pricing** (grille de plans + `tsf:Ui:Ribbon` « populaire ») | 2h | — | ✅ |
+| T-033-03 | [FE-WEB] | **Invoice** (facture imprimable, styles print) | 2h | — | ✅ |
+| T-033-04 | [FE-WEB] | **Chat** (liste conversations + fil de messages) | 3h | — | ✅ |
+| T-033-05 | [FE-WEB] | **File manager** (grille/liste + Dropzone existant) | 3h | — | ✅ |
+| T-033-06 | [FE-WEB] | **Inbox** (liste mails + volet lecture) | 2.5h | — | ✅ |
+| T-033-07 | [FE-WEB] | Routes + entrée de menu « Pages type » + i18n fr/en/ar | 1h | T-033-01..06 | ✅ |
+| T-033-08 | [TEST] | Tests fonctionnels (6 routes : 200 + structure) | 2.5h | T-033-07 | ✅ |
+| T-033-09 | [REV] | Doc + review + revue visuelle clair/dark | 1.5h | T-033-08 | ✅ |
 
 **Total : 19.5h** *(léger dépassement — découpable par page, sous-lots livrables)*
 

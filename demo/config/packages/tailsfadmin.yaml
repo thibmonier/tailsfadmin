@@ -78,6 +78,23 @@ tailsfadmin:
                     - label: menu.pages_blank
                       path: /pages/blank
 
+              - label: menu.app_pages
+                path: /app
+                icon: pages
+                children:
+                    - label: menu.app_settings
+                      path: /app/settings
+                    - label: menu.app_pricing
+                      path: /app/pricing
+                    - label: menu.app_invoice
+                      path: /app/invoice
+                    - label: menu.app_chat
+                      path: /app/chat
+                    - label: menu.app_files
+                      path: /app/files
+                    - label: menu.app_inbox
+                      path: /app/inbox
+
         - group: menu.groups.others
           items:
               - label: menu.charts
