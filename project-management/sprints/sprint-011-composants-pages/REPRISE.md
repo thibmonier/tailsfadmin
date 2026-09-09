@@ -15,6 +15,9 @@
 - **US-039 (page Integrations / API keys) ✅ TERMINÉE** — PR #17 mergée, CI 6/6 verte (Biome + E2E + axe-core).
   Route `/integrations` ; nouveau contrôleur Stimulus `tailsfadmin--clipboard` ; reveal en CSS peer ;
   générer/révoquer via Modal (session, données factices) ; réutilise les **Tabs**.
+- **US-040 (Task list + Kanban) ✅ TERMINÉE** — livrée en 2 incréments (PR #19 liste, #20 Kanban), CI 6/6 verte.
+  Routes `/tasks` (liste filtrable/triable serveur) et `/tasks/kanban` ; nouveau contrôleur Stimulus
+  `tailsfadmin--kanban` (DnD HTML5 natif + compteurs + alternative clavier + `aria-live`).
 
 ## Avancement du sprint
 
@@ -24,9 +27,9 @@
 | US-037 6 layouts d'exemple | 8 | 🔲 à faire |
 | **US-038** Page Form Layout | 3 | ✅ **terminée** |
 | **US-039** Page Integrations / API keys | 5 | ✅ **terminée** |
-| US-040 Task list + Kanban | 8 | 🔲 à faire |
+| **US-040** Task list + Kanban | 8 | ✅ **terminée** |
 
-**16 / 32 pts livrés.** Faits : US-036 + US-038 + US-039 → restent US-037 / US-040 **parallélisables**.
+**24 / 32 pts livrés.** Faits : US-036 + US-038 + US-039 + US-040 → reste **US-037** (8 pts).
 
 ## Ce qui est désormais disponible (livré par US-036)
 
@@ -62,10 +65,9 @@
 
 ## Prochaine étape recommandée
 
-- **US-040** (Task list + Kanban, 8 pts) — spec = TailAdmin `/task-kanban` (live), ou
-- **US-037** (6 layouts d'exemple, 8 pts — variable d'ajustement si retard mi-sprint).
+- **US-037** (6 layouts d'exemple, 8 pts) — dernière story du sprint (24/32 → 32/32).
 
-Lancer p. ex. : `/sprint:dev US-040` (ou implémenter directement selon `tasks/US-040-tasks.md`).
+Lancer p. ex. : `/sprint:dev US-037` (ou implémenter directement selon `tasks/US-037-tasks.md`).
 
 ## En attente (externe — à surveiller, pas bloquant)
 
