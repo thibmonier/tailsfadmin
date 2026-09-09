@@ -1,0 +1,24 @@
+{% extends '@Tailsfadmin/layout/auth.html.twig' %}
+
+{% block title %}Bientôt disponible — tailsfadmin{% endblock %}
+{% block aside %}{% endblock %}
+
+{# US-034 — Page « coming soon » avec inscription à la liste d'attente (UI de démo). #}
+
+{% block content %}
+    <div class="mx-auto max-w-md text-center">
+        <span class="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-brand-50 text-brand-500 dark:bg-brand-500/15">
+            <svg class="size-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm.9 5h-1.8v6l4.7 2.8.9-1.5-3.8-2.3V7Z"/></svg>
+        </span>
+        <h1 class="mb-2 text-title-sm font-semibold text-gray-800 dark:text-white/90 sm:text-title-md">Bientôt disponible</h1>
+        <p class="mb-8 text-theme-sm text-gray-500 dark:text-gray-400">
+            Cette fonctionnalité arrive prochainement. Laissez votre e-mail pour être prévenu au lancement.
+        </p>
+        <form method="post" action="{{ path('auth_coming_soon') }}" class="flex flex-col gap-3 sm:flex-row">
+            <div class="flex-1">
+                <twig:tsf:Form:Input label="" name="email" type="email" placeholder="info@exemple.fr" :required="true" />
+            </div>
+            <twig:tsf:Ui:Button variant="primary" size="lg" type="submit">Me prévenir</twig:tsf:Ui:Button>
+        </form>
+    </div>
+{% endblock %}

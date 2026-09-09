@@ -1,6 +1,6 @@
 # US-034 — Auth & utilitaires étendus (reset password, 2FA/OTP, 500, maintenance, coming-soon, success)
 
-**EPIC :** EPIC-009-pages-exemples · **Statut :** 🔴 To Do · **Points :** 5 · **Priorité :** Could · **Sprint :** Sprint 9-10
+**EPIC :** EPIC-009-pages-exemples · **Statut :** 🟢 Done · **Points :** 5 · **Priorité :** Could · **Sprint :** Sprint 9-10
 
 ## Carte (Card)
 > En tant que **P-004 / P-001**, je veux **des écrans d'authentification et utilitaires supplémentaires (mot de passe oublié/réinitialisation, 2FA/OTP, erreurs 500, maintenance, coming-soon, succès)**, afin de **couvrir les parcours secondaires courants d'une application**.

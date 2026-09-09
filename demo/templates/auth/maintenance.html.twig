@@ -1,0 +1,19 @@
+{% extends '@Tailsfadmin/layout/auth.html.twig' %}
+
+{% block title %}Maintenance en cours — tailsfadmin{% endblock %}
+{% block aside %}{% endblock %}
+
+{# US-034 — Page de maintenance générique. #}
+
+{% block content %}
+    <div class="mx-auto max-w-md text-center">
+        <span class="mx-auto mb-6 flex size-16 items-center justify-center rounded-full bg-warning-50 text-warning-500 dark:bg-warning-500/15">
+            <svg class="size-8" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.7 18.3 14.4 11a5 5 0 0 0-6.6-6.4l3 3-2.1 2.1-3-3A5 5 0 0 0 12 13.6l7.3 7.3a1 1 0 0 0 1.4 0l1-1a1 1 0 0 0 0-1.6Z"/></svg>
+        </span>
+        <h1 class="mb-2 text-title-sm font-semibold text-gray-800 dark:text-white/90 sm:text-title-md">Maintenance en cours</h1>
+        <p class="mb-8 text-theme-sm text-gray-500 dark:text-gray-400">
+            Nous améliorons le service. Il sera de nouveau disponible sous peu — merci de votre patience.
+        </p>
+        <p class="text-theme-sm text-gray-400">Statut mis à jour sur notre page d'état.</p>
+    </div>
+{% endblock %}
