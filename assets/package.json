@@ -25,6 +25,12 @@
                 "fetch": "eager",
                 "enabled": true
             },
+            "tabs": {
+                "name": "tailsfadmin--tabs",
+                "main": "controllers/tabs_controller.js",
+                "fetch": "eager",
+                "enabled": true
+            },
             "search": {
                 "name": "tailsfadmin--search",
                 "main": "controllers/search_controller.js",

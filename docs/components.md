@@ -71,6 +71,37 @@ Avatar + Badge intégrés.
 ### `tsf:Ui:Preloader`
 Écran de chargement plein écran (inclus par défaut dans le layout admin).
 
+### `tsf:Ui:ProgressBar`
+Props : `value` (0–100, **borné** au rendu), `variant` (`brand|success|warning|error`),
+`size` (`sm|md|lg`), `label`, `showValue`. Rend `role="progressbar"` avec
+`aria-valuenow/min/max`. Statique (aucun JS).
+```twig
+<twig:tsf:Ui:ProgressBar :value="72" variant="success" showValue label="Upload" />
+```
+
+### `tsf:Ui:Ribbon`
+Props : `text`, `variant` (`brand|success|warning|error`), `position`
+(`top-left|top-right`), `shape` (`corner|rounded`). À placer dans un conteneur
+`relative overflow-hidden`. Statique.
+```twig
+<div class="relative overflow-hidden rounded-2xl border p-6">
+    <twig:tsf:Ui:Ribbon text="Nouveau" />
+    …
+</div>
+```
+
+### `tsf:Ui:Tabs`
+Prop : `items` (`[{id,label,icon?}]`), `active` (id, défaut = 1er ; retombe sur le
+1er si invalide), `variant` (`underline|pill|boxed`). Panneaux = **blocs nommés par
+id**. Câblé au contrôleur `tailsfadmin--tabs` (pattern ARIA : clic + flèches/Home/End,
+roving tabindex).
+```twig
+<twig:tsf:Ui:Tabs :items="[{id:'profil',label:'Profil'},{id:'secu',label:'Sécurité'}]">
+    <twig:block name="profil">Contenu profil</twig:block>
+    <twig:block name="secu">Contenu sécurité</twig:block>
+</twig:tsf:Ui:Tabs>
+```
+
 ---
 
 ## Form
