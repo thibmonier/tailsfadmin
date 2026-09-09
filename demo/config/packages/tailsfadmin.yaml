@@ -42,6 +42,15 @@ tailsfadmin:
                     - label: menu.tables_advanced
                       path: /tables/advanced
 
+              - label: menu.tasks
+                path: /tasks
+                icon: pages
+                children:
+                    - label: menu.tasks_list
+                      path: /tasks
+                    - label: menu.tasks_kanban
+                      path: /tasks/kanban
+
               - label: menu.pages
                 path: /pages
                 icon: pages
