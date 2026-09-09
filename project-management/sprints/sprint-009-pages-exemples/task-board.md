@@ -50,6 +50,6 @@
 | — | — | — | — |
 
 ## Métriques
-- **Tâches** : 16 total · 7 terminées (US-032)
+- **Tâches** : 16 total · 16 terminées (100 %)
 - **Heures** : 35h estimées
-- **Points** : 16 engagés · **8 livrés** (US-032)
+- **Points** : 16 engagés · **16 livrés** (US-032 + US-033) — sprint clôturé

@@ -63,11 +63,11 @@ US-019 (carte jsvectormap) livrée en Sprint 6 ; US-025/026 en Sprint 7.
 > Sprint 8 clôturé : bundle **v1.1.0** publié sur Packagist (`tailsfadmin/tailsfadmin-bundle`).
 > US-029 : recette soumise à `symfony/recipes-contrib` (PR #2047) ; vérif *live* après merge upstream.
 
-### EPIC-009 — Bibliothèque de pages d'exemples (Sprints 9-10) — 🟡 en cours
+### EPIC-009 — Bibliothèque de pages d'exemples (Sprints 9-10) — 🟡 en cours (Sprint 9 ✅)
 | ID | Titre | Points | Priorité | Sprint | Statut |
 |----|-------|--------|----------|--------|--------|
-| US-032 | Dashboards supplémentaires (Analytics, Marketing, CRM, SaaS) | 8 | Should | 9 | 🔴 |
-| US-033 | Pages type (Settings, Pricing, Invoice, Chat, Files, Inbox) | 8 | Should | 9 | 🔴 |
+| US-032 | Dashboards supplémentaires (Analytics, Marketing, CRM, SaaS) | 8 | Should | 9 | 🟢 |
+| US-033 | Pages type (Settings, Pricing, Invoice, Chat, Files, Inbox) | 8 | Should | 9 | 🟢 |
 | US-034 | Auth & utilitaires étendus (reset, 2FA, 500, maintenance…) | 5 | Could | 10 | 🔴 |
 | US-035 | Scaffolding `make:tailsfadmin-page` | 5 | Could | 10 | 🔴 |
 

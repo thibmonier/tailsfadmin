@@ -3,6 +3,17 @@
 > Point de reprise du **2026-09-09**. Reprendre EPIC-009 (bibliothèque de pages)
 > sans reconstituer le contexte.
 
+## ✅ Sprint 9 CLÔTURÉ (16/16 pts)
+
+- **US-032 (dashboards) ✅** — PR #27 mergée : `/dashboards` + Analytics/Marketing/CRM/SaaS.
+- **US-033 (pages type) ✅** — PR #28 mergée : `/app/{settings,pricing,invoice,chat,files,inbox}`.
+
+**Prochaine étape = Sprint 10** (reste d'EPIC-009, « Could », 10 pts) :
+- **US-034** — Auth & utilitaires étendus (reset pwd, 2FA/OTP, 500, maintenance, coming-soon, success).
+- **US-035** — Scaffolding `make:tailsfadmin-page` (commande maker + gabarits, s'appuie sur US-032/033).
+
+Bonus livré hors sprint pendant ce lot : `tsf:Ui:Tabs` variante `segmented` + icônes (PR #26).
+
 ## Contexte
 
 - **Sprint 11 (EPIC-010) clôturé, taggé v1.3.0** sur Packagist (composants d'affichage
