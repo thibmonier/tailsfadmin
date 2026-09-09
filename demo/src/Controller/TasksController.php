@@ -67,6 +67,27 @@ final class TasksController extends AbstractController
         ]);
     }
 
+    #[Route('/tasks/kanban', name: 'tasks_kanban', methods: ['GET'])]
+    public function kanban(): Response
+    {
+        $columns = [
+            ['status' => 'todo', 'label' => 'À faire'],
+            ['status' => 'in_progress', 'label' => 'En cours'],
+            ['status' => 'review', 'label' => 'Review'],
+            ['status' => 'done', 'label' => 'Terminé'],
+        ];
+
+        $tasksByStatus = array_fill_keys(self::STATUSES, []);
+        foreach ($this->seedTasks() as $task) {
+            $tasksByStatus[$task['status']][] = $task;
+        }
+
+        return $this->render('tasks/kanban.html.twig', [
+            'columns' => $columns,
+            'tasksByStatus' => $tasksByStatus,
+        ]);
+    }
+
     /**
      * @return list<Task>
      */

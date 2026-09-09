@@ -37,6 +37,10 @@
                 "enabled": true,
                 "fetch": "eager"
             },
+            "kanban": {
+                "enabled": true,
+                "fetch": "eager"
+            },
             "datepicker": {
                 "enabled": true,
                 "fetch": "eager"
