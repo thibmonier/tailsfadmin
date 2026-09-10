@@ -58,4 +58,41 @@ final class TabsE2ETest extends PantherTestCase
             'Flèche droite doit activer l\'onglet suivant (Notifications)',
         );
     }
+
+    /**
+     * Régression : sur la variante « segmented », le clic doit basculer le panneau
+     * ET déplacer le surlignage (pastille blanche), piloté par aria-selected.
+     */
+    public function testSegmentedActiveStateAndHighlightFollowSelection(): void
+    {
+        $client = static::createPantherClient(['browser' => static::CHROME]);
+        $client->request('GET', '/ui-kit');
+
+        // État initial : Overview actif.
+        self::assertSelectorExists('#tsf-panel-overview:not([hidden])');
+
+        // Clic sur « Analytics » dans la démo segmentée.
+        $client->executeScript(
+            "document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]').click();"
+        );
+        $client->waitFor('#tsf-panel-analytics:not([hidden])');
+
+        // Le contenu bascule…
+        self::assertSelectorExists('#tsf-panel-analytics:not([hidden])');
+        self::assertSelectorExists('#tsf-panel-overview[hidden]');
+
+        // …et le surlignage suit : il est entièrement piloté par aria-selected
+        // (variante CSS `aria-selected:` vérifiée dans le CSS compilé), donc il
+        // suffit de prouver que aria-selected s'est déplacé — déterministe, sans
+        // lire une couleur en cours de transition (transition-colors).
+        $activeAria = $client->executeScript(
+            "return document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]').getAttribute('aria-selected');"
+        );
+        self::assertSame('true', $activeAria, 'L\'onglet cliqué doit être surligné (aria-selected=true)');
+
+        $previousAria = $client->executeScript(
+            "return document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"overview\"]').getAttribute('aria-selected');"
+        );
+        self::assertSame('false', $previousAria, 'L\'onglet précédent ne doit plus être surligné (aria-selected=false)');
+    }
 }
