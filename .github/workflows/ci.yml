@@ -66,6 +66,66 @@ jobs:
           name: coverage-bundle
           path: coverage.xml
 
+  bundle-install-min:
+    name: Bundle — installabilité consommateur (PHP 8.2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: bundle
+
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      # Simulation FIDÈLE d'un consommateur (comme la recette Flex) : une app
+      # tierce qui fait `composer require` du bundle via un dépôt `path`. Seul le
+      # RUNTIME du bundle est résolu (jamais son require-dev), et la résolution est
+      # fraîche → sur PHP 8.2 Composer choisit Symfony ^7.3 (compatible), pas 8.x
+      # (qui exige ≥ 8.4.1). Prouve que le bundle s'installe dès PHP 8.2.
+      - name: Simuler un consommateur (composer require, runtime seul)
+        run: |
+          mkdir consumer && cd consumer
+          cat > composer.json <<'JSON'
+          {
+              "repositories": [
+                  { "type": "path", "url": "../bundle", "options": { "symlink": false } }
+              ],
+              "require": { "tailsfadmin/tailsfadmin-bundle": "*@dev" },
+              "minimum-stability": "dev",
+              "prefer-stable": true
+          }
+          JSON
+          composer update --no-interaction --no-progress --prefer-dist
+
+  bundle-compat:
+    name: Bundle — compat PHP (install + tests)
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php-version: ['8.3', '8.4']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP ${{ matrix.php-version }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      - name: Install (résolution fraîche)
+        run: composer update --no-interaction --no-progress --prefer-dist
+
+      - name: Tests bundle
+        run: vendor/bin/phpunit
+
   front-lint:
     name: Front — Biome (contrôleurs Stimulus)
     runs-on: ubuntu-latest
