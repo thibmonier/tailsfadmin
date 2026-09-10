@@ -7,6 +7,8 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.5.0] — 2026-09-10
+
 ### Changed
 
 - **Support PHP élargi** : la contrainte minimale passe de `>=8.5` à **`>=8.2`**
@@ -183,7 +185,8 @@ livré comme **bundle réutilisable** + **application de démonstration**.
 - Bascule de langue : redirection restreinte au même hôte (anti open-redirect).
 - Pages 404 en production sans exposition de stack trace.
 
-[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.2...HEAD
+[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.5.0...HEAD
+[1.5.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.2...v1.5.0
 [1.4.2]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.1...v1.4.2
 [1.4.1]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.3.0...v1.4.0
