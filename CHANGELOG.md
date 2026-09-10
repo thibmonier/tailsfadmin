@@ -21,6 +21,13 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
   que les libellés d'une sidebar repliée (mini ou collapsed) ne réapparaissaient pas
   visuellement au survol. Les libellés et titres de groupe sont maintenant
   ré-affichés pleinement (position statique, clip annulé).
+- **Onglets — surlignage de l'onglet actif (`tsf:Ui:Tabs`)** : le contrôleur
+  `tailsfadmin--tabs` basculait bien `aria-selected` et l'affichage des panneaux,
+  mais les classes visuelles actives étaient figées au rendu Twig — le surlignage
+  (soulignement / pastille) ne suivait pas la sélection. Il est désormais piloté par
+  la variante Tailwind `aria-selected:` (les 4 variantes underline/segmented/pill/boxed).
+
+## [1.4.0] — 2026-09-09
 
 ### Added
 
@@ -162,7 +169,8 @@ livré comme **bundle réutilisable** + **application de démonstration**.
 - Bascule de langue : redirection restreinte au même hôte (anti open-redirect).
 - Pages 404 en production sans exposition de stack trace.
 
-[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.1...HEAD
+[1.4.1]: https://github.com/thibmonier/tailsfadmin/compare/v1.4.0...v1.4.1
 [1.4.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/thibmonier/tailsfadmin/compare/v1.1.0...v1.2.0
