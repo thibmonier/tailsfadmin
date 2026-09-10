@@ -66,13 +66,34 @@ jobs:
           name: coverage-bundle
           path: coverage.xml
 
+  bundle-install-min:
+    name: Bundle — installabilité runtime (PHP 8.2)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP 8.2
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: intl, opcache
+          coverage: none
+          tools: composer:v2
+
+      # Résolution des dépendances de RUNTIME uniquement (--no-dev), comme un
+      # consommateur / la recette Flex (`composer require`). Prouve que le bundle
+      # s'installe dès PHP 8.2. (La suite de tests, PHPUnit 12/13, requiert ≥ 8.3
+      # et n'est donc exercée que par le job bundle-compat ci-dessous.)
+      - name: Install runtime (--no-dev)
+        run: composer update --no-dev --no-interaction --no-progress --prefer-dist
+
   bundle-compat:
-    name: Bundle — compat PHP (résolution + tests)
+    name: Bundle — compat PHP (install + tests)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
-        php-version: ['8.2', '8.3', '8.4']
+        php-version: ['8.3', '8.4']
     steps:
       - uses: actions/checkout@v4
 
@@ -84,8 +105,6 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      # Résolution fraîche (comme un consommateur / la recette Flex) : prouve que
-      # le bundle s'installe et que ses tests passent dès PHP 8.2 (require: >=8.2).
       - name: Install (résolution fraîche)
         run: composer update --no-interaction --no-progress --prefer-dist
 
