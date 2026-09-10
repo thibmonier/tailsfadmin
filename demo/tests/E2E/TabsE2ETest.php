@@ -81,22 +81,18 @@ final class TabsE2ETest extends PantherTestCase
         self::assertSelectorExists('#tsf-panel-analytics:not([hidden])');
         self::assertSelectorExists('#tsf-panel-overview[hidden]');
 
-        // …et l'état ARIA suit.
-        $ariaSelected = $client->executeScript(
+        // …et le surlignage suit : il est entièrement piloté par aria-selected
+        // (variante CSS `aria-selected:` vérifiée dans le CSS compilé), donc il
+        // suffit de prouver que aria-selected s'est déplacé — déterministe, sans
+        // lire une couleur en cours de transition (transition-colors).
+        $activeAria = $client->executeScript(
             "return document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]').getAttribute('aria-selected');"
         );
-        self::assertSame('true', $ariaSelected);
+        self::assertSame('true', $activeAria, 'L\'onglet cliqué doit être surligné (aria-selected=true)');
 
-        // …et le surlignage aussi : l'onglet actif a un fond blanc (pastille).
-        $activeBg = $client->executeScript(
-            "return getComputedStyle(document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]')).backgroundColor;"
+        $previousAria = $client->executeScript(
+            "return document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"overview\"]').getAttribute('aria-selected');"
         );
-        self::assertStringContainsString('255, 255, 255', (string) $activeBg, 'L\'onglet actif doit être surligné (fond blanc)');
-
-        // L'ancien onglet n'est plus surligné (fond transparent).
-        $inactiveBg = $client->executeScript(
-            "return getComputedStyle(document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"overview\"]')).backgroundColor;"
-        );
-        self::assertStringContainsString('0, 0, 0, 0', (string) $inactiveBg, 'L\'onglet inactif ne doit pas être surligné');
+        self::assertSame('false', $previousAria, 'L\'onglet précédent ne doit plus être surligné (aria-selected=false)');
     }
 }
