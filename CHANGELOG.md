@@ -7,7 +7,20 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
-## [1.4.0] — 2026-09-09
+## [1.4.1] — 2026-09-10
+
+### Fixed
+
+- **Sidebar repliée (collapse runtime)** : la classe `.sidebar-collapsed` posée par
+  le contrôleur `tailsfadmin--sidebar#toggle` n'avait aucune règle CSS associée ; le
+  repli n'était donc pas fonctionnel (libellés non masqués). `.sidebar-collapsed`
+  partage désormais le rendu « icônes seules » de `.sidebar-mini` (libellés,
+  titres de groupe et logo texte masqués en `sr-only`, conservés dans le DOM).
+- **Révélation des libellés au survol** : `.sidebar:hover` ne rétablissait que
+  `display` sans annuler le clipping `sr-only` (`position`/`clip`/`width`), si bien
+  que les libellés d'une sidebar repliée (mini ou collapsed) ne réapparaissaient pas
+  visuellement au survol. Les libellés et titres de groupe sont maintenant
+  ré-affichés pleinement (position statique, clip annulé).
 
 ### Added
 

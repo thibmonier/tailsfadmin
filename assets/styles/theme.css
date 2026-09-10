@@ -474,7 +474,14 @@
 .sidebar:hover .menu-group-icon {
   display: none;
 }
-.sidebar:hover .menu-item-text {
+.sidebar:hover .menu-item-text,
+.sidebar:hover nav h3 {
+  position: static;
+  width: auto;
+  height: auto;
+  margin: 0;
+  overflow: visible;
+  clip: auto;
   display: inline;
 }
 .sidebar:hover .menu-item-arrow {
@@ -487,6 +494,8 @@
 /* ── Mini-sidebar (US-037) : icônes seules, labels accessibles ───────────
    Les libellés restent dans le DOM (sr-only) pour les lecteurs d'écran ;
    seul le rendu visuel est masqué. Le logo texte est réduit lui aussi. */
+.sidebar-collapsed .menu-item-text,
+.sidebar-collapsed nav h3,
 .sidebar-mini .menu-item-text,
 .sidebar-mini nav h3 {
   position: absolute;
@@ -499,6 +508,7 @@
   white-space: nowrap;
   border: 0;
 }
+.sidebar-collapsed .sidebar-header a span,
 .sidebar-mini .sidebar-header a span {
   display: none;
 }
