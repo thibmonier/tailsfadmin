@@ -4,6 +4,12 @@ includes:
 parameters:
     level: max
 
+    # Valide la compatibilité sur toute la plage PHP supportée (composer.json : >=8.2),
+    # même quand l'analyse tourne sur une version plus récente.
+    phpVersion:
+        min: 80200
+        max: 80500
+
     paths:
         - src
 

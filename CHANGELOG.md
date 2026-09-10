@@ -7,6 +7,13 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- **Support PHP élargi** : la contrainte minimale passe de `>=8.5` à **`>=8.2`**
+  (alignée sur Symfony 7.3, dont le minimum est PHP 8.2). Le bundle s'installe
+  désormais sur PHP 8.2 → 8.5. Compatibilité validée par PHPStan (plage 8.2→8.5)
+  et une matrice CI (8.2/8.3/8.4). Débloque la recette Flex (symfony/recipes-contrib).
+
 ## [1.4.2] — 2026-09-10
 
 ### Fixed
