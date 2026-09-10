@@ -80,12 +80,13 @@ jobs:
           coverage: none
           tools: composer:v2
 
-      # Résolution des dépendances de RUNTIME uniquement (--no-dev), comme un
-      # consommateur / la recette Flex (`composer require`). Prouve que le bundle
-      # s'installe dès PHP 8.2. (La suite de tests, PHPUnit 12/13, requiert ≥ 8.3
-      # et n'est donc exercée que par le job bundle-compat ci-dessous.)
+      # Installe les dépendances de RUNTIME uniquement depuis le lock (--no-dev :
+      # les packages de dev ne sont ni installés ni vérifiés côté plateforme).
+      # C'est ce que voit un consommateur / la recette Flex (`composer require` ne
+      # tire jamais le require-dev du bundle). Prouve que le runtime s'installe dès
+      # PHP 8.2. La suite PHPUnit 12/13 (≥ 8.3) n'est exercée que par bundle-compat.
       - name: Install runtime (--no-dev)
-        run: composer update --no-dev --no-interaction --no-progress --prefer-dist
+        run: composer install --no-dev --no-interaction --no-progress --prefer-dist
 
   bundle-compat:
     name: Bundle — compat PHP (install + tests)
