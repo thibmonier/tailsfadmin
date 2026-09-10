@@ -58,4 +58,45 @@ final class TabsE2ETest extends PantherTestCase
             'Flèche droite doit activer l\'onglet suivant (Notifications)',
         );
     }
+
+    /**
+     * Régression : sur la variante « segmented », le clic doit basculer le panneau
+     * ET déplacer le surlignage (pastille blanche), piloté par aria-selected.
+     */
+    public function testSegmentedActiveStateAndHighlightFollowSelection(): void
+    {
+        $client = static::createPantherClient(['browser' => static::CHROME]);
+        $client->request('GET', '/ui-kit');
+
+        // État initial : Overview actif.
+        self::assertSelectorExists('#tsf-panel-overview:not([hidden])');
+
+        // Clic sur « Analytics » dans la démo segmentée.
+        $client->executeScript(
+            "document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]').click();"
+        );
+        $client->waitFor('#tsf-panel-analytics:not([hidden])');
+
+        // Le contenu bascule…
+        self::assertSelectorExists('#tsf-panel-analytics:not([hidden])');
+        self::assertSelectorExists('#tsf-panel-overview[hidden]');
+
+        // …et l'état ARIA suit.
+        $ariaSelected = $client->executeScript(
+            "return document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]').getAttribute('aria-selected');"
+        );
+        self::assertSame('true', $ariaSelected);
+
+        // …et le surlignage aussi : l'onglet actif a un fond blanc (pastille).
+        $activeBg = $client->executeScript(
+            "return getComputedStyle(document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"analytics\"]')).backgroundColor;"
+        );
+        self::assertStringContainsString('255, 255, 255', (string) $activeBg, 'L\'onglet actif doit être surligné (fond blanc)');
+
+        // L'ancien onglet n'est plus surligné (fond transparent).
+        $inactiveBg = $client->executeScript(
+            "return getComputedStyle(document.querySelector('[data-testid=\"tabs-segmented-demo\"] [role=\"tab\"][data-tab-id=\"overview\"]')).backgroundColor;"
+        );
+        self::assertStringContainsString('0, 0, 0, 0', (string) $inactiveBg, 'L\'onglet inactif ne doit pas être surligné');
+    }
 }
