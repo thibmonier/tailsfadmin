@@ -7,6 +7,17 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- **`tsf:Ui:StatCard`** (gap G1) : carte KPI (icône via slot `icon` + label + valeur),
+  avec variation optionnelle (`delta`/`trend`), barre de progression optionnelle
+  (`progress`, bornée [0,100]), sous-texte (`hint`) et lien (`href`). Teintes
+  `variant` brand|success|warning|error. Accessible (barre `role="progressbar"`).
+- **`tsf:Layout:PageHeader`** (gap G4) : bandeau d'en-tête de page — titre `<h1>`,
+  sous-titre optionnel, slot `actions` (aligné à droite) et slot `breadcrumb`.
+
+Mobilisés par les dashboards et en-têtes du reskin (hotTwos EPIC-003, US-087).
+
 ## [1.5.0] — 2026-09-10
 
 ### Changed
