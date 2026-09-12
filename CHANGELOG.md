@@ -7,6 +7,8 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.6.0] — 2026-09-12
+
 ### Added
 
 - **`tsf:Ui:StatCard`** (gap G1) : carte KPI (icône via slot `icon` + label + valeur),
