@@ -1,0 +1,31 @@
+{#
+  Composant PageHeader — tsf:Layout:PageHeader
+  Gap G4 (US-087) : titre (h1) + sous-titre + slot `actions` (droite) + slot `breadcrumb`.
+
+  Utilisation :
+    <twig:tsf:Layout:PageHeader title="Bonjour, Camille" subtitle="Semaine 38">
+        <twig:block name="actions">…</twig:block>
+    </twig:tsf:Layout:PageHeader>
+#}
+
+{%- set slotActions    %}{% block actions    %}{% endblock %}{% endset -%}
+{%- set slotBreadcrumb %}{% block breadcrumb %}{% endblock %}{% endset -%}
+
+<div class="mb-6" {{ attributes }}>
+    {%- if slotBreadcrumb|trim %}
+        <div class="mb-2">{{ slotBreadcrumb }}</div>
+    {%- endif %}
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+            <h1 class="text-title-sm font-bold text-gray-800 dark:text-white/90">{{ title|e }}</h1>
+            {%- if subtitle is not null %}
+                <p class="mt-1 text-theme-sm text-gray-500 dark:text-gray-400">{{ subtitle|e }}</p>
+            {%- endif %}
+        </div>
+
+        {%- if slotActions|trim %}
+            <div class="flex flex-wrap items-center gap-3">{{ slotActions }}</div>
+        {%- endif %}
+    </div>
+</div>
