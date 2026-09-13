@@ -7,6 +7,14 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.6.1] — 2026-09-13
+
+### Fixed
+
+- **`tsf:Ui:Button`** : anneau de focus visible (`focus:ring-2 focus:ring-brand-500/40`)
+  sur tous les variants — WCAG 2.4.7 (Focus Visible). Tailwind v4 (Preflight) supprime
+  l'outline par défaut ; le focus clavier était donc invisible sur les boutons.
+
 ## [1.6.0] — 2026-09-12
 
 ### Added
