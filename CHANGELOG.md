@@ -7,6 +7,18 @@ et le projet suit le [Semantic Versioning](https://semver.org/lang/fr/) 2.0.0.
 
 ## [Unreleased]
 
+## [1.6.2] — 2026-11-09
+
+### Added
+
+- **`tsf:Ui:Button`** : pass-through des attributs HTML non-props via
+  `attributes.defaults({class: baseClasses})` — `data-action`, `data-*-target`,
+  `id`, `aria-*` sont désormais relayés, et un `class` fourni par l'appelant est
+  fusionné avec les classes du socle (le focus visible WCAG 2.4.7 reste garanti).
+  Permet de câbler un contrôleur Stimulus directement sur le composant
+  (`<twig:tsf:Ui:Button data-action="completeness#remind">`), ce qui débloque la
+  migration des boutons câblés côté applications consommatrices.
+
 ## [1.6.1] — 2026-09-13
 
 ### Fixed

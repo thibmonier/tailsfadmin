@@ -5,6 +5,13 @@
 
   Le block content est défini une seule fois (requis par Twig) et capturé
   dans slotContent pour être réutilisé dans les deux branches if/else.
+
+  Pass-through d'attributs (v1.6.2) : `attributes.defaults({class: baseClasses})`
+  relaie les attributs HTML additionnels non-props (data-action, data-*-target,
+  id, aria-*) et fusionne un `class` fourni par l'appelant avec les classes du
+  socle (le focus visible reste garanti). Permet de câbler des contrôleurs
+  Stimulus directement sur le composant :
+    <twig:tsf:Ui:Button data-action="completeness#remind">Relancer</twig:tsf:Ui:Button>
 #}
 
 {%- set variantConfig = {
@@ -35,7 +42,7 @@
     {# Lien (<a>) quand href est fourni #}
     <a
         href="{{ href }}"
-        class="{{ baseClasses }}"
+        {{ attributes.defaults({class: baseClasses}) }}
         {% if disabled %}aria-disabled="true" tabindex="-1"{% endif %}
         {% if loading %}aria-busy="true"{% endif %}
     >
@@ -56,7 +63,7 @@
     {# Bouton (<button>) par défaut #}
     <button
         type="{{ type }}"
-        class="{{ baseClasses }}"
+        {{ attributes.defaults({class: baseClasses}) }}
         {% if disabled or loading %}disabled{% endif %}
         {% if loading %}aria-busy="true"{% endif %}
         {% if disabled and not loading %}aria-disabled="true"{% endif %}
