@@ -18,6 +18,11 @@ use Symfony\UX\TwigComponent\Attribute\AsTwigComponent;
  *   <twig:tsf:Ui:Button variant="primary">Sauvegarder</twig:tsf:Ui:Button>
  *   <twig:tsf:Ui:Button variant="secondary" href="/dashboard">Tableau de bord</twig:tsf:Ui:Button>
  *   <twig:tsf:Ui:Button variant="danger" loading>Suppression…</twig:tsf:Ui:Button>
+ *
+ * Pass-through d'attributs (v1.6.2) : les attributs HTML non-props sont relayés
+ * (data-action, data-*-target, id, aria-*) et un `class` fourni est fusionné avec
+ * les classes du socle — permet de câbler un contrôleur Stimulus sur le composant :
+ *   <twig:tsf:Ui:Button data-action="completeness#remind">Relancer</twig:tsf:Ui:Button>
  */
 #[AsTwigComponent('tsf:Ui:Button', template: '@Tailsfadmin/components/Ui/Button.html.twig')]
 final class Button
